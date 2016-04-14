@@ -1,1 +1,3 @@
-# thesis-manager-yii2
+# ThesisHub 
+
+Power by Yii2 
