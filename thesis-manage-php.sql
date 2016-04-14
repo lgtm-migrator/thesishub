@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.13.1deb1
+-- version 4.2.12deb2+deb8u1build0.15.04.1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 29, 2016 at 03:25 PM
--- Server version: 5.6.28-0ubuntu0.15.10.1
--- PHP Version: 5.6.11-1ubuntu3.1
+-- Generation Time: Apr 14, 2016 at 01:01 PM
+-- Server version: 5.6.27-0ubuntu0.15.04.1
+-- PHP Version: 5.6.4-4ubuntu6.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,10 +14,10 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
--- Database: `thesis-manage-php`
+-- Database: `thesis`
 --
 
 -- --------------------------------------------------------
@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `Attachment` (
-  `attachment_id` int(250) NOT NULL,
+`attachment_id` int(250) NOT NULL,
   `thesis_id` int(250) DEFAULT NULL,
   `name` varchar(250) DEFAULT NULL,
   `description` mediumtext,
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `Attachment` (
 --
 
 CREATE TABLE IF NOT EXISTS `Comment` (
-  `comment_id` int(250) NOT NULL,
+`comment_id` int(250) NOT NULL,
   `thesis_id` int(250) DEFAULT NULL,
   `user_id` int(250) DEFAULT NULL,
   `content` mediumtext,
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `Comment` (
 --
 
 CREATE TABLE IF NOT EXISTS `Group` (
-  `group_id` int(250) NOT NULL,
+`group_id` int(250) NOT NULL,
   `group_name` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `GroupRole` (
 --
 
 CREATE TABLE IF NOT EXISTS `Rating` (
-  `rating_id` int(250) NOT NULL,
+`rating_id` int(250) NOT NULL,
   `thesis_id` int(250) DEFAULT NULL,
   `user_id` int(250) DEFAULT NULL,
   `star` int(11) DEFAULT NULL,
@@ -91,11 +91,26 @@ CREATE TABLE IF NOT EXISTS `Rating` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `Reference`
+--
+
+CREATE TABLE IF NOT EXISTS `Reference` (
+`ref_id` int(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `author` varchar(255) NOT NULL,
+  `year` int(4) NOT NULL,
+  `detail` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `Role`
 --
 
 CREATE TABLE IF NOT EXISTS `Role` (
-  `role_id` int(250) NOT NULL,
+`role_id` int(250) NOT NULL,
   `name` varchar(250) DEFAULT NULL,
   `description` mediumtext
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='Danh sách quyền';
@@ -115,7 +130,7 @@ INSERT INTO `Role` (`role_id`, `name`, `description`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `RoleMapping` (
-  `id` int(11) NOT NULL,
+`id` int(11) NOT NULL,
   `principalType` varchar(512) DEFAULT NULL,
   `principalId` varchar(512) DEFAULT NULL,
   `roleId` int(11) DEFAULT NULL
@@ -152,7 +167,7 @@ INSERT INTO `Setting` (`key`, `value`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `Tag` (
-  `tag_id` int(11) NOT NULL,
+`tag_id` int(11) NOT NULL,
   `name` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Nhãn khóa luận';
 
@@ -182,7 +197,7 @@ INSERT INTO `tbl_migration` (`version`, `apply_time`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `Thesis` (
-  `thesis_id` int(250) NOT NULL,
+`thesis_id` int(250) NOT NULL,
   `thesis_name` varchar(250) DEFAULT NULL,
   `intro` mediumtext,
   `score_instructor` decimal(10,0) DEFAULT NULL,
@@ -201,8 +216,8 @@ CREATE TABLE IF NOT EXISTS `Thesis` (
 --
 
 INSERT INTO `Thesis` (`thesis_id`, `thesis_name`, `intro`, `score_instructor`, `score_reviewer`, `score_council`, `score_total`, `have_disk`, `counter`, `created`, `status`, `note`) VALUES
-(2, 'cdgdfgdfg', 'trytrtyrty', '12', '12', '12', '12', 0, 0, '0000-00-00 00:00:00', '', ''),
-(3, 'fghfgh fgh fgh', 'fghf gh fgh', '12', '45', '4', '32', 0, 0, '0000-00-00 00:00:00', '', 'ertert');
+(2, 'cdgdfgdfg', 'trytrtyrty', 12, 12, 12, 12, 0, 0, '0000-00-00 00:00:00', '', ''),
+(3, 'fghfgh fgh fgh', 'fghf gh fgh', 12, 45, 4, 32, 0, 0, '0000-00-00 00:00:00', '', 'ertert');
 
 -- --------------------------------------------------------
 
@@ -216,6 +231,17 @@ CREATE TABLE IF NOT EXISTS `ThesisMapping` (
   `type` varchar(25) DEFAULT NULL,
   `created` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Thông tin sinh viên khóa luận, phân công';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ThesisReference`
+--
+
+CREATE TABLE IF NOT EXISTS `ThesisReference` (
+  `thesis_id` int(255) NOT NULL,
+  `ref_id` int(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -235,7 +261,7 @@ CREATE TABLE IF NOT EXISTS `ThesisTag` (
 --
 
 CREATE TABLE IF NOT EXISTS `User` (
-  `user_id` int(250) NOT NULL,
+`user_id` int(250) NOT NULL,
   `username` varchar(250) DEFAULT NULL,
   `password` varchar(250) DEFAULT NULL,
   `name` varchar(250) DEFAULT NULL,
@@ -262,100 +288,103 @@ CREATE TABLE IF NOT EXISTS `UserRole` (
 -- Indexes for table `Attachment`
 --
 ALTER TABLE `Attachment`
-  ADD PRIMARY KEY (`attachment_id`),
-  ADD KEY `thesis_id` (`thesis_id`);
+ ADD PRIMARY KEY (`attachment_id`), ADD KEY `thesis_id` (`thesis_id`);
 
 --
 -- Indexes for table `Comment`
 --
 ALTER TABLE `Comment`
-  ADD PRIMARY KEY (`comment_id`),
-  ADD KEY `thesis_id` (`thesis_id`),
-  ADD KEY `user_id` (`user_id`);
+ ADD PRIMARY KEY (`comment_id`), ADD KEY `thesis_id` (`thesis_id`), ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `Group`
 --
 ALTER TABLE `Group`
-  ADD PRIMARY KEY (`group_id`);
+ ADD PRIMARY KEY (`group_id`);
 
 --
 -- Indexes for table `GroupRole`
 --
 ALTER TABLE `GroupRole`
-  ADD PRIMARY KEY (`group_id`,`role_id`),
-  ADD KEY `role_id` (`role_id`);
+ ADD PRIMARY KEY (`group_id`,`role_id`), ADD KEY `role_id` (`role_id`);
 
 --
 -- Indexes for table `Rating`
 --
 ALTER TABLE `Rating`
-  ADD PRIMARY KEY (`rating_id`),
-  ADD KEY `thesis_id` (`thesis_id`),
-  ADD KEY `user_id` (`user_id`);
+ ADD PRIMARY KEY (`rating_id`), ADD KEY `thesis_id` (`thesis_id`), ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `Reference`
+--
+ALTER TABLE `Reference`
+ ADD PRIMARY KEY (`ref_id`);
 
 --
 -- Indexes for table `Role`
 --
 ALTER TABLE `Role`
-  ADD PRIMARY KEY (`role_id`);
+ ADD PRIMARY KEY (`role_id`);
 
 --
 -- Indexes for table `RoleMapping`
 --
 ALTER TABLE `RoleMapping`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `Setting`
 --
 ALTER TABLE `Setting`
-  ADD PRIMARY KEY (`key`);
+ ADD PRIMARY KEY (`key`);
 
 --
 -- Indexes for table `Tag`
 --
 ALTER TABLE `Tag`
-  ADD PRIMARY KEY (`tag_id`);
+ ADD PRIMARY KEY (`tag_id`);
 
 --
 -- Indexes for table `tbl_migration`
 --
 ALTER TABLE `tbl_migration`
-  ADD PRIMARY KEY (`version`);
+ ADD PRIMARY KEY (`version`);
 
 --
 -- Indexes for table `Thesis`
 --
 ALTER TABLE `Thesis`
-  ADD PRIMARY KEY (`thesis_id`);
+ ADD PRIMARY KEY (`thesis_id`);
 
 --
 -- Indexes for table `ThesisMapping`
 --
 ALTER TABLE `ThesisMapping`
-  ADD PRIMARY KEY (`thesis_id`,`user_id`),
-  ADD KEY `user_id` (`user_id`);
+ ADD PRIMARY KEY (`thesis_id`,`user_id`), ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `ThesisReference`
+--
+ALTER TABLE `ThesisReference`
+ ADD UNIQUE KEY `thesis_id` (`thesis_id`,`ref_id`), ADD KEY `ref_id` (`ref_id`);
 
 --
 -- Indexes for table `ThesisTag`
 --
 ALTER TABLE `ThesisTag`
-  ADD PRIMARY KEY (`tag_id`,`thesis_id`),
-  ADD KEY `thesis_id` (`thesis_id`);
+ ADD PRIMARY KEY (`tag_id`,`thesis_id`), ADD KEY `thesis_id` (`thesis_id`);
 
 --
 -- Indexes for table `User`
 --
 ALTER TABLE `User`
-  ADD PRIMARY KEY (`user_id`);
+ ADD PRIMARY KEY (`user_id`);
 
 --
 -- Indexes for table `UserRole`
 --
 ALTER TABLE `UserRole`
-  ADD PRIMARY KEY (`role_id`,`user_id`),
-  ADD KEY `user_id` (`user_id`);
+ ADD PRIMARY KEY (`role_id`,`user_id`), ADD KEY `user_id` (`user_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -365,47 +394,52 @@ ALTER TABLE `UserRole`
 -- AUTO_INCREMENT for table `Attachment`
 --
 ALTER TABLE `Attachment`
-  MODIFY `attachment_id` int(250) NOT NULL AUTO_INCREMENT;
+MODIFY `attachment_id` int(250) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `Comment`
 --
 ALTER TABLE `Comment`
-  MODIFY `comment_id` int(250) NOT NULL AUTO_INCREMENT;
+MODIFY `comment_id` int(250) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `Group`
 --
 ALTER TABLE `Group`
-  MODIFY `group_id` int(250) NOT NULL AUTO_INCREMENT;
+MODIFY `group_id` int(250) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `Rating`
 --
 ALTER TABLE `Rating`
-  MODIFY `rating_id` int(250) NOT NULL AUTO_INCREMENT;
+MODIFY `rating_id` int(250) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `Reference`
+--
+ALTER TABLE `Reference`
+MODIFY `ref_id` int(255) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `Role`
 --
 ALTER TABLE `Role`
-  MODIFY `role_id` int(250) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `role_id` int(250) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `RoleMapping`
 --
 ALTER TABLE `RoleMapping`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `Tag`
 --
 ALTER TABLE `Tag`
-  MODIFY `tag_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `tag_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `Thesis`
 --
 ALTER TABLE `Thesis`
-  MODIFY `thesis_id` int(250) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `thesis_id` int(250) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `User`
 --
 ALTER TABLE `User`
-  MODIFY `user_id` int(250) NOT NULL AUTO_INCREMENT;
+MODIFY `user_id` int(250) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
 --
@@ -414,49 +448,56 @@ ALTER TABLE `User`
 -- Constraints for table `Attachment`
 --
 ALTER TABLE `Attachment`
-  ADD CONSTRAINT `Attachment_ibfk_1` FOREIGN KEY (`thesis_id`) REFERENCES `Thesis` (`thesis_id`);
+ADD CONSTRAINT `Attachment_ibfk_1` FOREIGN KEY (`thesis_id`) REFERENCES `Thesis` (`thesis_id`);
 
 --
 -- Constraints for table `Comment`
 --
 ALTER TABLE `Comment`
-  ADD CONSTRAINT `Comment_ibfk_1` FOREIGN KEY (`thesis_id`) REFERENCES `Thesis` (`thesis_id`),
-  ADD CONSTRAINT `Comment_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `User` (`user_id`);
+ADD CONSTRAINT `Comment_ibfk_1` FOREIGN KEY (`thesis_id`) REFERENCES `Thesis` (`thesis_id`),
+ADD CONSTRAINT `Comment_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `User` (`user_id`);
 
 --
 -- Constraints for table `GroupRole`
 --
 ALTER TABLE `GroupRole`
-  ADD CONSTRAINT `GroupRole_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `Group` (`group_id`),
-  ADD CONSTRAINT `GroupRole_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `Role` (`role_id`);
+ADD CONSTRAINT `GroupRole_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `Group` (`group_id`),
+ADD CONSTRAINT `GroupRole_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `Role` (`role_id`);
 
 --
 -- Constraints for table `Rating`
 --
 ALTER TABLE `Rating`
-  ADD CONSTRAINT `Rating_ibfk_1` FOREIGN KEY (`thesis_id`) REFERENCES `Thesis` (`thesis_id`),
-  ADD CONSTRAINT `Rating_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `User` (`user_id`);
+ADD CONSTRAINT `Rating_ibfk_1` FOREIGN KEY (`thesis_id`) REFERENCES `Thesis` (`thesis_id`),
+ADD CONSTRAINT `Rating_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `User` (`user_id`);
 
 --
 -- Constraints for table `ThesisMapping`
 --
 ALTER TABLE `ThesisMapping`
-  ADD CONSTRAINT `ThesisMapping_ibfk_1` FOREIGN KEY (`thesis_id`) REFERENCES `Thesis` (`thesis_id`),
-  ADD CONSTRAINT `ThesisMapping_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `User` (`user_id`);
+ADD CONSTRAINT `ThesisMapping_ibfk_1` FOREIGN KEY (`thesis_id`) REFERENCES `Thesis` (`thesis_id`),
+ADD CONSTRAINT `ThesisMapping_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `User` (`user_id`);
+
+--
+-- Constraints for table `ThesisReference`
+--
+ALTER TABLE `ThesisReference`
+ADD CONSTRAINT `ThesisReference_ibfk_1` FOREIGN KEY (`ref_id`) REFERENCES `Reference` (`ref_id`),
+ADD CONSTRAINT `ThesisReference_ibfk_2` FOREIGN KEY (`thesis_id`) REFERENCES `Thesis` (`thesis_id`);
 
 --
 -- Constraints for table `ThesisTag`
 --
 ALTER TABLE `ThesisTag`
-  ADD CONSTRAINT `ThesisTag_ibfk_1` FOREIGN KEY (`thesis_id`) REFERENCES `Thesis` (`thesis_id`),
-  ADD CONSTRAINT `ThesisTag_ibfk_2` FOREIGN KEY (`tag_id`) REFERENCES `Tag` (`tag_id`);
+ADD CONSTRAINT `ThesisTag_ibfk_1` FOREIGN KEY (`thesis_id`) REFERENCES `Thesis` (`thesis_id`),
+ADD CONSTRAINT `ThesisTag_ibfk_2` FOREIGN KEY (`tag_id`) REFERENCES `Tag` (`tag_id`);
 
 --
 -- Constraints for table `UserRole`
 --
 ALTER TABLE `UserRole`
-  ADD CONSTRAINT `UserRole_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `Role` (`role_id`),
-  ADD CONSTRAINT `UserRole_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `User` (`user_id`);
+ADD CONSTRAINT `UserRole_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `Role` (`role_id`),
+ADD CONSTRAINT `UserRole_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `User` (`user_id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
