@@ -41,16 +41,19 @@ AppAsset::register($this);
             ['label' => 'Admin', 'url' => ['/admin']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+                ['label' => 'Login', 'url' => ['/auth/login']]
             ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link']
-                )
-                . Html::endForm()
-                . '</li>'
+
+                ['label' => 'Logout (' . Yii::$app->user->identity->username . ')', 'url' => ['/auth/logout']]
+
+                // '<li>'
+                // . Html::beginForm(['/auth/logout'], 'post')
+                // . Html::submitButton(
+                //     'Logout (' . Yii::$app->user->identity->username . ')',
+                //     ['class' => 'btn btn-link']
+                // )
+                // . Html::endForm()
+                // . '</li>'
             )
         ],
     ]);
