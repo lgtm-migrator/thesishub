@@ -2,102 +2,107 @@
 
 namespace app\models;
 
-class User extends \yii\base\Object implements \yii\web\IdentityInterface
+use Yii;
+
+/**
+ * This is the model class for table "User".
+ *
+ * @property integer $user_id
+ * @property string $username
+ * @property string $password
+ * @property string $name
+ * @property string $subject
+ * @property integer $is_lecture
+ *
+ * @property Comment[] $comments
+ * @property Rating[] $ratings
+ * @property ThesisMapping[] $thesisMappings
+ * @property Thesis[] $theses
+ * @property UserRole[] $userRoles
+ * @property Role[] $roles
+ */
+class User extends \yii\db\ActiveRecord
 {
-    public $id;
-    public $username;
-    public $password;
-    public $authKey;
-    public $accessToken;
-
-    private static $users = [
-        '100' => [
-            'id' => '100',
-            'username' => 'admin',
-            'password' => 'admin',
-            'authKey' => 'test100key',
-            'accessToken' => '100-token',
-        ],
-        '101' => [
-            'id' => '101',
-            'username' => 'demo',
-            'password' => 'demo',
-            'authKey' => 'test101key',
-            'accessToken' => '101-token',
-        ],
-    ];
-
     /**
      * @inheritdoc
      */
-    public static function findIdentity($id)
+    public static function tableName()
     {
-        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+        return 'User';
     }
 
     /**
      * @inheritdoc
      */
-    public static function findIdentityByAccessToken($token, $type = null)
+    public function rules()
     {
-        foreach (self::$users as $user) {
-            if ($user['accessToken'] === $token) {
-                return new static($user);
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Finds user by username
-     *
-     * @param  string      $username
-     * @return static|null
-     */
-    public static function findByUsername($username)
-    {
-        foreach (self::$users as $user) {
-            if (strcasecmp($user['username'], $username) === 0) {
-                return new static($user);
-            }
-        }
-
-        return null;
+        return [
+            [['is_lecture'], 'integer'],
+            [['username', 'password', 'name'], 'string', 'max' => 250],
+            [['subject'], 'string', 'max' => 20],
+        ];
     }
 
     /**
      * @inheritdoc
      */
-    public function getId()
+    public function attributeLabels()
     {
-        return $this->id;
+        return [
+            'user_id' => 'User ID',
+            'username' => 'Username',
+            'password' => 'Password',
+            'name' => 'Name',
+            'subject' => 'Subject',
+            'is_lecture' => 'Is Lecture',
+        ];
     }
 
     /**
-     * @inheritdoc
+     * @return \yii\db\ActiveQuery
      */
-    public function getAuthKey()
+    public function getComments()
     {
-        return $this->authKey;
+        return $this->hasMany(Comment::className(), ['user_id' => 'user_id']);
     }
 
     /**
-     * @inheritdoc
+     * @return \yii\db\ActiveQuery
      */
-    public function validateAuthKey($authKey)
+    public function getRatings()
     {
-        return $this->authKey === $authKey;
+        return $this->hasMany(Rating::className(), ['user_id' => 'user_id']);
     }
 
     /**
-     * Validates password
-     *
-     * @param  string  $password password to validate
-     * @return boolean if password provided is valid for current user
+     * @return \yii\db\ActiveQuery
      */
-    public function validatePassword($password)
+    public function getThesisMappings()
     {
-        return $this->password === $password;
+        return $this->hasMany(ThesisMapping::className(), ['user_id' => 'user_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTheses()
+    {
+        return $this->hasMany(Thesis::className(), ['thesis_id' => 'thesis_id'])->viaTable('ThesisMapping', ['user_id' => 'user_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserRoles()
+    {
+        return $this->hasMany(UserRole::className(), ['user_id' => 'user_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRoles()
+    {
+        return $this->hasMany(Role::className(), ['role_id' => 'role_id'])->viaTable('UserRole', ['user_id' => 'user_id']);
     }
 }
