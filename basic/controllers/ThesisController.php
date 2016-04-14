@@ -37,6 +37,9 @@ class ThesisController extends Controller
     {
         $dataProvider = new ActiveDataProvider([
             'query' => Thesis::find(),
+            'pagination' => [
+                'pageSize' => 1,
+            ],
         ]);
 
         return $this->render('index', [

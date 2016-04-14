@@ -13,6 +13,7 @@ use Yii;
  * @property string $name
  * @property string $subject
  * @property integer $is_lecture
+ * @property integer $is_admin 
  *
  * @property Comment[] $comments
  * @property Rating[] $ratings
@@ -21,8 +22,9 @@ use Yii;
  * @property UserRole[] $userRoles
  * @property Role[] $roles
  */
-class User extends \yii\db\ActiveRecord
+class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
+    private static $_instance;
     /**
      * @inheritdoc
      */
@@ -31,13 +33,23 @@ class User extends \yii\db\ActiveRecord
         return 'User';
     }
 
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            $this->password = $this->encryptPassword($this->password);
+            return true;
+        }
+
+        return false;
+    }
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['is_lecture'], 'integer'],
+            [['is_lecture', 'is_admin'], 'integer'],
             [['username', 'password', 'name'], 'string', 'max' => 250],
             [['subject'], 'string', 'max' => 20],
         ];
@@ -55,6 +67,7 @@ class User extends \yii\db\ActiveRecord
             'name' => 'Name',
             'subject' => 'Subject',
             'is_lecture' => 'Is Lecture',
+            'is_admin' => 'Is Admin', 
         ];
     }
 
@@ -104,5 +117,55 @@ class User extends \yii\db\ActiveRecord
     public function getRoles()
     {
         return $this->hasMany(Role::className(), ['role_id' => 'role_id'])->viaTable('UserRole', ['user_id' => 'user_id']);
+    }
+
+    public static function findByUsername($username) 
+    {   
+        if (!self::$_instance) self::$_instance = new self();
+
+        return self::$_instance->find()->where(['username' => $username])->one();
+    }
+
+    public static function findIdentity($id)
+    {
+        return static::findOne($id);
+    }
+
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        // return static::findOne(['access_token' => $token]);
+        return null;
+    }
+
+    public function getId()
+    {
+        return $this->user_id;
+    }
+
+    public function getAuthKey()
+    {
+        // return $this->authKey;
+        return '';
+    }
+
+    public function validateAuthKey($authKey)
+    {
+        // return $this->authKey === $authKey;
+        return false;
+    }
+
+    /**
+     * Validates password
+     *
+     * @param  string  $password password to validate
+     * @return boolean if password provided is valid for current user
+     */
+    public function validatePassword($password)
+    {
+        return $this->password === $this->encryptPassword($password);
+    }
+
+    public function encryptPassword($password) {
+        return md5(md5($password) . 'asas');
     }
 }
