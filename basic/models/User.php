@@ -37,6 +37,11 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         if (parent::beforeSave($insert)) {
             $this->password = $this->encryptPassword($this->password);
+
+            if ($this->isNewRecord) {
+                $this->access_token = \Yii::$app->security->generateRandomString();
+            }
+            
             return true;
         }
 
@@ -144,13 +149,12 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 
     public function getAuthKey()
     {
-        // return $this->authKey;
-        return '';
+        return $this->access_token;
     }
 
     public function validateAuthKey($authKey)
     {
-        // return $this->authKey === $authKey;
+        return $this->access_token === $authKey;
         return false;
     }
 

@@ -85,8 +85,8 @@ AppAsset::register($this);
     // ]);
     
     $menuItems = [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Thesis', 'url' => ['/thesis']],
+            ['label' => '', 'url' => ['/site/index']],
+            ['label' => 'Thesis', 'url' => ['/']],
             ['label' => 'Admin', 'url' => ['/admin']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
             
@@ -109,10 +109,35 @@ AppAsset::register($this);
 
     // $menuItems = Helper::filter($menuItems);
 
-    echo Nav::widget([
-        'options' => ['class' => 'nav navbar-nav navbar-right'],
-        'items' => $menuItems,
-    ]);
+    // echo Nav::widget([
+    //     'options' => ['class' => 'nav navbar-nav navbar-right'],
+    //     'items' => $menuItems,
+    // ]);
+    
+    ?>
+
+        <ul class="nav navbar-nav navbar-right">
+            <li data-match-route="/$">
+                <a href="#/">Home</a>
+            </li>
+            <li data-match-route="/thesis">
+                <a href="#/thesis">Thesis</a>
+            </li>
+            <li data-match-route="/contact">
+                <a href="#/contact">Contact</a>
+            </li>
+            <li data-match-route="/dashboard" ng-show="loggedIn()" class="ng-hide">
+                <a href="#/dashboard">Dashboard</a>
+            </li>
+            <li ng-class="{active:isActive('/logout')}" ng-show="loggedIn()" ng-click="logout()"  class="ng-hide">
+                <a href="">Logout</a>
+            </li>
+            <li data-match-route="/login" ng-hide="loggedIn()">
+                <a href="#/login">Login</a>
+            </li>
+        </ul>
+
+    <?php
 
     NavBar::end();
     ?>
@@ -129,7 +154,10 @@ AppAsset::register($this);
     <div class="container">
         <p class="pull-left">&copy; Thesis Hub <?= date('Y') ?></p>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        <p class="pull-right">
+            <a href="/admin">/admin</a>
+            <?= Yii::powered() ?>
+        </p>
     </div>
 </footer>
 

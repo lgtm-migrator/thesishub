@@ -10,6 +10,10 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'UhavzgH7dauiewg0vFYXlX74f-agEyr0',
+            'enableCookieValidation' => false,
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ],
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -17,8 +21,12 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\User',
             // 'identityClass' => 'mdm\admin\models\User',
-            'loginUrl' => ['/auth/login'],
+            // 'loginUrl' => ['/auth/login'],
             'enableAutoLogin' => true,
+
+            // For angular
+            'enableSession' => false,
+            'loginUrl' => null,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
