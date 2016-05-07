@@ -16,6 +16,7 @@ $config = [
         ],
         'user' => [
             'identityClass' => 'app\models\User',
+            // 'identityClass' => 'mdm\admin\models\User',
             'loginUrl' => ['/auth/login'],
             'enableAutoLogin' => true,
         ],
@@ -78,11 +79,30 @@ $config = [
         'system_role' => [
             'class' => 'mdm\admin\Module',
             'layout' => 'left-menu',
+            'mainLayout' => '@app/views/layouts/main.php',
             'controllerMap' => [
                 'assignment' => [
                     'class' => 'mdm\admin\controllers\AssignmentController',
                     'userClassName' => 'app\models\User',
-                    'idField' => 'user_id'
+                    'idField' => 'user_id',
+                    'usernameField' => 'username',
+                    'fullnameField' => 'name',
+                    'extraColumns' => [
+                        [
+                            'attribute' => 'subject',
+                            'label' => 'Subject',
+                            'value' => function($model, $key, $index, $column) {
+                                return $model->subject;
+                            },
+                        ],[
+                            'attribute' => 'is_lecture',
+                            'label' => 'Is Lecture',
+                            'value' => function($model, $key, $index, $column) {
+                                return $model->is_lecture ? 'True' : 'False';
+                            },
+                        ],
+                    ],
+                    'searchClass' => 'app\models\UserSearch'
                 ],
             ],
         ],
