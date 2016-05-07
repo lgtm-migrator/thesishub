@@ -19,12 +19,12 @@ use Yii;
  * @property string $created
  * @property string $status
  * @property string $note
- * @property string $department
+ * @property string $department_id
  *
  * @property Attachment[] $attachments
  * @property Comment[] $comments
  * @property Rating[] $ratings
- * @property Department $department0
+ * @property Department $department
  * @property ThesisMapping[] $thesisMappings
  * @property User[] $users
  * @property ThesisReference[] $thesisReferences
@@ -54,8 +54,8 @@ class Thesis extends \yii\db\ActiveRecord
             [['created'], 'safe'],
             [['thesis_name'], 'string', 'max' => 250],
             [['status'], 'string', 'max' => 25],
-            [['department'], 'string', 'max' => 10],
-            [['department'], 'exist', 'skipOnError' => true, 'targetClass' => Department::className(), 'targetAttribute' => ['department' => 'department_id']],
+            [['department_id'], 'string', 'max' => 10],
+            [['department_id'], 'exist', 'skipOnError' => true, 'targetClass' => Department::className(), 'targetAttribute' => ['department_id' => 'department_id']],
         ];
     }
 
@@ -77,7 +77,7 @@ class Thesis extends \yii\db\ActiveRecord
             'created' => 'Created',
             'status' => 'Status',
             'note' => 'Note',
-            'department' => 'Department',
+            'department_id' => 'Department ID',
         ];
     }
 
@@ -108,9 +108,9 @@ class Thesis extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getDepartment0()
+    public function getDepartment()
     {
-        return $this->hasOne(Department::className(), ['department_id' => 'department']);
+        return $this->hasOne(Department::className(), ['department_id' => 'department_id']);
     }
 
     /**

@@ -9,7 +9,7 @@ use Yii;
  *
  * @property string $department_id
  * @property string $department_name
- * @property string $Department_description
+ * @property string $department_description
  *
  * @property Thesis[] $theses
  */
@@ -30,7 +30,7 @@ class Department extends \yii\db\ActiveRecord
     {
         return [
             [['department_id'], 'required'],
-            [['Department_description'], 'string'],
+            [['department_description'], 'string'],
             [['department_id'], 'string', 'max' => 10],
             [['department_name'], 'string', 'max' => 45],
         ];
@@ -44,7 +44,7 @@ class Department extends \yii\db\ActiveRecord
         return [
             'department_id' => 'Department ID',
             'department_name' => 'Department Name',
-            'Department_description' => 'Department Description',
+            'department_description' => 'Department Description',
         ];
     }
 
@@ -53,6 +53,6 @@ class Department extends \yii\db\ActiveRecord
      */
     public function getTheses()
     {
-        return $this->hasMany(Thesis::className(), ['deartment' => 'department_id']);
+        return $this->hasMany(Thesis::className(), ['department_id' => 'department_id']);
     }
 }
