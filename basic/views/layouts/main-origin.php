@@ -38,28 +38,16 @@ AppAsset::register($this);
         'brandLabel' => 'ThesisHub',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar navbar-default sticky-nav',
+            'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-
-    ?>
-
-    <form class="navbar-form navbar-left" role="search" action="/search">
-        <div class="form-group">
-            <input type="text" class="form-control" placeholder="Search" name="q" />
-        </div>
-    </form>
-
-    <?php
-
     echo Nav::widget([
-        'options' => ['class' => 'nav navbar-nav navbar-right'],
+        'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'Thesis', 'url' => ['/thesis']],
             ['label' => 'Admin', 'url' => ['/admin']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
-            
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/auth/login']]
             ) : (
@@ -77,7 +65,6 @@ AppAsset::register($this);
             )
         ],
     ]);
-
     NavBar::end();
     ?>
 
