@@ -50,3 +50,11 @@ Power by Yii2
   php ./yii serve 
   php ./yii -h # for help
   ```
+
+# Note
+
+- Run migrate 
+
+  ```sh
+  php ./yii migrate
+  ```
