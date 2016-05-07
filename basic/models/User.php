@@ -133,7 +133,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        // return static::findOne(['access_token' => $token]);
+        return static::findOne(['access_token' => $token]);
         return null;
     }
 
