@@ -7,7 +7,6 @@
     
 </div>
 
-
 <div class="row">
 	<div class="col-md-4 col-sm-6 margin-btm-40">
         <div class="portfolio-sec">
@@ -36,6 +35,7 @@
             </div>
         </div>
     </div>
+
     <div class="col-md-4 col-sm-6 margin-btm-40">
         <div class="portfolio-sec">
             <div class="portfolio-thumnail">
@@ -43,6 +43,20 @@
             <div class="portfolio-desc text-center">
                 <h4 class="portfolio-post-title">User Manager</h4>
                 <span class="portfolio-post-cat">Create, Update, Manager</span>
+                <h4>
+                    <a href="/admin/user" class="btn theme-btn-default btn-lg">GO</a>
+                </h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6 margin-btm-40">
+        <div class="portfolio-sec">
+            <div class="portfolio-thumnail">
+            </div>
+            <div class="portfolio-desc text-center">
+                <h4 class="portfolio-post-title">Configuration</h4>
+                <span class="portfolio-post-cat">System config</span>
                 <h4>
                 	<a href="/admin/user" class="btn theme-btn-default btn-lg">GO</a>
                 </h4>

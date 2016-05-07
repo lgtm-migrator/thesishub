@@ -49,7 +49,10 @@ $config = [
         ],
         'authManager' => [
             'class' => 'yii\rbac\PhpManager', // or use 'yii\rbac\DbManager'
-        ]
+        ],
+        'settings' => [
+            'class' => 'pheme\settings\components\Settings'
+        ],
     ],
 
     'as access' => [
@@ -104,7 +107,18 @@ $config = [
                     ],
                     'searchClass' => 'app\models\UserSearch'
                 ],
+                
             ],
+            'menus' => [
+                'assignment' => [
+                    'label' => 'Grand Access' // change label
+                ],
+
+            ]
+        ],
+        'settings' => [
+            'class' => 'pheme\settings\Module',
+            'sourceLanguage' => 'en'
         ],
     ],
 
