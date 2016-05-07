@@ -87,6 +87,9 @@ $config = [
         'admin' => [
             'class' => 'app\modules\admin\Module',
         ],
+        'api' => [
+            'class' => 'app\modules\api\Module',
+        ],
         'system_role' => [
             'class' => 'mdm\admin\Module',
             'layout' => 'left-menu',

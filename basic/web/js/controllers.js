@@ -25,7 +25,7 @@ controllers.controller('LoginController', ['$scope', '$http', '$window', '$locat
         $scope.login = function () {
             $scope.submitted = true;
             $scope.error = {};
-            $http.post('api/login', $scope.userModel).success(
+            $http.post('api/auth/login', $scope.userModel).success(
                 function (data) {
                     $window.sessionStorage.access_token = data.access_token;
                     $location.path('/dashboard').replace();
@@ -46,7 +46,7 @@ controllers.controller('ContactController', ['$scope', '$http', '$window',
         $scope.contact = function () {
             $scope.submitted = true;
             $scope.error = {};
-            $http.post('api/contact', $scope.contactModel).success(
+            $http.post('api/pages/contact', $scope.contactModel).success(
                 function (data) {
                     $scope.contactModel = {};
                     $scope.flash = data.flash;
