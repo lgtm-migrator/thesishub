@@ -8,6 +8,7 @@ use yii\filters\AccessControl;
 use yii\web\Response;
 use yii\filters\ContentNegotiator;
 use app\models\LoginForm;
+use app\models\ContactForm;
 
 class ApiController extends \yii\rest\Controller
 {
@@ -64,4 +65,29 @@ class ApiController extends \yii\rest\Controller
         }
     }
 
+    public function actionContact()
+    {
+        $model = new ContactForm();
+        if ($model->load(Yii::$app->getRequest()->getBodyParams(), '') && $model->validate()) {
+            if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
+                $response = [
+                    'flash' => [
+                        'class' => 'success',
+                        'message' => 'Thank you for contacting us. We will respond to you as soon as possible.',
+                    ]
+                ];
+            } else {
+                $response = [
+                    'flash' => [
+                        'class' => 'error',
+                        'message' => 'There was an error sending email.',
+                    ]
+                ];
+            }
+            return $response;
+        } else {
+            $model->validate();
+            return $model;
+        }
+    }
 }

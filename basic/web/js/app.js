@@ -7,25 +7,28 @@ var app = angular.module('app', [
 app.config(['$routeProvider', '$httpProvider',
     function($routeProvider, $httpProvider) {
         $routeProvider.
-            when('/', {
+            when('', {
                 templateUrl: 'partials/home/index.html',
-            }).
-            when('/about', {
+            })
+            .when('/', {
+                templateUrl: 'partials/home/index.html',
+            })
+            .when('/about', {
                 templateUrl: 'partials/pages/about.html'
-            }).
-            when('/contact', {
+            })
+            .when('/contact', {
                 templateUrl: 'partials/pages/contact.html',
                 controller: 'ContactController'
-            }).
-            when('/login', {
+            })
+            .when('/login', {
                 templateUrl: 'partials/auth/login.html',
                 controller: 'LoginController'
-            }).
-            when('/dashboard', {
+            })
+            .when('/dashboard', {
                 templateUrl: 'partials/home/dashboard.html',
                 controller: 'DashboardController'
-            }).
-            otherwise({
+            })
+            .otherwise({
                 templateUrl: 'partials/pages/404.html'
             });
         $httpProvider.interceptors.push('authInterceptor');
@@ -49,3 +52,10 @@ app.factory('authInterceptor', function ($q, $window, $location) {
         }
     };
 });
+
+app.run(['$rootScope', 
+    function ($rootScope) {
+    	$rootScope.pageTitle = 'Thesis Hub';
+    }
+  ]
+)
