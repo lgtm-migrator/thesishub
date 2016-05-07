@@ -8,6 +8,8 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use mdm\admin\components\MenuHelper;
+use mdm\admin\components\Helper;
 
 AppAsset::register($this);
 ?>
@@ -52,9 +54,33 @@ AppAsset::register($this);
 
     <?php
 
-    echo Nav::widget([
-        'options' => ['class' => 'nav navbar-nav navbar-right'],
-        'items' => [
+    // echo Nav::widget([
+    //     'options' => ['class' => 'nav navbar-nav navbar-right'],
+    //     'items' =>  [
+    //         ['label' => 'Home', 'url' => ['/site/index']],
+    //         ['label' => 'Thesis', 'url' => ['/thesis']],
+    //         ['label' => 'Admin', 'url' => ['/admin']],
+    //         ['label' => 'Contact', 'url' => ['/site/contact']],
+            
+    //         Yii::$app->user->isGuest ? (
+    //             ['label' => 'Login', 'url' => ['/auth/login']]
+    //         ) : (
+
+    //             ['label' => 'Logout (' . Yii::$app->user->identity->username . ')', 'url' => ['/auth/logout']]
+
+    //             // '<li>'
+    //             // . Html::beginForm(['/auth/logout'], 'post')
+    //             // . Html::submitButton(
+    //             //     'Logout (' . Yii::$app->user->identity->username . ')',
+    //             //     ['class' => 'btn btn-link']
+    //             // )
+    //             // . Html::endForm()
+    //             // . '</li>'
+    //         )
+    //     ],
+    // ]);
+    
+    $menuItems = [
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'Thesis', 'url' => ['/thesis']],
             ['label' => 'Admin', 'url' => ['/admin']],
@@ -75,7 +101,13 @@ AppAsset::register($this);
                 // . Html::endForm()
                 // . '</li>'
             )
-        ],
+        ];
+
+    // $menuItems = Helper::filter($menuItems);
+
+    echo Nav::widget([
+        'options' => ['class' => 'nav navbar-nav navbar-right'],
+        'items' => $menuItems,
     ]);
 
     NavBar::end();

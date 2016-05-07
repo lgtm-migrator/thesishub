@@ -7,6 +7,9 @@ namespace app\modules\admin;
  */
 class Module extends \yii\base\Module
 {
+    public $layout = 'admin';
+    public $mainLayout = '@app/views/layouts/main.php';
+
     /**
      * @inheritdoc
      */
