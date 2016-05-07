@@ -9,9 +9,10 @@ use yii\widgets\Pjax;
 $this->title = Yii::t('app', 'Users');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="user-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="features">
+
+    <h3><?= Html::encode($this->title) ?></h3>
 
     <p>
         <?= Html::a(Yii::t('app', 'Create User'), ['create'], ['class' => 'btn btn-success']) ?>
@@ -23,10 +24,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'user_id',
             'username',
-            'password',
+            // 'password',
             'name',
             'subject',
-            // 'is_lecture',
+            'is_lecture',
             // 'is_admin',
 
             ['class' => 'yii\grid\ActionColumn'],
