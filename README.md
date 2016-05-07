@@ -53,6 +53,8 @@ Power by Yii2
 
 # Note
 
+- How to write migration: http://www.yiiframework.com/doc-2.0/guide-db-migrations.html
+
 - Run migrate 
 
   ```sh
