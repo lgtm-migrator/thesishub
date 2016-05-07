@@ -19,10 +19,12 @@ use Yii;
  * @property string $created
  * @property string $status
  * @property string $note
+ * @property string $department
  *
  * @property Attachment[] $attachments
  * @property Comment[] $comments
  * @property Rating[] $ratings
+ * @property Department $department0
  * @property ThesisMapping[] $thesisMappings
  * @property User[] $users
  * @property ThesisReference[] $thesisReferences
@@ -52,6 +54,8 @@ class Thesis extends \yii\db\ActiveRecord
             [['created'], 'safe'],
             [['thesis_name'], 'string', 'max' => 250],
             [['status'], 'string', 'max' => 25],
+            [['department'], 'string', 'max' => 10],
+            [['department'], 'exist', 'skipOnError' => true, 'targetClass' => Department::className(), 'targetAttribute' => ['department' => 'department_id']],
         ];
     }
 
@@ -73,6 +77,7 @@ class Thesis extends \yii\db\ActiveRecord
             'created' => 'Created',
             'status' => 'Status',
             'note' => 'Note',
+            'department' => 'Department',
         ];
     }
 
@@ -98,6 +103,14 @@ class Thesis extends \yii\db\ActiveRecord
     public function getRatings()
     {
         return $this->hasMany(Rating::className(), ['thesis_id' => 'thesis_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDepartment0()
+    {
+        return $this->hasOne(Department::className(), ['department_id' => 'department']);
     }
 
     /**
