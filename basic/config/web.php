@@ -46,8 +46,11 @@ $config = [
             'rules' => [
             ],
         ],
-        
     ],
+
+    'layout' => 'one-column',
+    'defaultRoute' => 'home/index',
+
     'params' => $params,
     'modules' => [
         'admin' => [
