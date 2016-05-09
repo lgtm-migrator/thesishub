@@ -35,6 +35,15 @@ class HomeController extends Controller
      * @return mixed
      */
 
+    
+    public function actionIndex()
+    {
+        $department = Department::find()->all();
+        $mostIDthesis = $this->GetThesisByDepartment();
+
+        return $this->render('index',['department'=>$department,'mostIDthesis'=>$mostIDthesis]);
+    }
+
     public function GetThesisByDepartment(){
         return Thesis::find()
                         ->select('thesis_name')
@@ -42,13 +51,6 @@ class HomeController extends Controller
                         ->orderBy('`thesis_id` desc')
                         ->all();
 
-    }
-    public function actionIndex()
-    {
-        $department = Department::find()->all();
-        $mostIDthesis = $this->GetThesisByDepartment();
-
-        return $this->render('index',['department'=>$department,'mostIDthesis'=>$mostIDthesis]);
     }
 
     
