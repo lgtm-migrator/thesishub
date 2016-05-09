@@ -10,6 +10,10 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'UhavzgH7dauiewg0vFYXlX74f-agEyr0',
+            'enableCookieValidation' => false,
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ],
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -17,8 +21,12 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\User',
             // 'identityClass' => 'mdm\admin\models\User',
-            'loginUrl' => ['/auth/login'],
+            // 'loginUrl' => ['/auth/login'],
             'enableAutoLogin' => true,
+
+            // For angular
+            'enableSession' => false,
+            'loginUrl' => null,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -79,6 +87,9 @@ $config = [
         'admin' => [
             'class' => 'app\modules\admin\Module',
         ],
+        'api' => [
+            'class' => 'app\modules\api\Module',
+        ],
         'system_role' => [
             'class' => 'mdm\admin\Module',
             'layout' => 'left-menu',
@@ -126,7 +137,8 @@ $config = [
 
 if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment
-    $config['bootstrap'][] = 'debug';
+    // $config['bootstrap'][] = 'debug';
+   
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
     ];
