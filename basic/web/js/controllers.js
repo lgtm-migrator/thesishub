@@ -12,11 +12,23 @@ controllers.controller('MainController', ['$scope', '$location', '$window',
     }
 ]);
 
+controllers.controller('HomeController', ['$scope', '$http',
+    function ($scope, $http) {
+        $http.get('api/home').success(function (data) {
+           $scope.departments = data.departments;
+        });
+    }
+]);
+
 controllers.controller('DashboardController', ['$scope', '$http',
     function ($scope, $http) {
         $http.get('api/dashboard').success(function (data) {
            $scope.dashboard = data;
-        })
+        });
+
+        $http.get('api/home').success(function (data) {
+           $scope.departments = data;
+        });
     }
 ]);
 

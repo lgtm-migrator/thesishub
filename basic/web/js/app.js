@@ -9,9 +9,11 @@ app.config(['$routeProvider', '$httpProvider',
         $routeProvider.
             when('', {
                 templateUrl: 'partials/home/index.html',
+                controller: 'HomeController'
             })
             .when('/', {
                 templateUrl: 'partials/home/index.html',
+                controller: 'HomeController'
             })
             .when('/about', {
                 templateUrl: 'partials/pages/about.html'

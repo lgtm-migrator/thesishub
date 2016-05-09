@@ -16,6 +16,8 @@ class DefaultController extends ApiController
      */
     public function actionIndex()
     {
-        return ['message' => 'thesishub api.'];
+        $data = ['message' => 'thesishub api.', 'code' => 1234];
+    	
+    	return $data;
     }
 }

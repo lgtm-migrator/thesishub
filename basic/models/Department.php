@@ -55,4 +55,23 @@ class Department extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Thesis::className(), ['department_id' => 'department_id']);
     }
+
+    public function fields()
+    {
+        return [
+            // field name is the same as the attribute name
+            'department_id',
+            // field name is "email", the corresponding attribute name is "email_address"
+            'department_name',
+            'department_description',
+            'thesis' => function($model) {
+                return $model->theses;
+            }
+        ];
+    }
+
+    public function extraFields()
+    {
+        return ['theses'];
+    }
 }
