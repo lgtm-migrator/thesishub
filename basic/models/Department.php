@@ -18,6 +18,8 @@ class Department extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public $file;
+
     public static function tableName()
     {
         return 'Department';
@@ -33,6 +35,8 @@ class Department extends \yii\db\ActiveRecord
             [['department_description'], 'string'],
             [['department_id'], 'string', 'max' => 10],
             [['department_name'], 'string', 'max' => 45],
+            [['image'], 'string', 'max' => 45],
+            [['file'],'file'],
         ];
     }
 
@@ -45,6 +49,7 @@ class Department extends \yii\db\ActiveRecord
             'department_id' => 'Department ID',
             'department_name' => 'Department Name',
             'department_description' => 'Department Description',
+            'image' => 'Image',
         ];
     }
 
@@ -64,6 +69,7 @@ class Department extends \yii\db\ActiveRecord
             // field name is "email", the corresponding attribute name is "email_address"
             'department_name',
             'department_description',
+            'image',
             'thesis' => function($model) {
                 return $model->theses;
             }
