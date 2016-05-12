@@ -1,0 +1,23 @@
+<div class="row-fluid">
+	<ul class="nav nav-pills nav-stacked">
+		<li><a href="">Hướng dẫn sử dụng</a></li>
+		<li><a href="#contact">Liên hệ</a></li>
+		<li><a href="">Chính sách sử dụng</a></li>
+	</ul>
+</div>
+<div class="row-fluid">
+	<div ng-cloak="">
+		<ul class="nav nav-tabs" ng-init="recent_tab = 1">
+			<li><a href="javascript:;" ng-click="recent_tab = 1">Mới</a></li>
+			<li><a href="javascript:;" ng-click="recent_tab = 2">Nổi bật</a></li>
+		</ul>
+		<div>
+			<div class="tab-pane" id="tab1" ng-show="recent_tab == 1">
+				<p>I'm in Section 1.</p>
+			</div>
+			<div class="tab-pane" id="tab2" ng-show="recent_tab == 2">
+				<p>Howdy, I'm in Section 2.</p>
+			</div>
+		</div>
+	</div>
+</div>
