@@ -60,4 +60,12 @@ app.run(['$rootScope',
     	$rootScope.pageTitle = 'Thesis Hub';
     }
   ]
-)
+);
+
+app.directive("recentSide", function(){
+    return {
+    restrict: 'E',
+    scope: false,
+    templateUrl: 'partials/home/recent_side.html'
+    };
+});
