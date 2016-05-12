@@ -94,3 +94,18 @@ a.desc:after {
     text-align: center;
     font-size: 120px;
 }
+
+
+.department_name {
+    color: #000080;
+}
+
+.thesis_name_icon{
+    color: #32CD32;
+}
+
+.thesis_name{
+    color:  #4682B4;
+}
+
+
