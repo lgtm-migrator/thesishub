@@ -30,6 +30,10 @@ app.config(['$routeProvider', '$httpProvider',
                 templateUrl: 'partials/home/dashboard.html',
                 controller: 'DashboardController'
             })
+            .when('/department/:department_id?', {
+              templateUrl: 'partials/department/department.html',
+              controller: 'DepartmentController'
+            })
             .otherwise({
                 templateUrl: 'partials/pages/404.html'
             });

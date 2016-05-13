@@ -12,12 +12,19 @@ controllers.controller('MainController', ['$scope', '$location', '$window',
     }
 ]);
 
-controllers.controller('HomeController', ['$scope', '$http',
-    function ($scope, $http) {
+controllers.controller('HomeController', ['$scope', '$http', '$location',
+    function ($scope, $http, $location) {
         $http.get('api/home').success(function (data) {
            $scope.departments = data.departments;
         });
+
+        $scope.goToListThesisDepartment = function(thesis_department) {
+            if (thesis_department) {
+              $location.path('/department/' + thesis_department.department_id);
+            }
+        }
     }
+
 ]);
 
 controllers.controller('DashboardController', ['$scope', '$http',
@@ -29,6 +36,16 @@ controllers.controller('DashboardController', ['$scope', '$http',
         $http.get('api/home').success(function (data) {
            $scope.departments = data;
         });
+    }
+]);
+
+controllers.controller('DepartmentController', ['$scope', '$http', '$routeParams',
+    function ($scope, $http, $routeParams) {
+        $http.get('api/department').success(function (data) {
+           $scope.departments = data;
+        });
+        $scope.department_id_view = $routeParams.department_id;
+        
     }
 ]);
 

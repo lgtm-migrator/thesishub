@@ -106,6 +106,10 @@ a.desc:after {
 
 .thesis_name{
     color:  #4682B4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 40px;
+    width: 100%;
 }
 
 

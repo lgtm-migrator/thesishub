@@ -4,15 +4,21 @@
 			<div class="panel panel-warning">
 				<div class="panel-heading">Luận văn tốt nghiệp</div>
 			</div>
-			<div class="row" ng-repeat="department in departments">
+			<div class="row" ng-repeat="department in departments" >
 				<div class="col-sm-1">
-					<img ng-src="{{department.image}}" class="img-thumbnail" alt="Ảnh Khoa {{department.department_name}}" height="100px" width="60px">
+					<img ng-src="{{department.image}}" class="img-thumbnail" alt="Ảnh Khoa {{department.department_name}}" height="100px" width="60px" style="border:none;">
 				</div>
 				<div class="col-sm-11">
-					<h4 class="department_name">{{department.department_name}}</h4>
-					<div class="col-sm-3" ng-repeat="one_thesis in department.thesis">
-						<h6 class="thesis_name"><span class="glyphicon glyphicon-hand-right thesis_name_icon"></span> {{one_thesis.thesis_name | limitTo:50}}..</h6>
-						<!-- <span>{{one_thesis.intro | limitTo:80}}</span> -->
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<h4 class="department_name panel-title" ng-click="goToListThesisDepartment(department)">{{department.department_name}}</h4>
+						</div>
+						<div class="panel-body">
+							<div class="col-sm-3" ng-repeat="one_thesis in department.thesis">
+								<h6 class="thesis_name"><span class="glyphicon glyphicon-hand-right thesis_name_icon"></span> {{one_thesis.thesis_name}}</h6>
+								<!-- <span>{{one_thesis.intro | limitTo:80}}</span> -->
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

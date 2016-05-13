@@ -1,0 +1,15 @@
+<div class ="row" ng-repeat="department in departments" ng-if = "department.department_id == department_id_view">
+	<div class ="row">
+		<h3 class="department_name" >{{department.department_name}}</h3>
+	</div>
+	<div class ="row">
+		<div class="col-sm-1" ><span class="glyphicon glyphicon-book"></span></div>
+		<div class="col-sm-11" >
+			<div class="row" ng-repeat="one_thesis in department.thesis">
+				<p class="thesis_name"> {{one_thesis.thesis_name}}</p>
+				<i class="thesis_intro"> {{one_thesis.intro}}</i>
+				<!-- <span>{{one_thesis.intro | limitTo:80}}</span> -->
+			</div>
+		</div>
+	</div>
+</div>

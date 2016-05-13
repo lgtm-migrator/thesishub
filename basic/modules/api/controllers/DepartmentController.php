@@ -10,4 +10,5 @@ class DepartmentController extends \app\modules\api\ApiController
             'query' => \app\models\Department::find(),
         ]);
     }
+  
 }
