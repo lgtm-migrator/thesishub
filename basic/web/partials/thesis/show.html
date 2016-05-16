@@ -1,0 +1,18 @@
+<div class ="row" ng-repeat="thesis in theses" ng-if="thesis.thesis_id==current_thesis">
+	<ol class="breadcrumb">
+		<li><a href="#/">Home</a></li>
+		<li><a href="thesis">Thesis</a></li>
+		<li class="active">{{thesis.thesis_name}}</li>
+	</ol>
+	<div class="row">
+		<div class="col-md-8">
+			<h4>{{thesis.thesis_name}}</h4>
+		</div>
+		<div class="col-md-4">
+			<button>Download</button>
+		</div>
+	</div>
+
+	<p>Đăng bởi {{}}, vào time{{}}</p>
+	
+</div>

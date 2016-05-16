@@ -16,11 +16,17 @@ controllers.controller('HomeController', ['$scope', '$http', '$location',
     function ($scope, $http, $location) {
         $http.get('api/home').success(function (data) {
            $scope.departments = data.departments;
+           $scope.recent_thesis = data.recent_thesis;
+           $scope.score_thesis = data.score_thesis;
         });
-
         $scope.goToListThesisDepartment = function(thesis_department) {
             if (thesis_department) {
               $location.path('/department/' + thesis_department.department_id);
+            }
+        }
+        $scope.goToThesis = function(thesis) {
+            if (thesis) {
+              $location.path('/thesis/' + thesis.thesis_id);
             }
         }
     }
@@ -46,6 +52,15 @@ controllers.controller('DepartmentController', ['$scope', '$http', '$routeParams
         });
         $scope.department_id_view = $routeParams.department_id;
         
+    }
+]);
+
+controllers.controller('ThesisController', ['$scope', '$http', '$routeParams',
+    function ($scope, $http, $routeParams) {
+        $http.get('api/thesis').success(function (data) {
+           $scope.theses = data;
+        });
+        $scope.current_thesis = $routeParams.thesis_id;        
     }
 ]);
 
