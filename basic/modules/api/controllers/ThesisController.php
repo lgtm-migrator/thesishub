@@ -11,16 +11,11 @@ class ThesisController extends \app\modules\api\ApiController
 {
     public function actionIndex()
     {
+        // $departments = Department::find()->joinWith('theses')->all();
         return new \yii\data\ActiveDataProvider([
             'query' => \app\models\Thesis::find(),
+            // 'departments' => $departments,
         ]);
-    }
-  
-        $departments = Department::find()->joinWith('theses')->all();
-
-        return [
-            'departments' => $departments,
-        ];
     }
 
     public function actionThesis()

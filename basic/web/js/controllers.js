@@ -82,8 +82,6 @@ controllers.controller('ThesisController', ['$scope', '$http', '$routeParams',
            $scope.theses = data;
         });
         $scope.current_thesis = $routeParams.thesis_id; 
-
-        c      
     }
 ]);
 
