@@ -81,7 +81,9 @@ controllers.controller('ThesisController', ['$scope', '$http', '$routeParams',
         $http.get('api/thesis').success(function (data) {
            $scope.theses = data;
         });
-        $scope.current_thesis = $routeParams.thesis_id;        
+        $scope.current_thesis = $routeParams.thesis_id; 
+
+        c      
     }
 ]);
 

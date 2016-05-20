@@ -124,4 +124,14 @@ class ThesisController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    public function getWithMapping()
+    {
+        // return Thesis::find()
+        //                 ->select('thesis_name')
+        //                 ->joinWith('department', '`department`.`department_id` = `thesis`.`department_id`')
+        //                 ->orderBy('`thesis_id` desc')
+        //                 ->all();
+    }
+
 }

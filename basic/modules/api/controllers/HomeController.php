@@ -13,13 +13,13 @@ class HomeController extends \app\modules\api\ApiController
     	$departments = Department::find()->joinWith('theses')->all();
 
         $recent_thesis = Thesis::find()
-                            ->select('thesis_name, created')
+                            ->select('thesis_id, thesis_name, created')
                             ->orderBy('created desc')
                             ->limit(5)
                             ->all();
 
         $score_thesis = Thesis::find()
-                            ->select('thesis_name, created')
+                            ->select('thesis_id, thesis_name, created')
                             ->orderBy('score_total desc')
                             ->limit(5)
                             ->all();                    
