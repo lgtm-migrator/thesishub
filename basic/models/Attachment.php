@@ -1,6 +1,7 @@
 <?php
 
 namespace app\models;
+use yii\web\UploadedFile;
 
 use Yii;
 
@@ -24,6 +25,8 @@ class Attachment extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+
+    public $file;
     public static function tableName()
     {
         return 'Attachment';
@@ -38,6 +41,7 @@ class Attachment extends \yii\db\ActiveRecord
             [['thesis_id', 'visible'], 'integer'],
             [['description'], 'string'],
             [['created'], 'safe'],
+            [['file'],'file'],
             [['name', 'url', 'limitation'], 'string', 'max' => 250],
             [['type'], 'string', 'max' => 25],
             [['thesis_id'], 'exist', 'skipOnError' => true, 'targetClass' => Thesis::className(), 'targetAttribute' => ['thesis_id' => 'thesis_id']],
@@ -69,4 +73,6 @@ class Attachment extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Thesis::className(), ['thesis_id' => 'thesis_id']);
     }
+
+
 }

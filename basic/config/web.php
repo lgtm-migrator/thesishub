@@ -53,6 +53,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                // 'api/<controller:\W+>/<id:\W+>' => 'api/<controler>',
             ],
         ],
         'authManager' => [
