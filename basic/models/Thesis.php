@@ -48,6 +48,7 @@ class Thesis extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['thesis_name', 'department_id'], 'required'],
             [['intro', 'note'], 'string'],
             [['score_instructor', 'score_reviewer', 'score_council', 'score_total'], 'number'],
             [['have_disk', 'counter'], 'integer'],

@@ -34,6 +34,10 @@ app.config(['$routeProvider', '$httpProvider',
               templateUrl: 'partials/department/department.html',
               controller: 'DepartmentController'
             })
+            .when('/thesis/create', {
+              templateUrl: 'partials/thesis/creata_thesis.html',
+              controller: 'ThesisController'
+            })
             .otherwise({
                 templateUrl: 'partials/pages/404.html'
             });
