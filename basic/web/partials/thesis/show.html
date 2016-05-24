@@ -1,4 +1,4 @@
-<div class ="row" ng-repeat="thesis in theses" ng-if="thesis.thesis_id==current_thesis">
+<div class ="row">
 	<ol class="breadcrumb">
 		<li><a href="#/">Home</a></li>
 		<li><a href="thesis">Thesis</a></li>
@@ -12,28 +12,28 @@
 			<button>Download</button>
 		</div>
 	</div>
-	<p>Đăng bởi {{}}, vào time {{}}</p>
+	<p>Đăng bởi {{thesis.map.name}}, vào lúc {{thesis.detail.created}}</p>
 	
 	<!-- Go some star -->
 	<div>
 		
 	</div>
-
 	<!-- Go some tag -->
 	<div>
-		
+		<ul class="nav nav-pills">
+			<li ng-repeat="tag in thesis.tags" class="active">
+				<a href="javascript:;">{{tag.name}}</a>
+			</li>
+		</ul>
 	</div>
-
 	<!-- Here go pictures -->
 	<div>
 		
 	</div>
-
 	<!-- Infomation -->
 	<div>
 		
 	</div>
-
 	<!-- comments and star -->
 	<div>
 		

@@ -58,6 +58,11 @@ controllers.controller('ThesisController', function ($scope, $http, $routeParams
         $http.get('api/department').success(function (data) {
            $scope.departments = data;
         });
+
+        $http.get('api/thesis/thesis?id=' + $routeParams.thesis_id).success(function (data) {
+            $scope.thesis = data;
+        });
+
         $scope.new_thesis = null;
         $scope.saveThesis = function (thesis){
             $http.post('/api/thesis/create', $scope.new_thesis).then(function(data) {
@@ -74,16 +79,6 @@ controllers.controller('ThesisController', function ($scope, $http, $routeParams
         }
     }
 );
-
-
-controllers.controller('ThesisController', ['$scope', '$http', '$routeParams',
-    function ($scope, $http, $routeParams) {
-        $http.get('api/thesis').success(function (data) {
-           $scope.theses = data;
-        });
-        $scope.current_thesis = $routeParams.thesis_id; 
-    }
-]);
 
 controllers.controller('LoginController', ['$scope', '$http', '$window', '$location',
     function($scope, $http, $window, $location) {
