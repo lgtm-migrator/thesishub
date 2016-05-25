@@ -49,8 +49,6 @@ controllers.controller('DepartmentController', ['$scope', '$http', '$routeParams
         $http.get('api/department/?id=' + $routeParams.department_id).success(function (data) {
            $scope.department = data;
         });
-
-
     }
 ]);
 
@@ -64,6 +62,7 @@ controllers.controller('ThesisController', function ($scope, $http, $routeParams
         });
 
         $scope.new_thesis = null;
+        $scope.thesis_tag = null;
         $scope.saveThesis = function (thesis){
             $http.post('/api/thesis/create', $scope.new_thesis).then(function(data) {
                 console.log(data)
@@ -74,8 +73,6 @@ controllers.controller('ThesisController', function ($scope, $http, $routeParams
                     $scope.error = data.data.error;
                 }
             });
-
-           // $scope.new_thesis = null; 
         }
     }
 );

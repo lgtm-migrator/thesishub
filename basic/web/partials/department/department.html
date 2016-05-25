@@ -2,15 +2,17 @@
 	<div class ="row">
 		<h3 class="department_name" >{{department.department_name}}</h3>
 	</div>
-	<div class ="row" ng-repeat="one_thesis in department.thesis">
-		<div class="col-sm-1" >
-			<img ng-src="/public/message.jpg" alt="Ảnh KL" height="100px" width="60px">
-		</div>
-		<div class="col-sm-11" >
-			
-			<h5 class="thesis_name"> {{one_thesis.thesis_name}}</h5>
-			<i class="thesis_intro"> <span>{{one_thesis.intro | limitTo:200}}....</span></i>
-			<hr>
+	<div  class ="row" style="outline: 2px solid #eee; padding: 20px 20px;">
+		<div class ="row" ng-repeat="one_thesis in department.thesis">
+			<div class="col-sm-1" >
+				<img ng-src="/public/message.jpg" alt="Ảnh KL" height="100px" width="60px">
+			</div>
+			<div class="col-sm-11" >
+				
+				<h5 class="thesis_name"> {{one_thesis.thesis_name}}</h5>
+				<i class="thesis_intro"> <span>{{one_thesis.intro | limitTo:200}}....</span></i>
+				<hr>
+			</div>
 		</div>
 	</div>
 </div>

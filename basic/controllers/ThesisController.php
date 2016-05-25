@@ -8,6 +8,7 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ThesisController implements the CRUD actions for Thesis model.
@@ -46,6 +47,21 @@ class ThesisController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
+    /**
+     * Displays a single Thesis model.
+     * @param integer $id
+     * @return mixed
+     */
+    // public function actionUpload()
+    // {
+    //     if ($_FILES['files']) {
+    //         foreach ($_FILES['files'] as $key => $file) {
+    //             print_r($file);
+    //             // move_uploaded_file($file, '')
+    //         }
+    //     }
+    // }
 
     /**
      * Displays a single Thesis model.
