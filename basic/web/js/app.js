@@ -1,7 +1,7 @@
 var app = angular.module('app', [
     'ngRoute',          //$routeProvider
     'mgcrea.ngStrap',   //bs-navbar, data-match-route directives
-    'controllers'       //Our module app/web/js/controllers.js
+    'controllers',       //Our module app/web/js/controllers.js
 ]);
 
 app.config(['$routeProvider', '$httpProvider',
@@ -34,13 +34,13 @@ app.config(['$routeProvider', '$httpProvider',
               templateUrl: 'partials/department/department.html',
               controller: 'DepartmentController'
             })
-            .when('/thesis/:thesis_id?', {
-                templateUrl: 'partials/thesis/show.html',
-                controller: 'ThesisController'
-            })
             .when('/thesis/create', {
               templateUrl: 'partials/thesis/creata_thesis.html',
               controller: 'ThesisController'
+            })
+            .when('/thesis/:thesis_id?', {
+                templateUrl: 'partials/thesis/show.html',
+                controller: 'ThesisController'
             })
             .otherwise({
                 templateUrl: 'partials/pages/404.html'
@@ -79,5 +79,13 @@ app.directive("recentSide", function(){
     restrict: 'E',
     scope: false,
     templateUrl: 'partials/home/recent_side.html'
+    };
+});
+
+app.directive("comment", function(){
+    return {
+    restrict: 'E',
+    scope: false,
+    templateUrl: 'partials/thesis/comment.html'
     };
 });

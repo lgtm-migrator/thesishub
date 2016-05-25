@@ -6,22 +6,22 @@
 	</ol>
 	<div class="row">
 		<div class="col-md-8">
-			<h4>{{thesis.thesis_name}}</h4>
+			<h4>{{thesis.detail.thesis_name}}</h4>
 		</div>
 		<div class="col-md-4">
-			<button>Download</button>
+			<button class="btn btn-default">Download</button>
 		</div>
 	</div>
 	<p>Đăng bởi {{thesis.map.name}}, vào lúc {{thesis.detail.created}}</p>
 	
-	<!-- Go some star -->
+	<!-- Go show some stars-->
 	<div>
 		
 	</div>
 	<!-- Go some tag -->
 	<div>
 		<ul class="nav nav-pills">
-			<li ng-repeat="tag in thesis.tags" class="active">
+			<li ng-repeat="tag in thesis.tags">
 				<a href="javascript:;">{{tag.name}}</a>
 			</li>
 		</ul>
@@ -34,14 +34,16 @@
 	<div>
 		
 	</div>
-	<!-- comments and star -->
-	<div>
-		
-	</div>
 	
 	
 	
 	
 	
-	
+</div>
+
+
+<!-- comments -->
+<div class="row">
+	<input-stars max="5" ng-model="YourCtrl.property"></input-stars>
+	<comment><comment>
 </div>
