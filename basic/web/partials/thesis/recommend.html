@@ -1,0 +1,10 @@
+<div class="row-fluid">
+	<div class="panel panel-default">
+		<div class="panel-heading">Luận văn liên quan</div>
+		<ul class="list-group">
+			<li class="list-group-item" ng-repeat="recc in reccs" style="width: 100%;" >
+				<a ng-href="#/thesis/{{recc.thesis_id}}/">{{recc.thesis_name}}</a>
+			</li>
+		</ul>
+	</div>
+</div>

@@ -15,14 +15,14 @@
 		<div ng-show="current_tab == 1">
 			<ul class="nav nav-pills">
 				<li ng-repeat="r_t in recent_thesis" style="width: 100%;" >
-					<a href="" ng-click="goToThesis(r_t)">{{r_t.thesis_name}}</a>
+					<a ng-href="#/thesis/{{r_t.thesis_id}}/">{{r_t.thesis_name}}</a>
 				</li>
 			</ul>
 		</div>
 		<div ng-show="current_tab == 2">
 			<ul class="nav nav-pills">
 				<li ng-repeat="s_t in score_thesis" style="width: 100%;" >
-					<a href="" ng-click="goToThesis(s_t)">{{s_t.thesis_name}}</a>
+					<a ng-href="#/thesis/{{s_t.thesis_id}}/">{{s_t.thesis_name}}</a>
 				</li>
 			</ul>
 		</div>
