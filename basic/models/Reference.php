@@ -33,7 +33,7 @@ class Reference extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'url', 'author', 'year', 'detail'], 'required'],
+            [['name', ], 'required'],
             [['year'], 'integer'],
             [['detail'], 'string'],
             [['name', 'url', 'author'], 'string', 'max' => 255],
