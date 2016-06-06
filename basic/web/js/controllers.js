@@ -58,11 +58,6 @@ controllers.controller('HomeController', ['$scope', '$http', '$location',
               $location.path('/department/' + thesis_department.department_id);
             }
         }
-        $scope.goToThesis = function(thesis) {
-            if (thesis) {
-              $location.path('/thesis/' + thesis.thesis_id);
-            }
-        }
     }
 
 ]);
@@ -94,6 +89,16 @@ controllers.controller('ThesisController', function ($scope, $http, $routeParams
 
         $http.get('api/thesis/thesis?id=' + $routeParams.thesis_id).success(function (data) {
             $scope.thesis = data;
+            $scope.comments = $scope.thesis.comments;
+            $scope.refs = $scope.thesis.refs;
+            $scope.maps = $scope.thesis.maps;            
+            $scope.reccs = data.reccs;        
+        });
+
+        $http.get('api/home').success(function (data) {
+           $scope.departments = data.departments;
+           $scope.recent_thesis = data.recent_thesis;
+           $scope.score_thesis = data.score_thesis;
         });
 
         $http.get('api/thesis').success(function (data) {
@@ -112,6 +117,8 @@ controllers.controller('ThesisController', function ($scope, $http, $routeParams
         $scope.files  = [];
 
         $scope.saveThesis = function (thesis){            
+
+
             
             $http.post('/api/thesis/create',{thesis: $scope.new_thesis,
                                             thesis_tag: $scope.thesis_tag,
@@ -125,18 +132,12 @@ controllers.controller('ThesisController', function ($scope, $http, $routeParams
                     $scope.error = data.data.error;
                 }
             });
-            
-
-
         }
-
-
 
         $scope.removeUser = function (index) {    
-            $scope.users[index]._destroy = true;
+            $scope.users.splice(index, 1);  
         }
 
-        
         $scope.initNewUser = function () {
             
             $scope.new_user = {};
@@ -156,8 +157,8 @@ controllers.controller('ThesisController', function ($scope, $http, $routeParams
             $scope.new_user = null;
           }
 
-        $scope.removeTag = function (index) {    
-            $scope.thesis_tag[index]._destroy = true;
+        $scope.removeTag = function (index) {   
+            $scope.thesis_tag.splice(index, 1);  
         }
 
         
@@ -178,10 +179,10 @@ controllers.controller('ThesisController', function ($scope, $http, $routeParams
             
 
             $scope.new_thesis_tag = null;
-          }
+        }
 
         $scope.removeReference = function (index) {    
-            $scope.reference[index]._destroy = true;
+            $scope.reference.splice(index, 1);  
         }
 
         
@@ -226,7 +227,7 @@ controllers.controller('ThesisController', function ($scope, $http, $routeParams
         })
 
         $scope.removeFile = function (index) {    
-            $scope.files[index]._destroy = true;
+            $scope.files.splice(index, 1);  
         }
 
         

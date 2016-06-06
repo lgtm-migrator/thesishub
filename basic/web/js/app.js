@@ -82,6 +82,14 @@ app.directive("recentSide", function(){
     };
 });
 
+app.directive("recommend", function(){
+    return {
+    restrict: 'E',
+    scope: false,
+    templateUrl: 'partials/thesis/recommend.html'
+    };
+});
+
 app.directive("comment", function(){
     return {
     restrict: 'E',

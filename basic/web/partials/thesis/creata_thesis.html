@@ -59,9 +59,6 @@
 				<label class="col-sm-3 thesis_lebal">Khoa quản lý</label>
 				<div class="col-sm-9">
 					
-					<!--
-					<input ng-model="new_thesis.department_id" type="text"
-					placeholder="{{departments.department_id}}"> -->
 					<select ng-model="new_thesis.department_id">
 						<option ng-repeat="department in departments">{{department.department_id}}</option>
 					</select>
@@ -81,7 +78,7 @@
 				<div class="form-group text-center">
 					<h3>Người dùng liên quan</h3>
 				</div>
-				<div class="form-group" ng-show="!user._destroy" ng-repeat="user in users">
+				<div class="form-group" ng-repeat="user in users">
 					<div class = "form-group">
 						<label class="col-sm-3 thesis_lebal">Người dùng</label>
 						<div class="col-sm-9">
@@ -100,8 +97,11 @@
 						<input class="form-control" ng-model = "user.create">
 					</div>
 				</div>
-				<div class="form-group text-center" ng-if="new_thesis">
+				<div class="form-group text-center">
 					<a class="btn btn-danger" ng-click="removeUser($index)" href="javascript:;"><i class="">rm</i></a>
+				</div>
+				<div class="form-group">
+					<hr class="col-sm-offset-1 col-sm-9"/>
 				</div>
 			</div>
 			<div class="form-group text-center">
@@ -115,7 +115,7 @@
 				<h3>Tag liên quan</h3>
 			</div>
 			<div class="form-group">
-				<div class="form-group" ng-show="!tag._destroy" ng-repeat="tag in thesis_tag">
+				<div class="form-group" ng-repeat="tag in thesis_tag">
 					<div class="col-sm-10">
 						<input class="form-control" placeholder="Tên tag" ng-model = "tag.name">
 					</div>
@@ -133,7 +133,7 @@
 			<div class="form-group text-center">
 				<h3>Tài liệu tham khảo</h3>
 			</div>
-			<div class="form-group" ng-show="!ref._destroy" ng-repeat="ref in reference">
+			<div class="form-group" ng-repeat="ref in reference">
 				<div class = "form-group">
 					<label class="col-sm-3 thesis_lebal">Tên tài liệu</label>
 					<div class="col-sm-9">
@@ -164,8 +164,11 @@
 						<input class="form-control" ng-model = "ref.detail">
 					</div>
 				</div>
-				<div class="form-group text-center" ng-if="new_thesis">
+				<div class="form-group text-center" >
 					<a class="btn btn-danger" ng-click="removeReference($index)" href="javascript:;"><i class="">rm</i></a>
+				</div>
+				<div class="form-group">
+					<hr class="col-sm-offset-1 col-sm-9"/>
 				</div>
 			</div>
 			<div class="form-group text-center">
@@ -176,10 +179,7 @@
 			<div class="form-group text-center">
 				<h3>Upload file</h3>
 			</div>
-			<div class="form-group text-center">
-				<input type = "file" file-model="myFile" class="form-control" />
-			</div>
-			<div class="form-group" ng-if = "!file._destroy" ng-repeat="file in files">
+			<div class="form-group" ng-repeat="file in files">
 				
 				<div class = "form-group">
 					<label class="col-sm-3 thesis_lebal">Tên file</label>
@@ -199,10 +199,10 @@
 						<label class="thesis_lebal">{{file.type}}</label>
 					</div>
 				</div>
-				<div class = "form-group">
+				<div class = "form-group" ng-if="file.type = 'application/pdf'">
 					<label class="col-sm-3 thesis_lebal">Giới hạn file</label>
 					<div class="col-sm-9">
-						<input class="form-control" ng-model = "file.limitation">
+						<input class="form-control" placeholder="1,2,3-10,12-16" ng-model = "file.limitation" >
 					</div>
 				</div>
 				<div class = "form-group">
@@ -214,10 +214,14 @@
 				<div class="form-group text-center">
 					<a class="btn btn-danger" ng-click="removeFile($index)" href="javascript:;"><i class="">rm</i></a>
 				</div>
+				<div class="form-group" >
+					<hr class="col-sm-offset-1 col-sm-9"/>
+				</div>
+				
 			</div>
-			<!-- <div class="form-group text-center">
-				<a class="btn btn-primary" ng-click="initNewFile()"><i class=""></i> Thêm tài liệu</a>
-			</div> -->
+			<div class="form-group text-center">
+				<input type = "file" file-model="myFile" class="form-control" />
+			</div>
 		</div>
 	</div>
 </div>

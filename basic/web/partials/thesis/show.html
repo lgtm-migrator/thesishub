@@ -1,49 +1,84 @@
 <div class ="row">
-	<ol class="breadcrumb">
-		<li><a href="#/">Home</a></li>
-		<li><a href="thesis">Thesis</a></li>
-		<li class="active">{{thesis.thesis_name}}</li>
-	</ol>
-	<div class="row">
-		<div class="col-md-8">
-			<h4>{{thesis.detail.thesis_name}}</h4>
-		</div>
-		<div class="col-md-4">
-			<button class="btn btn-default">Download</button>
-		</div>
-	</div>
-	<p>Đăng bởi {{thesis.map.name}}, vào lúc {{thesis.detail.created}}</p>
-	
-	<!-- Go show some stars-->
-	<div>
-		
-	</div>
-	<!-- Go some tag -->
-	<div>
-		<ul class="nav nav-pills">
-			<li ng-repeat="tag in thesis.tags">
-				<a href="javascript:;">{{tag.name}}</a>
-			</li>
-		</ul>
-	</div>
-	<!-- Here go pictures -->
-	<div>
-		
-	</div>
-	<!-- Infomation -->
-	<div>
-		
-	</div>
-	
-	
-	
-	
-	
-</div>
 
-
-<!-- comments -->
-<div class="row">
-	<input-stars max="5" ng-model="YourCtrl.property"></input-stars>
-	<comment><comment>
+	<div class ="col-md-10">
+		<ol class="breadcrumb">
+			<li><a href="#/">Home</a></li>
+			<li><a href="thesis">Thesis</a></li>
+			<li class="active">{{thesis.thesis_name}}</li>
+		</ol>
+		<div class="row">
+			<div class="col-md-8">
+				<h2>{{thesis.detail.thesis_name}}</h2>
+				<h6 ng-repeat="uploader in maps | filter : {'type': 'uploader'}">Đăng bởi {{uploader.name}}, vào lúc {{thesis.detail.created}}</h6>
+			</div>
+			<div class="col-md-4">
+				<button class="btn btn-default">Download</button>
+			</div>
+		</div>
+		
+		
+		<!-- Go show some stars-->
+		<div>
+			
+		</div>
+		<!-- Tags -->
+		<div class="row">
+			<ul class="nav nav-pills">
+				<li ng-repeat="tag in thesis.tags">
+					<a href="javascript:;">{{tag.name}}</a>
+				</li>
+			</ul>
+		</div>
+		<!-- intro -->
+		<div>
+			<label>Giới thiệu: {{thesis.detail.intro}}</label>
+		</div>
+		<!-- Here go pictures -->
+		<div>
+			<h1>nội dung luận văn</h1>
+		</div>
+		<!-- Infomation -->
+		<div class="row-fluid">
+			<label></label>{{tutor}}
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Thông tin luận văn</h3>
+				</div>
+				<ul class="list-group">
+					<li class="list-group-item" ng-repeat="tutor in maps | filter : {'type': 'tutor'}">Tên giảng viên hướng dẫn: {{tutor.name}}</li>
+				</ul>
+				<table class="table">
+					<tr>
+						<td>Điểm giảng viên hướng dẫn</td>
+						<td>Điểm gì đó</td>
+						<td>Điểm hội đồng</td>
+						<td>Tổng điểm</td>
+					</tr>
+					<tr>
+						<td>{{thesis.detail.score_instructor}}</td>
+						<td>{{thesis.detail.score_reviewer}}</td>
+						<td>{{thesis.detail.score_council}}</td>
+						<td>{{thesis.detail.score_total}}</td>
+					</tr>
+				</table>
+				<div class="panel-heading">Sinh viên thực hiện</div>
+				<ul class="list-group">
+					<li class="list-group-item" ng-repeat="creator in maps | filter : {'type': 'creator'} ">{{creator.name}}</li>
+				</ul>
+				<div class="panel-heading">Tài liệu tham khảo</div>
+				<ul class="list-group">
+					<li class="list-group-item" ng-repeat="ref in refs">
+						<a ng-href="http://{{ref.url}}">{{ref.author}}, {{ref.name}}, {{ref.year}}</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- comments -->
+		<comment>
+	</div>
+	<div class="col-md-2">
+		<recent-side></recent-side>
+		<br>
+		<recommend></recommend>
+	</div>
 </div>
