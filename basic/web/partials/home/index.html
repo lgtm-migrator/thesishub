@@ -14,8 +14,8 @@
 							<h4 class="department_name panel-title" ng-click="goToListThesisDepartment(department)">{{department.department_name}}</h4>
 						</div>
 						<div class="panel-body">
-							<div class="col-sm-3" ng-repeat="one_thesis in department.thesis">
-								<h6 class="thesis_name"><span class="glyphicon glyphicon-hand-right thesis_name_icon"></span> {{one_thesis.thesis_name}}</h6>
+							<div class="col-sm-3" ng-repeat="one_thesis in department.thesis" ng-click="goToViewThesis(one_thesis.thesis_id)">
+								<h6 class="thesis_name" ><span class="glyphicon glyphicon-hand-right thesis_name_icon"></span> {{one_thesis.thesis_name}}</h6>
 								<!-- <span>{{one_thesis.intro | limitTo:80}}</span> -->
 							</div>
 						</div>

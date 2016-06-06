@@ -112,14 +112,10 @@ class ThesisController extends \app\modules\api\ApiController
             }
 
             $users = Yii::$app->request->post()['users'];
-            // return ['save reference ' => 'Loi','data' => $users];
-
-
             if($users){
                 foreach ($users as $ob) {
                     $thesis_map = new ThesisMapping();
-                    foreach ($ob as $k => $v) {                                
-                                
+                    foreach ($ob as $k => $v) {  
                         $thesis_map->$k = $v;
                     }
                     $thesis_map->thesis_id = $model->thesis_id;
@@ -158,8 +154,7 @@ class ThesisController extends \app\modules\api\ApiController
             if($files){
                 foreach ($files as $ob) {
                     $att = new Attachment();
-                    foreach ($ob as $k => $v) {                                
-                                
+                    foreach ($ob as $k => $v) {   
                         $att->$k = $v;
                     }
                     $att->thesis_id = $model->thesis_id;
@@ -224,6 +219,4 @@ class ThesisController extends \app\modules\api\ApiController
           'data' => Yii::$app->request->post()
           ];
     }
-
-
 }
