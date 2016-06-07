@@ -32,7 +32,7 @@ class ThesisController extends \app\modules\api\ApiController
             return [
               'detail'=> Thesis::find()->where(['thesis_id' => $id])->one(),
               'tags' => (new \yii\db\Query())
-                  ->select('b.name')
+                  ->select('b.name', 'b.tag_id')
                   ->from('ThesisTag a')
                   ->join('inner join','Tag b','a.tag_id = b.tag_id')
                   ->where(['`a`.`thesis_id`' => $id])
@@ -51,7 +51,7 @@ class ThesisController extends \app\modules\api\ApiController
                   ->where(['`tr`.`thesis_id`' => $id])
                   ->all(),
               'maps' => (new \yii\db\Query())
-                  ->select('u.name,tm.type')
+                  ->select('u.name,tm.type,u.user_id')
                   ->from('ThesisMapping tm')
                   ->join('inner join','User u','tm.user_id = u.user_id')
                   ->where(['`tm`.`thesis_id`' => $id])
@@ -175,6 +175,16 @@ class ThesisController extends \app\modules\api\ApiController
             'data' => Yii::$app->request->post()['thesis']
             ];
     }
+
+    public function actionUpdate($id = null){
+      if ($id != null) {
+            return [
+              'detail'=> Thesis::find()->where(['thesis_id' => $id])->one()
+              ];
+            }
+          
+    }
+
 
     public function actionComment()
     {
