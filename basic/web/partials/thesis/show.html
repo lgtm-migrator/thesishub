@@ -1,5 +1,4 @@
 <div class ="row">
-
 	<div class ="col-md-10">
 		<ol class="breadcrumb">
 			<li><a href="#/">Home</a></li>
@@ -19,7 +18,8 @@
 		
 		<!-- Go show some stars-->
 		<div>
-			
+			<input-stars max="5" ng-model="thesis.deltail.star_rate" readonly="true"></input-stars>
+			<span>{{thesis.deltail.star_rate}}</span>
 		</div>
 		<!-- Tags -->
 		<div class="row">
@@ -45,7 +45,7 @@
 					<h3 class="panel-title">Thông tin luận văn</h3>
 				</div>
 				<ul class="list-group">
-					<li class="list-group-item" ng-repeat="tutor in maps | filter : {'type': 'tutor'}">Tên giảng viên hướng dẫn: {{tutor.name}}</li>
+					<li class="list-group-item" >Tên giảng viên hướng dẫn: <span ng-repeat="tutor in maps | filter : {'type': 'tutor'}">{{tutor.name}} </span></li>
 				</ul>
 				<table class="table">
 					<tr>
@@ -63,7 +63,7 @@
 				</table>
 				<div class="panel-heading">Sinh viên thực hiện</div>
 				<ul class="list-group">
-					<li class="list-group-item" ng-repeat="creator in maps | filter : {'type': 'creator'} ">{{creator.name}}</li>
+					<li class="list-group-item" ng-repeat="creator in maps | filter: {'type':'creator'} ">{{creator.name}}</li>
 				</ul>
 				<div class="panel-heading">Tài liệu tham khảo</div>
 				<ul class="list-group">
@@ -74,6 +74,8 @@
 			</div>
 		</div>
 		<!-- comments -->
+		<input-stars max="5" ng-model="rate_now.value" ng-click="rate_star()"></input-stars>
+		{{rate_now.value}}
 		<comment>
 	</div>
 	<div class="col-md-2">

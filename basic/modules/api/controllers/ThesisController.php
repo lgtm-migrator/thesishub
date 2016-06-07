@@ -13,6 +13,8 @@ use app\models\ThesisReference;
 use app\models\ThesisMapping;
 use app\models\User;
 use app\models\Attachment;
+use app\models\Comment;
+use app\models\Rating;
 
 class ThesisController extends \app\modules\api\ApiController
 {
@@ -40,6 +42,7 @@ class ThesisController extends \app\modules\api\ApiController
                   ->from('Comment c')
                   ->join('inner join','User u', 'u.user_id = c.user_id')
                   ->where(['`c`.`thesis_id`' => $id])
+                  ->orderBy(['c.created' => SORT_DESC])
                   ->all(),
               'refs' => (new \yii\db\Query())
                   ->select('r.*')
@@ -63,6 +66,11 @@ class ThesisController extends \app\modules\api\ApiController
                           and t.thesis_id != :id',[':id' => $id])
                   ->orderBy(['t.score_total' => SORT_DESC])
                   ->all(),
+              'ratings' => (new \yii\db\Query())
+                  ->select('r.user_id,r.star')
+                  ->from('Rating r')
+                  ->where(['`r`.`thesis_id`' => $id])
+                  ->all(),
             ];
         }
 
@@ -70,6 +78,7 @@ class ThesisController extends \app\modules\api\ApiController
             'query' => Thesis::find(),
         ]);
     }
+
     public function actionCreate()
     {
         $model = new Thesis();
@@ -171,4 +180,50 @@ class ThesisController extends \app\modules\api\ApiController
             'data' => Yii::$app->request->post()['thesis']
             ];
     }
+
+    public function actionComment()
+    {
+    $model = new Comment();
+
+    $data = Yii::$app->request->post();
+    foreach ($data as $key => $value) {
+        $model->$key = $value;
+    }
+
+    if ($model->save())
+        return ['message' => 'ok', 'data' => $model];
+
+    return [
+        'message' => 'error', 
+        'error' => $model->getErrors(),
+        'data' => Yii::$app->request->post()
+        ];
+      }
+
+    public function actionRating()
+    {
+      // $data = Yii::$app->request->post()['thesis_id'];
+
+      // $rating = Rating::find()->where(['name' => $v])->one();
+      // $model = new Rating();
+
+      
+      // foreach ($data as $key => $value) {
+      //     $model->$key = $value;
+      // }
+
+      // if ($model->save())
+      //     return ['message' => 'ok', 'data' => $model];
+
+      // $thesis = Thesis::find()->where(['thesis_id' => $id])->one();
+
+
+      return [
+          'message' => 'error', 
+          'error' => $model->getErrors(),
+          'data' => Yii::$app->request->post()
+          ];
+    }
+
+
 }

@@ -20,6 +20,8 @@ use Yii;
  * @property string $status
  * @property string $note
  * @property string $department_id
+ * @property double $star_rate 
+ * @property integer $star_rate_count 
  *
  * @property Attachment[] $attachments
  * @property Comment[] $comments
@@ -50,8 +52,8 @@ class Thesis extends \yii\db\ActiveRecord
         return [
             [['thesis_name', 'department_id'], 'required'],
             [['intro', 'note'], 'string'],
-            [['score_instructor', 'score_reviewer', 'score_council', 'score_total'], 'number'],
-            [['have_disk', 'counter'], 'integer'],
+            [['score_instructor', 'score_reviewer', 'score_council', 'score_total', 'star_rate'], 'number'],
+            [['have_disk', 'counter', 'star_rate_count'], 'integer'],
             [['created'], 'safe'],
             [['thesis_name'], 'string', 'max' => 250],
             [['status'], 'string', 'max' => 25],
@@ -79,6 +81,8 @@ class Thesis extends \yii\db\ActiveRecord
             'status' => 'Status',
             'note' => 'Note',
             'department_id' => 'Department ID',
+           'star_rate' => 'Star Rate', 
+           'star_rate_count' => 'Star Rate Count', 
         ];
     }
 

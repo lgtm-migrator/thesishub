@@ -1,0 +1,22 @@
+{
+  "name": "thesis",
+  "homepage": "https://github.com/duyetdev/thesis-manager-yii2",
+  "authors": [
+    "vominhquan <13520668@gm.uit.edu.vn>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor/bower",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-input-stars-directive": "angular-input-stars#^1.5.5"
+  }
+}

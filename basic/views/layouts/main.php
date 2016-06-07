@@ -28,6 +28,7 @@ AppAsset::register($this);
     <![endif]-->
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,700,900' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Playfair+Display:400italic' rel='stylesheet' type='text/css'>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
     <script>paceOptions = {ajax: {trackMethods: ['GET', 'POST']}};</script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.js"></script>
@@ -38,11 +39,11 @@ AppAsset::register($this);
 <body>
 <?php $this->beginBody() ?>
 
-<div class="wrap">
+<div class="wrap" ng-controller="MainController">
     <?php
     NavBar::begin([
         'brandLabel' => 'ThesisHub',
-        'brandUrl' => Yii::$app->homeUrl,
+        'brandUrl' => '#/',
         'options' => [
             'class' => 'navbar navbar-default sticky-nav',
         ],

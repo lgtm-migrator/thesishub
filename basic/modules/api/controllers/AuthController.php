@@ -17,7 +17,9 @@ class AuthController extends ApiController
     {
         $model = new LoginForm();
         if ($model->load(Yii::$app->getRequest()->getBodyParams(), '') && $model->login()) {
-            return ['access_token' => Yii::$app->user->identity->getAuthKey()];
+            return [
+                'user' => $model->getUser(),
+                'access_token' => Yii::$app->user->identity->getAuthKey()];
         } else {
             $model->validate();
             return $model;

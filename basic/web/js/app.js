@@ -42,6 +42,9 @@ app.config(['$routeProvider', '$httpProvider',
                 templateUrl: 'partials/thesis/show.html',
                 controller: 'ThesisController'
             })
+            .when('/404', {
+                templateUrl: 'partials/pages/404.html'
+            })
             .otherwise({
                 templateUrl: 'partials/pages/404.html'
             });
