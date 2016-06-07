@@ -34,8 +34,16 @@ app.config(['$routeProvider', '$httpProvider',
               templateUrl: 'partials/department/department.html',
               controller: 'DepartmentController'
             })
+            .when('/thesis', {
+              templateUrl: 'partials/thesis/thesis.html',
+              controller: 'ThesisController'
+            })
             .when('/thesis/create', {
-              templateUrl: 'partials/thesis/creata_thesis.html',
+              templateUrl: 'partials/thesis/create_thesis.html',
+              controller: 'ThesisController'
+            })
+            .when('/thesis/update/:thesis_id?', {
+              templateUrl: 'partials/thesis/update_thesis.html',
               controller: 'ThesisController'
             })
             .when('/thesis/:thesis_id?', {

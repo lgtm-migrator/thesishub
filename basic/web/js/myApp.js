@@ -20,6 +20,7 @@ myApp.service('fileUpload', ['$http', function ($http) {
     this.uploadFileToUrl = function(file, uploadUrl){
         var fd = new FormData();
         fd.append('file', file);
+
         $http.post(uploadUrl, fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
@@ -35,9 +36,9 @@ myApp.controller('myCtrlUpload', ['$scope', 'fileUpload', function($scope, fileU
     
     $scope.uploadFile = function(){
         var file = $scope.myFile;
-        console.log('file is ' );
+        console.log('file is ',file);
         console.dir(file);
-        var uploadUrl = "/fileUpload";
+        var uploadUrl = "/site/upload";
         fileUpload.uploadFileToUrl(file, uploadUrl);
     };
     
