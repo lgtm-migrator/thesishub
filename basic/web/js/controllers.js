@@ -47,7 +47,7 @@ controllers.directive('inputStars', function () {
             '</li>' +
         '</ul>',
         require: 'ngModel',
-        scope:true,
+        scope:{readonly: '='},
 
         link: link
 
@@ -85,6 +85,8 @@ controllers.directive('inputStars', function () {
         }
 
         scope.paintStars = function ($index) {
+          if(scope.readonly)
+            return;
             
             var items = element.find('li').find('i');
 
@@ -109,7 +111,8 @@ controllers.directive('inputStars', function () {
         }
 
         scope.setValue = function(index, e) {
-
+          if(scope.readonly)
+            return;
             var star = e.target;
 
             if (e.pageX < star.getBoundingClientRect().left + star.offsetWidth / 2) {
@@ -132,7 +135,8 @@ controllers.controller('MainController', function ($rootScope, $scope, $location
         };
 
         $rootScope.getUser = function() {
-            return JSON.parse($window.sessionStorage.user);
+           return $window.sessionStorage.user?
+            JSON.parse($window.sessionStorage.user):null;
         };
 
         $scope.logout = function () {
@@ -201,189 +205,193 @@ controllers.controller('LoginController', ['$scope', '$http', '$window', '$locat
 ]);
 
 controllers.controller('ThesisController', function ($rootScope, $scope, $http, $routeParams, $location, $filter) {
-        $http.get('api/department').success(function (data) {
-           $scope.departments = data;
-        });
+    $http.get('api/department').success(function (data) {
+       $scope.departments = data;
+    });
 
-        $http.get('api/thesis/thesis?id=' + $routeParams.thesis_id)
-        .success(function (data) {
-            // if (!data || !data.detail) {
-            //     window.location = '#/404'
-            //     return;
-            // }
-            $scope.thesis = data;
-            $scope.comments = $scope.thesis.comments;
-            $scope.refs = $scope.thesis.refs;
-            $scope.maps = $scope.thesis.maps;            
-            $scope.reccs = data.reccs;
-            $scope.rate_now;
-        }).error(function() {
+    $http.get('api/thesis/thesis?id=' + $routeParams.thesis_id)
+    .success(function (data) {
+        // if (!data || !data.detail) {
+        //     window.location = '#/404'
+        //     return;
+        // }
+        $scope.thesis = data;
+        $scope.comments = $scope.thesis.comments;
+        $scope.refs = $scope.thesis.refs;
+        $scope.maps = $scope.thesis.maps;            
+        $scope.reccs = data.reccs;
+        $scope.uid = $rootScope.getUser()?$rootScope.getUser().user_id:null;            
+        $scope.rate_now = {};
+    }).error(function() {
 
-        });
+    });
 
-        $http.get('api/home').success(function (data) {
-           $scope.departments = data.departments;
-           $scope.recent_thesis = data.recent_thesis;
-           $scope.score_thesis = data.score_thesis;
-        });
-        $http.get('api/thesis').success(function (data) {
-            $scope.users_index = data.users;
-        });
-        $scope.new_thesis = null;
-        $scope.new_comment = {};
-        $scope.thesis_tag = null;
-        $scope.new_tag = null;
-        $scope.thesis_inf = null;
-        $scope.new_reference  = null;
-        $scope.reference  = null;
-        $scope.new_user  = null;
-        $scope.users  = null;
-        $scope.new_file  = null;
-        $scope.files  = [];
+    $http.get('api/home').success(function (data) {
+       $scope.departments = data.departments;
+       $scope.recent_thesis = data.recent_thesis;
+       $scope.score_thesis = data.score_thesis;
+    });
+    $http.get('api/thesis').success(function (data) {
+        $scope.users_index = data.users;
+    });
+    $scope.new_thesis = null;
+    $scope.new_comment = {};
+    $scope.thesis_tag = null;
+    $scope.new_tag = null;
+    $scope.thesis_inf = null;
+    $scope.new_reference  = null;
+    $scope.reference  = null;
+    $scope.new_user  = null;
+    $scope.users  = null;
+    $scope.new_file  = null;
+    $scope.files  = [];
 
-        $scope.saveThesis = function (thesis){            
-            $http.post('/api/thesis/create',{thesis: $scope.new_thesis,
-                                            thesis_tag: $scope.thesis_tag,
-                                            reference: $scope.reference,
-                                            files: $scope.files,
-                                            users: $scope.users
-                                         }).then(function(data) {
-                if (data && data.data && data.data.message == 'ok') {
-                    $location.path( "/" );
-                } else {
-                    $scope.error = data.data.error;
-                }
-            });
-        }
-        $scope.removeUser = function (index) {    
-            $scope.users.splice(index, 1);  
-        }
-
-        $scope.initNewUser = function () {
-            
-            $scope.new_user = {};
-            if($scope.new_user){
-                $scope.saveUser();
+    $scope.saveThesis = function (thesis){            
+        $http.post('/api/thesis/create',{thesis: $scope.new_thesis,
+                                        thesis_tag: $scope.thesis_tag,
+                                        reference: $scope.reference,
+                                        files: $scope.files,
+                                        users: $scope.users
+                                     }).then(function(data) {
+            if (data && data.data && data.data.message == 'ok') {
+                $location.path( "/" );
+            } else {
+                $scope.error = data.data.error;
             }
-        }
-       
-        $scope.saveUser = function () {
-            $scope.users= $scope.users || [];
-            $scope.users.push($scope.new_user);
-            $scope.new_user = null;
-          }
+        });
+    }
+    $scope.removeUser = function (index) {    
+        $scope.users.splice(index, 1);  
+    }
 
-        $scope.removeTag = function (index) {   
-            $scope.thesis_tag.splice(index, 1);  
-        }
-
+    $scope.initNewUser = function () {
         
-        $scope.initNewTag = function () {
-            
-            $scope.new_thesis_tag = {};
-            if($scope.new_thesis_tag){
-                $scope.saveTag();
-            }
+        $scope.new_user = {};
+        if($scope.new_user){
+            $scope.saveUser();
         }
-       
-        $scope.saveTag = function () {
-          
-            $scope.thesis_tag=
-                $scope.thesis_tag || [];
+    }
+   
+    $scope.saveUser = function () {
+        $scope.users= $scope.users || [];
+        $scope.users.push($scope.new_user);
+        $scope.new_user = null;
+      }
 
-            $scope.thesis_tag.push($scope.new_thesis_tag);
-            
+    $scope.removeTag = function (index) {   
+        $scope.thesis_tag.splice(index, 1);  
+    }
 
-            $scope.new_thesis_tag = null;
-        }
-
-        $scope.removeReference = function (index) {    
-            $scope.reference.splice(index, 1);  
-        }
-
+    
+    $scope.initNewTag = function () {
         
-        $scope.initNewReference = function () {
-            $scope.new_reference = {};
-            if($scope.new_reference){
-                $scope.saveReference();
-            }
+        $scope.new_thesis_tag = {};
+        if($scope.new_thesis_tag){
+            $scope.saveTag();
         }
-       
-        $scope.saveReference = function () {
-            $scope.reference = $scope.reference || [];
-            $scope.reference.push($scope.new_reference);
-            $scope.new_reference = null;
-        }
+    }
+   
+    $scope.saveTag = function () {
+      
+        $scope.thesis_tag=
+            $scope.thesis_tag || [];
 
-
-        $scope.uploadFile = function() {
-            console.log('file is ', $scope.myFile);
-            var uploadUrl = "/upload";
-            var cb = function(response) {
-                if (response.error == false) {
-                    $scope.files.push(response.data)
-                }
-                else {
-                    alert('Upload fail, please try again later.')
-                }
-            }
-
-            fileUpload.uploadFileToUrl($scope.myFile, uploadUrl, cb);
-        };
-
+        $scope.thesis_tag.push($scope.new_thesis_tag);
         
-        $scope.$watch( 'myFile', function(newValue, oldValue) {
-            if (newValue) $scope.uploadFile();
-        })
 
-        $scope.removeFile = function (index) {    
-            $scope.files.splice(index, 1);  
+        $scope.new_thesis_tag = null;
+    }
+
+    $scope.removeReference = function (index) {    
+        $scope.reference.splice(index, 1);  
+    }
+
+    
+    $scope.initNewReference = function () {
+        $scope.new_reference = {};
+        if($scope.new_reference){
+            $scope.saveReference();
         }
+    }
+   
+    $scope.saveReference = function () {
+        $scope.reference = $scope.reference || [];
+        $scope.reference.push($scope.new_reference);
+        $scope.new_reference = null;
+    }
 
-        $scope.initNewFile = function () {
-            $scope.new_file = {};
-            if($scope.new_file){
-                $scope.saveFile ();
+
+    $scope.uploadFile = function() {
+        console.log('file is ', $scope.myFile);
+        var uploadUrl = "/upload";
+        var cb = function(response) {
+            if (response.error == false) {
+                $scope.files.push(response.data)
+            }
+            else {
+                alert('Upload fail, please try again later.')
             }
         }
-       
-        $scope.saveFile = function () {
-            $scope.files = $scope.files || [];
-            $scope.files.push($scope.new_file);
-            $scope.new_file = null;
-          }
-        $scope.saveComment = function (cmt){
-            if($scope.new_comment.content=="")
-                return;
-            $scope.new_comment.thesis_id = $routeParams.thesis_id;
-            $scope.new_comment.user_id = $rootScope.getUser().user_id;
-            $scope.new_comment.created = new Date();
-            var data = $.extend({}, $scope.new_comment);
-            $http.post('/api/thesis/comment', data).then(function(data) {
-                console.log(data)
-                if (data && data.data && data.data.message == 'ok') {
-                    $scope.new_comment = {};
-                } else {
-                    $scope.error = data.data.error;
-                }
-            });
-            $scope.new_comment.username= $rootScope.getUser().username;
-            $scope.new_comment.name= $rootScope.getUser().name;          
-            $scope.comments.unshift($scope.new_comment);
-        }
 
-        $scope.rate_star = function(){
-            $http.post('/api/thesis/rating',
-              {rate_now: $scope.rate_now,
-              user_id: $rootScope.getUser().user_id,
-              thesis_id: $routeParams.thesis_id}).then(function(data) {
-                console.log(data)
-                if (data && data.data && data.data.message == 'ok') {
-                    return;
-                } else {
-                    $scope.error = data.data.error;
-                }
-            });
-          }
+        fileUpload.uploadFileToUrl($scope.myFile, uploadUrl, cb);
+    };
+
+    
+    $scope.$watch( 'myFile', function(newValue, oldValue) {
+        if (newValue) $scope.uploadFile();
+    })
+
+    $scope.removeFile = function (index) {    
+        $scope.files.splice(index, 1);  
+    }
+
+    $scope.initNewFile = function () {
+        $scope.new_file = {};
+        if($scope.new_file){
+            $scope.saveFile ();
         }
+    }
+   
+    $scope.saveFile = function () {
+        $scope.files = $scope.files || [];
+        $scope.files.push($scope.new_file);
+        $scope.new_file = null;
+      }
+    $scope.saveComment = function (cmt){
+        if($scope.new_comment.content=="")
+            return;
+        $scope.new_comment.thesis_id = $routeParams.thesis_id;
+        $scope.new_comment.user_id = $rootScope.getUser().user_id;
+        $scope.new_comment.created = new Date();
+        var data = $.extend({}, $scope.new_comment);
+        $http.post('/api/thesis/comment', data).then(function(data) {
+            console.log(data)
+            if (data && data.data && data.data.message == 'ok') {
+                $scope.new_comment = {};
+            } else {
+                $scope.error = data.data.error;
+            }
+        });
+        $scope.new_comment.username= $rootScope.getUser().username;
+        $scope.new_comment.name= $rootScope.getUser().name;          
+        $scope.comments.unshift($scope.new_comment);
+    }
+
+    $scope.rate_star = function(){
+        $http.post('/api/thesis/rating',
+          {rate_now: $scope.rate_now.value,
+          user_id: $rootScope.getUser().user_id,
+          thesis_id: $routeParams.thesis_id}).then(function(data) {
+            console.log(data)
+            if (data && data.data && data.data.message == 'ok') {
+                $http.get('api/thesis/thesis?id=' + $routeParams.thesis_id)
+                .success(function (data) {
+                  $scope.thesis = data;
+                 });
+            } else {
+                $scope.error = data.data.error;
+            }
+        });
+      }
+    }
 );

@@ -202,25 +202,39 @@ class ThesisController extends \app\modules\api\ApiController
 
     public function actionRating()
     {
-      // $data = Yii::$app->request->post()['thesis_id'];
+      $data = Yii::$app->request->post();
 
-      // $rating = Rating::find()->where(['name' => $v])->one();
-      // $model = new Rating();
+      $rating = Rating::find()->where(['thesis_id' => $data['thesis_id'],
+                                      'user_id' => $data['user_id']])
+                                      ->one();
+      $isNew = 0;
+      if($rating == null)
+      {
+        $rating = new Rating();
+        $rating->thesis_id = $data['thesis_id'];
+        $rating->user_id = $data['user_id'];
+        $isNew=1;
+      }
 
-      
-      // foreach ($data as $key => $value) {
-      //     $model->$key = $value;
-      // }
+      $rating->star = $data['rate_now'];
 
-      // if ($model->save())
-      //     return ['message' => 'ok', 'data' => $model];
-
-      // $thesis = Thesis::find()->where(['thesis_id' => $id])->one();
-
+      if ($rating->save())
+      {
+        $thesis=Thesis::find()->where(['thesis_id'=>$data['thesis_id']])->one();
+        if($isNew==1)
+          $thesis->star_rate_count +=1;
+        $thesis->star_rate = end((new \yii\db\Query())
+                        ->select('sum(star)/count(star)')
+                        ->from('Rating')
+                        ->where(['thesis_id' => $data['thesis_id']])
+                        ->one());
+        $thesis->save();
+          return ['message' => 'ok', 'data' => $rating];
+      }
 
       return [
           'message' => 'error', 
-          'error' => $model->getErrors(),
+          'error' => $rating->getErrors(),
           'data' => Yii::$app->request->post()
           ];
     }
