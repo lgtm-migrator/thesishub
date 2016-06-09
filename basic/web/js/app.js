@@ -34,6 +34,10 @@ app.config(['$routeProvider', '$httpProvider',
               templateUrl: 'partials/department/department.html',
               controller: 'DepartmentController'
             })
+            .when('/search', {
+              templateUrl: 'partials/home/search.html',
+              controller: 'SearchController'
+            })
             .when('/thesis', {
               templateUrl: 'partials/thesis/thesis.html',
               controller: 'ThesisController'

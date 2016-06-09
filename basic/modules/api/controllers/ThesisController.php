@@ -29,6 +29,9 @@ class ThesisController extends \app\modules\api\ApiController
     public function actionThesis($id = null)
     {
         if ($id != null) {
+          $thesis = Thesis::find()->where(['thesis_id'=>$id])->one();
+          $thesis->counter+=1;
+          $thesis->save();
             return [
               'detail'=> Thesis::find()->where(['thesis_id' => $id])->one(),
               'tags' => (new \yii\db\Query())
@@ -73,6 +76,8 @@ class ThesisController extends \app\modules\api\ApiController
                   ->all(),
             ];
         }
+
+
 
         return new ActiveDataProvider([
             'query' => Thesis::find(),
@@ -203,7 +208,7 @@ class ThesisController extends \app\modules\api\ApiController
         'error' => $model->getErrors(),
         'data' => Yii::$app->request->post()
         ];
-      }
+    }
 
     public function actionRating()
     {
@@ -241,6 +246,20 @@ class ThesisController extends \app\modules\api\ApiController
           'message' => 'error', 
           'error' => $rating->getErrors(),
           'data' => Yii::$app->request->post()
+          ];
+    }
+
+    public function actionSearch($skey)
+    {
+      print_r("xxxxxxxxxxxxxxxxxx".$skey);
+      return [
+          'search' => (new \yii\db\Query())
+                  ->select('t.*')
+                  ->from('ThesisTag a')
+                  ->join('inner join','Tag b','a.tag_id = b.tag_id')
+                  ->join('inner join','Thesis t','t.thesis_id = a.thesis_id')
+                  ->where(array('or like', 'name', array($skey)))
+                  ->all(),
           ];
     }
 }

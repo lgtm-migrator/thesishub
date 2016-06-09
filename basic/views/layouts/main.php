@@ -51,9 +51,9 @@ AppAsset::register($this);
 
     ?>
 
-    <form class="navbar-form navbar-left" role="search" action="/search">
+    <form class="navbar-form navbar-left">
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Search" name="q" />
+            <input type="text" class="form-control" placeholder="Search" name="q" ng-click="abc()"/>
         </div>
     </form>
 
