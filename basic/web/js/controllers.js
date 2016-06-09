@@ -233,6 +233,11 @@ controllers.controller('ThesisController', function ($rootScope, $scope, $http, 
             $scope.reccs = data.reccs;
             $scope.uid = $rootScope.getUser()?$rootScope.getUser().user_id:null;            
             $scope.rate_now = {};
+            $scope.new_thesis = $scope.thesis.detail;
+            $scope.reference = $scope.thesis.refs;
+            $scope.users = $scope.thesis.users;  
+            $scope.thesis_tag = $scope.thesis.tags; 
+            $scope.files = $scope.thesis.files
         }).error(function() {
 
         });
@@ -268,26 +273,12 @@ controllers.controller('ThesisController', function ($rootScope, $scope, $http, 
 
         $scope.goToUpdateThesis = function (thesis_id){ 
             $location.path('/thesis/update/'+ thesis_id + '/');
-        }
-        
-
-        $scope.updateThesis = function (thesis){   
-            delete  $scope.maps['name'];
-            $http.post('/api/thesis/update?id=' + $routeParams.thesis_id ,{thesis: $scope.thesis.detail,
-                                            thesis_tag: $scope.thesis.tags,
-                                            reference: $scope.refs
-                                            // users: $scope.maps
-                                         }).then(function(data) {
-                if (data && data.data && data.data.message == 'ok') {
-                    $location.path( '/api/thesis/update?id=' + $routeParams.thesis_id );
-                } else {
-                    $scope.error = data.data.error;
-                }
-            });             
+                
         }
 
         $scope.saveThesis = function (thesis){    
-            $http.post('/api/thesis/create',{thesis: $scope.new_thesis,
+            $http.post('/api/thesis/create',{
+                                            thesis: $scope.new_thesis,
                                             thesis_tag: $scope.thesis_tag,
                                             reference: $scope.reference,
                                             files: $scope.files,
@@ -299,6 +290,31 @@ controllers.controller('ThesisController', function ($rootScope, $scope, $http, 
                     $scope.error = data.data.error;
                 }
             });            
+        }
+        
+
+        $scope.updateThesis = function (thesis){   
+            delete  $scope.maps['name'];
+            $http.post('/api/thesis/update?id=' + $routeParams.thesis_id ,{
+                                            thesis: $scope.new_thesis,
+                                            thesis_tag: $scope.thesis_tag,
+                                            reference: $scope.reference,
+                                            files: $scope.files,
+                                            users: $scope.users
+                                            // users: $scope.maps
+                                         }).then(function(data) {
+                if (data && data.data && data.data.message == 'ok') {
+                    $location.path( "/" );
+                } else {
+                    $scope.error = data.data.error;
+                }
+            });             
+        }
+
+        $scope.deleteThesis = function (thesis_id){  
+            $http.post('/api/thesis/delete?id=' + thesis_id).success(function(data) {
+                $location.path( "/thesis/" );
+            });
         }
 
     $scope.initNewUser = function () {
