@@ -30,8 +30,11 @@ class ThesisController extends \app\modules\api\ApiController
     {
         if ($id != null) {
           $thesis = Thesis::find()->where(['thesis_id'=>$id])->one();
-          $thesis->counter+=1;
-          $thesis->save();
+          if($thesis)
+          {
+            $thesis->counter+=1;
+            $thesis->save();
+          }
             return [
               'detail'=> Thesis::find()->where(['thesis_id' => $id])->one(),
               'tags' => (new \yii\db\Query())
