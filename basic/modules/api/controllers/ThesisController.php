@@ -308,6 +308,35 @@ class ThesisController extends \app\modules\api\ApiController
             ];
     }
 
+    public function actionDelete($id)
+    {
+        $ref = ThesisReference::find()->where(['thesis_id' => $id])->all();
+        if($ref){
+            foreach ($ref as $key) {
+                $key->delete();
+            }
+        }
+        $atts = Attachment::find()->where(['thesis_id' => $id])->all();
+        if($atts){
+            foreach ($atts as $key) {
+                $key->delete();
+            }
+        }
+        $maps = ThesisMapping::find()->where(['thesis_id' => $id])->all();
+        if($maps){
+            foreach ($maps as $key) {
+                $key->delete();
+            }
+        }
+
+        $tags = ThesisTag::find()->where(['thesis_id' => $id])->all();
+        if($tags){
+            foreach ($tags as $key) {
+                $key->delete();
+            }
+        }
+        $thesis = Thesis::find()->where(['thesis_id' => $id])->one()->delete();
+    }
 
     public function actionComment()
     {

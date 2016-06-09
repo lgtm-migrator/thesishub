@@ -306,6 +306,12 @@ controllers.controller('ThesisController', function ($rootScope, $scope, $http, 
             });             
         }
 
+        $scope.deleteThesis = function (thesis_id){  
+            $http.post('/api/thesis/delete?id=' + thesis_id).success(function(data) {
+                $location.path( "/thesis/" );
+            });
+        }
+
         $scope.removeUser = function (index) {    
             $scope.users.splice(index, 1);  
         }
