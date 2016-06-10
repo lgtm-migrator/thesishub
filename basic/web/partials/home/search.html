@@ -1,11 +1,21 @@
 <div class ="row">
 	<div class ="row">
 		<input ng-model="searchstring">
-		<button ng-click="search()">ok</button>
+		<button ng-click="doSearch()">ok</button>
 	</div>
+
+	<paging 
+		page="currentPage"
+	    page-size="10" 
+	    total="search.length"
+	    >
+	</paging>
+
 	<br>
 	<div class ="row" style="outline: 2px solid #eee; padding: 20px 20px;">
-		<div class ="row" ng-repeat="thesis in search" ng-click = "goToViewThesis(thesis.thesis_id)">
+	
+
+		<div class ="row" ng-repeat="thesis in search | limitTo:10:currentPage" ng-click = "goToViewThesis(thesis.thesis_id)">
 			<div class="col-sm-1" >
 				<img ng-src="/public/message.jpg" alt="Ảnh KL" height="100px" width="60px">
 			</div>

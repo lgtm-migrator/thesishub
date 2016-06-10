@@ -184,7 +184,8 @@ class ThesisController extends \app\modules\api\ApiController
 
             return [
                 'message' => 'ok', 
-                'data' => Yii::$app->request->post()['thesis']
+                'data' => $model,
+                'thesis_id' => $model->thesis_id
                 ];
 
         }
@@ -406,15 +407,29 @@ class ThesisController extends \app\modules\api\ApiController
 
     public function actionSearch($skey)
     {
-      print_r("xxxxxxxxxxxxxxxxxx".$skey);
-      return [
-          'search' => (new \yii\db\Query())
+      // print_r(array('mining', 'wfewef'));
+
+      // $skey = json_decode($skey);
+      // print_r("xxxxxxxxxxxxxxxxxx".."\n");
+      $skey = json_decode($skey);
+      // var_dump($skey);
+      // die;
+      $tags = (new \yii\db\Query())
                   ->select('t.*')
                   ->from('ThesisTag a')
                   ->join('inner join','Tag b','a.tag_id = b.tag_id')
                   ->join('inner join','Thesis t','t.thesis_id = a.thesis_id')
-                  ->where(array('or like', 'name', array($skey)))
-                  ->all(),
-          ];
+                  ->where(
+                      ['or like', 'name', $skey]
+                  );
+
+      $thesis = (new \yii\db\Query())
+                  ->select('*')
+                  ->from('Thesis')
+                  ->where(
+                      ['or like', 'thesis_name', $skey]
+                  );
+
+      return $tags->union($thesis)->all();
     }
 }

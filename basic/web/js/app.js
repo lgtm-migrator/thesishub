@@ -2,6 +2,7 @@ var app = angular.module('app', [
     'ngRoute',          //$routeProvider
     'mgcrea.ngStrap',   //bs-navbar, data-match-route directives
     'controllers',       //Our module app/web/js/controllers.js
+    'bw.paging'
 ]);
 
 app.config(['$routeProvider', '$httpProvider',
@@ -52,11 +53,19 @@ app.config(['$routeProvider', '$httpProvider',
             })
             .when('/thesis/:thesis_id?', {
                 templateUrl: 'partials/thesis/show.html',
-                controller: 'ThesisController'
+                controller: 'ThesisDetailController'
             })
             .when('/404', {
                 templateUrl: 'partials/pages/404.html'
             })
+            
+            // Static page
+            .when('/pages/', {
+                templateUrl: 'partials/thesis/show.html',
+                controller: 'ThesisController'
+            })
+            
+
             .otherwise({
                 templateUrl: 'partials/pages/404.html'
             });
@@ -91,9 +100,17 @@ app.run(['$rootScope',
 
 app.directive("recentSide", function(){
     return {
-    restrict: 'E',
-    scope: false,
-    templateUrl: 'partials/home/recent_side.html'
+        restrict: 'E',
+        scope: false,
+        templateUrl: 'partials/home/recent_side.html',
+        controller: function($http, $scope) {
+            // console.log('Load recentSide');
+            $http.get('api/home').success(function (data) {
+               $scope.departments = data.departments;
+               $scope.recent_thesis = data.recent_thesis;
+               $scope.score_thesis = data.score_thesis;
+            });
+        }
     };
 });
 
@@ -110,5 +127,13 @@ app.directive("comment", function(){
     restrict: 'E',
     scope: false,
     templateUrl: 'partials/thesis/comment.html'
+    };
+});
+
+app.directive("previewPDF", function() {
+    return {
+    restrict: 'E',
+    scope: false,
+    templateUrl: 'partials/thesis/previewPDF.html'
     };
 });

@@ -6,16 +6,16 @@
 			</div>
 			<div class="row" ng-repeat="department in departments" >
 				<div class="col-sm-1">
-					<img ng-src="{{department.image}}" class="img-thumbnail" alt="Ảnh Khoa {{department.department_name}}" height="100px" width="60px" style="border:none;">
+					<img ng-src="{{department.image}}" class="img-thumbnail" alt="Ảnh Khoa {{department.department_name}}" height="100px" width="60px" style="border:none;" ng-click="goToListThesisDepartment(department)">
 				</div>
 				<div class="col-sm-11">
 					<div class="panel panel-success">
 						<div class="panel-heading">
-							<h4 class="department_name panel-title" ng-click="goToListThesisDepartment(department)">{{department.department_name}}</h4>
+							<h4 class="department_name panel-title" ng-click="goToListThesisDepartment(department)"><a>{{department.department_name}}</a></h4>
 						</div>
 						<div class="panel-body">
 							<div class="col-sm-3" ng-repeat="one_thesis in department.thesis" ng-click="goToViewThesis(one_thesis.thesis_id)">
-								<h6 class="thesis_name" ><span class="glyphicon glyphicon-hand-right thesis_name_icon"></span> {{one_thesis.thesis_name}}</h6>
+								<h6 class="thesis_name" ><span class="glyphicon glyphicon-hand-right thesis_name_icon"></span><a>{{one_thesis.thesis_name}}</a> </h6>
 								<!-- <span>{{one_thesis.intro | limitTo:80}}</span> -->
 							</div>
 						</div>

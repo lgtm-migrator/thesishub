@@ -2,8 +2,8 @@
 	<div class ="col-md-10">
 		<ol class="breadcrumb">
 			<li><a href="#/">Home</a></li>
-			<li><a href="thesis">Thesis</a></li>
-			<li class="active">{{thesis.thesis_name}}</li>
+			<li><a href="#/thesis">Thesis</a></li>
+			<li class="active">{{thesis.detail.thesis_name}}</li>
 		</ol>
 		<div class="row">
 			<div class="col-md-8">
@@ -25,7 +25,7 @@
 		<div class="row">
 			<ul class="nav nav-pills">
 				<li ng-repeat="tag in thesis.tags">
-					<a href="javascript:;">{{tag.name}}</a>
+					<a href="#/search?q={{tag.name}}">{{tag.name}}</a>
 				</li>
 			</ul>
 		</div>
@@ -36,6 +36,15 @@
 		<!-- Here go pictures -->
 		<div>
 			<h1>nội dung luận văn</h1>
+
+			<iframe 
+				src="{{getPreviewURL()}}" 
+				style="width:100%; height:700px; margin-top: 25px" 
+				frameborder="0"
+				ng-show="getPreviewURL()"
+			></iframe>
+
+
 		</div>
 		<!-- Infomation -->
 		<div class="row-fluid">

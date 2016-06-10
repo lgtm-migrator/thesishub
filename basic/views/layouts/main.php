@@ -51,9 +51,9 @@ AppAsset::register($this);
 
     ?>
 
-    <form class="navbar-form navbar-left">
+    <form class="navbar-form navbar-left" method="GET" ng-submit="doSearch()">
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Search" name="q" ng-click="abc()"/>
+            <input type="text" class="form-control" placeholder="Search" name="q" ng-model="navbarSearchKeyword" />
         </div>
     </form>
 

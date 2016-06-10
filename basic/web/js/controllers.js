@@ -1,4 +1,4 @@
-var controllers = angular.module('controllers', []);
+var controllers = angular.module('controllers', ['bw.paging']);
 
 controllers.directive('fileModel', ['$parse', function ($parse) {
     return {
@@ -141,8 +141,12 @@ controllers.controller('MainController', function ($rootScope, $scope, $location
 
         $scope.logout = function () {
             delete $window.sessionStorage.access_token;
+            delete $window.sessionStorage.user;
             $location.path('/login').replace();
         };
+        $rootScope.doSearch = function() {
+            window.location.hash = '/search?q=' + $scope.navbarSearchKeyword || '';
+        }
 
     }
 );
@@ -203,7 +207,7 @@ controllers.controller('LoginController', ['$scope', '$http', '$window', '$locat
                 function (data) {
                     $window.sessionStorage.access_token = data.access_token;
                     $window.sessionStorage.user = JSON.stringify(data.user);
-                    $location.path('/dashboard').replace();
+                    $location.path('/').replace();
             }).error(
                 function (data) {
                     angular.forEach(data, function (error) {
@@ -215,17 +219,17 @@ controllers.controller('LoginController', ['$scope', '$http', '$window', '$locat
     }
 ]);
 
-controllers.controller('ThesisController', function ($rootScope, $scope, $http, $routeParams, $location,fileUpload, $filter) {
+controllers.controller('ThesisDetailController', function ($rootScope, $scope, $http, $routeParams, $location,fileUpload, $filter) {
         $http.get('api/department').success(function (data) {
            $scope.departments = data;
         });
 
         $http.get('api/thesis/thesis?id=' + $routeParams.thesis_id)
         .success(function (data) {
-            // if ((!data || !data.detail) ) {
-            //     window.location = '#/404'
-            //     return;
-            // }
+            if ((!data || !data.detail) ) {
+                window.location = '#/404'
+                return;
+            }
             $scope.thesis = data;
             $scope.comments = $scope.thesis.comments;
             $scope.refs = $scope.thesis.refs;
@@ -241,16 +245,87 @@ controllers.controller('ThesisController', function ($rootScope, $scope, $http, 
         }).error(function() {
 
         });
-    
+
+        $scope.getPreviewURL = function() {
+            if (!$scope.files) return false;
+            for (var i = 0; i < $scope.files.length; i++) {
+                if ($scope.files[i].type == 'application/pdf') {
+                    return $scope.files[i].url;
+                }
+            }
+
+            return false;
+        }
+
+        // $http.get('api/home').success(function (data) {
+        //    $scope.departments = data.departments;
+        //    $scope.recent_thesis = data.recent_thesis;
+        //    $scope.score_thesis = data.score_thesis;
+        // });
+
+
+        $scope.goToCreateThesis = function (){ 
+            $location.path('/thesis/create');
+        }
+
+        $scope.goToViewThesis = function (thesis_id){ 
+            $location.path('/thesis/'+ thesis_id + '/');
+        }
+
+        $scope.goToUpdateThesis = function (thesis_id){ 
+            $location.path('/thesis/update/'+ thesis_id + '/');
+                
+        }
+
+        $scope.saveComment = function (cmt){
+            if($scope.new_comment.content=="")
+                return;
+            $scope.new_comment.thesis_id = $routeParams.thesis_id;
+            $scope.new_comment.user_id = $rootScope.getUser().user_id;
+            $scope.new_comment.created = new Date();
+            var data = $.extend({}, $scope.new_comment);
+            $http.post('/api/thesis/comment', data).then(function(data) {
+                console.log(data)
+                if (data && data.data && data.data.message == 'ok') {
+                    $scope.new_comment = {};
+                } else {
+                    $scope.error = data.data.error;
+                }
+            });
+            $scope.new_comment.username= $rootScope.getUser().username;
+            $scope.new_comment.name= $rootScope.getUser().name;          
+            $scope.comments.unshift($scope.new_comment);
+        }
+
+        $scope.rate_star = function() {
+            $http.post('/api/thesis/rating',
+              {rate_now: $scope.rate_now.value,
+              user_id: $rootScope.getUser().user_id,
+              thesis_id: $routeParams.thesis_id}).then(function(data) {
+                console.log(data)
+                if (data && data.data && data.data.message == 'ok') {
+                    $http.get('api/thesis/thesis?id=' + $routeParams.thesis_id)
+                    .success(function (data) {
+                      $scope.thesis = data;
+                     });
+                } else {
+                    $scope.error = data.data.error;
+                }
+            });
+          }
+});
+
+controllers.controller('ThesisController', function ($rootScope, $scope, $http, $routeParams, $location,fileUpload, $filter) {
+
     $http.get('api/home').success(function (data) {
-           $scope.departments = data.departments;
-           $scope.recent_thesis = data.recent_thesis;
-           $scope.score_thesis = data.score_thesis;
-        });
-        $http.get('api/thesis').success(function (data) {
-            $scope.users_index = data.users;
-            $scope.data_thesis = data.query;
-        });
+       $scope.departments = data.departments;
+       $scope.recent_thesis = data.recent_thesis;
+       $scope.score_thesis = data.score_thesis;
+    });
+    $http.get('api/thesis').success(function (data) {
+        $scope.users_index = data.users;
+        $scope.data_thesis = data.query;
+    });
         $scope.new_thesis = null;
         $scope.new_comment = {};
         $scope.thesis_tag = null;
@@ -285,7 +360,9 @@ controllers.controller('ThesisController', function ($rootScope, $scope, $http, 
                                             users: $scope.users
                                          }).then(function(data) {
                 if (data && data.data && data.data.message == 'ok') {
-                    $location.path( "/" );
+                    $location.path( "/thesis/" + data.data.thesis_id );
+                    // window.location.hash = '/thesis/' + data.thesis_id;
+                    // alert('/thesis/' + data.data.thesis_id);
                 } else {
                     $scope.error = data.data.error;
                 }
@@ -412,42 +489,7 @@ controllers.controller('ThesisController', function ($rootScope, $scope, $http, 
         $scope.files.push($scope.new_file);
         $scope.new_file = null;
       }
-    $scope.saveComment = function (cmt){
-        if($scope.new_comment.content=="")
-            return;
-        $scope.new_comment.thesis_id = $routeParams.thesis_id;
-        $scope.new_comment.user_id = $rootScope.getUser().user_id;
-        $scope.new_comment.created = new Date();
-        var data = $.extend({}, $scope.new_comment);
-        $http.post('/api/thesis/comment', data).then(function(data) {
-            console.log(data)
-            if (data && data.data && data.data.message == 'ok') {
-                $scope.new_comment = {};
-            } else {
-                $scope.error = data.data.error;
-            }
-        });
-        $scope.new_comment.username= $rootScope.getUser().username;
-        $scope.new_comment.name= $rootScope.getUser().name;          
-        $scope.comments.unshift($scope.new_comment);
-    }
 
-    $scope.rate_star = function(){
-        $http.post('/api/thesis/rating',
-          {rate_now: $scope.rate_now.value,
-          user_id: $rootScope.getUser().user_id,
-          thesis_id: $routeParams.thesis_id}).then(function(data) {
-            console.log(data)
-            if (data && data.data && data.data.message == 'ok') {
-                $http.get('api/thesis/thesis?id=' + $routeParams.thesis_id)
-                .success(function (data) {
-                  $scope.thesis = data;
-                 });
-            } else {
-                $scope.error = data.data.error;
-            }
-        });
-      }
     }
 );
 
@@ -469,8 +511,7 @@ controllers.controller('SearchController', ['$scope', '$http', '$routeParams', '
       // }
       // $scope.abc=string;
 
-
-      $scope.search = function(){
+      $scope.search = function() {
         $scope.key= $scope.searchstring.split(" ");
 
       //   $http.get(string).success(function (data) {
@@ -479,13 +520,55 @@ controllers.controller('SearchController', ['$scope', '$http', '$routeParams', '
         $http({
           method: 'GET',
           url: 'api/thesis/search',
-          params: {skey: $scope.key}
+          params: {skey: JSON.stringify($scope.key)}
         }).success(function (data) {
            $scope.search = data;
         }).error(function() {
           $scope.abc = 1;
         });
+      };
+
+      if ($routeParams && $routeParams.q) {
+        $scope.searchstring = $routeParams.q;
+        if ($scope.searchstring) {
+            $scope.search();            
+        }
       }
       
     }
 ]);
+
+controllers.controller('ContactController', ['$scope', '$http', '$window',
+    function($scope, $http, $window) {
+        $scope.captchaUrl = 'site/captcha';
+        $scope.contact = function () {
+            $scope.submitted = true;
+            $scope.error = {};
+            $http.post('api/pages/contact', $scope.contactModel).success(
+                function (data) {
+                    $scope.contactModel = {};
+                    $scope.flash = data.flash;
+                    $window.scrollTo(0,0);
+                    $scope.submitted = false;
+                    $scope.captchaUrl = 'site/captcha' + '?' + new Date().getTime();
+            }).error(
+                function (data) {
+                    angular.forEach(data, function (error) {
+                        $scope.error[error.field] = error.message;
+                    });
+                }
+            );
+        };
+
+        $scope.refreshCaptcha = function() {
+            $http.get('site/captcha?refresh=1').success(function(data) {
+                $scope.captchaUrl = data.url;
+            });
+        };
+    }]);
+
+
+controllers.controller('PagesController', ['$scope', '$http', '$window',
+    function($scope, $http, $window) {
+
+    }]);

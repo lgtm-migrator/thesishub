@@ -9,7 +9,22 @@
 			</div>
 		</div>
 	
-		<div class ="row" ng-repeat="one_thesis in data_thesis">
+		<div class="row">
+			<div class="col-md-12">
+				<center>
+					<paging 
+						page="currentPage"
+					    page-size="10" 
+					    total="data_thesis.length"
+						show-prev-next="true"
+						show-first-last="true"
+					    >
+					</paging>
+				</center>
+			</div>
+		</div>
+
+		<div class ="row" ng-repeat="one_thesis in data_thesis | limitTo: 10 : currentPage">
 			<div class="col-sm-1" >
 				<img ng-src="/public/message.jpg" alt="Ảnh KL" height="100px" width="60px">
 			</div>
@@ -25,5 +40,21 @@
 				<a class="btn btn-success" ng-click="goToUpdateThesis(one_thesis.thesis_id)" href="javascript:;"><i class="">Sửa </i></a>
 			</div>
 		</div>
+		
+		<div class="row">
+			<div class="col-md-12">
+				<center>
+					<paging 
+						page="currentPage"
+					    page-size="10" 
+					    total="data_thesis.length"
+						show-prev-next="true"
+						show-first-last="true"
+					    >
+					</paging>
+				</center>
+			</div>
+		</div>
+
 	</div>
 </div>
