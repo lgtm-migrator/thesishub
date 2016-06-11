@@ -59,7 +59,7 @@
 				<label class="col-sm-3 thesis_lebal">Khoa quản lý</label>
 				<div class="col-sm-9">
 					
-					<select ng-model="new_thesis.department_id">
+					<select ng-model="new_thesis.department_id" class="form-control">
 						<option ng-repeat="department in departments">{{department.department_id}}</option>
 					</select>
 					
@@ -82,21 +82,34 @@
 					<div class = "form-group">
 						<label class="col-sm-3 thesis_lebal">Người dùng</label>
 						<div class="col-sm-9">
-						<select ng-model="user.user_id" ng-options="user_i.user_id as user_i.name for user_i in users_index" class=""></select>
+					<select ng-model="user.user_id" class="form-control">
+						<option 
+							ng-repeat="user_i in users_index" 
+							ng-bind="user_i.name" 
+							value="{{user_i.user_id}}" 
+							{{user_i.user_id == user.user_id ? 'selected="selected"' : ''}}></option>
+					</select>
 					</div>
 				</div>
 				<div class = "form-group">
 					<label class="col-sm-3 thesis_lebal">Loại</label>
 					<div class="col-sm-9">
-						<input class="form-control" ng-model = "user.type">
+						<select ng-model="user.type" class="form-control">
+						<option 
+							ng-repeat="type in ['instructor', 'upload', 'reviewer', 'student' ]" 
+							value="{{type}}" 
+							{{type == user.type ? 'selected="selected"' : ''}}>
+							{{type}}
+						</option>
+					</select>
 					</div>
 				</div>
-				<div class = "form-group">
+				<!-- <div class = "form-group">
 					<label class="col-sm-3 thesis_lebal">Thời gian tạo</label>
 					<div class="col-sm-9">
 						<input class="form-control" ng-model = "user.create">
 					</div>
-				</div>
+				</div> -->
 				<div class="form-group text-center">
 					<a class="btn btn-danger" ng-click="removeUser($index)" href="javascript:;"><i class="">rm</i></a>
 				</div>

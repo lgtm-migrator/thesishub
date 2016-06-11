@@ -1,6 +1,6 @@
 <div class ="row">
 	<div  class ="row" style="outline: 2px solid #eee; padding: 20px 20px;">
-		<div  class ="row">			
+		<div  class ="row">
 			<div class="col-sm-offset-3 col-sm-6" >
 				<h1>Danh sách khóa luận</h1>
 			</div>
@@ -8,29 +8,30 @@
 				<a class="btn btn-success" ng-click="goToCreateThesis()" href="javascript:;"><i class="">Thêm khóa luận</i></a>
 			</div>
 		</div>
-	
 		<div class="row">
 			<div class="col-md-12">
 				<center>
-					<paging 
-						page="currentPage"
-					    page-size="10" 
-					    total="data_thesis.length"
-						show-prev-next="true"
-						show-first-last="true"
-					    >
-					</paging>
+				<paging
+					page="currentPage"
+					page-size="10"
+					total="data_thesis.length"
+					show-prev-next="true"
+					show-first-last="true"
+					>
+				</paging>
 				</center>
 			</div>
 		</div>
-
 		<div class ="row" ng-repeat="one_thesis in data_thesis | limitTo: 10 : currentPage">
 			<div class="col-sm-1" >
-				<img ng-src="/public/message.jpg" alt="Ảnh KL" height="100px" width="60px">
+				<a ng-click="goToViewThesis(one_thesis.thesis_id)" href="javascript:;">
+					<img ng-src="/public/message.jpg" alt="Ảnh KL" height="100px" width="60px">
+				</a>
 			</div>
 			<div class="col-sm-10" >
-				
-				<h5 class="thesis_name"> {{one_thesis.thesis_name}}</h5>
+				<a ng-click="goToViewThesis(one_thesis.thesis_id)" href="javascript:;">
+					<h5 class="thesis_name"><span>{{one_thesis.thesis_name | limitTo:100}}</span></h5>
+				</a>
 				<i class="thesis_intro"> <span>{{one_thesis.intro | limitTo:200}}....</span></i>
 				<hr>
 			</div>
@@ -40,21 +41,19 @@
 				<a class="btn btn-success" ng-click="goToUpdateThesis(one_thesis.thesis_id)" href="javascript:;"><i class="">Sửa </i></a>
 			</div>
 		</div>
-		
 		<div class="row">
 			<div class="col-md-12">
 				<center>
-					<paging 
-						page="currentPage"
-					    page-size="10" 
-					    total="data_thesis.length"
-						show-prev-next="true"
-						show-first-last="true"
-					    >
-					</paging>
+				<paging
+					page="currentPage"
+					page-size="10"
+					total="data_thesis.length"
+					show-prev-next="true"
+					show-first-last="true"
+					>
+				</paging>
 				</center>
 			</div>
 		</div>
-
 	</div>
 </div>

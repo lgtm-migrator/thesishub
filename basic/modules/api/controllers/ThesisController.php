@@ -38,7 +38,7 @@ class ThesisController extends \app\modules\api\ApiController
             return [
               'detail'=> Thesis::find()->where(['thesis_id' => $id])->one(),
               'tags' => (new \yii\db\Query())
-                  ->select('b.name, b.tag_id')
+                  ->select('b.name')
                   ->from('ThesisTag a')
                   ->join('inner join','Tag b','a.tag_id = b.tag_id')
                   ->where(['`a`.`thesis_id`' => $id])
@@ -306,7 +306,8 @@ class ThesisController extends \app\modules\api\ApiController
 
             return [
                 'message' => 'ok', 
-                'data' => Yii::$app->request->post()['thesis']
+                'data' => Yii::$app->request->post()['thesis'],
+                'thesis_id' => $model->thesis_id
                 ];
 
         }

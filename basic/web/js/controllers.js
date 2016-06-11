@@ -316,17 +316,32 @@ controllers.controller('ThesisDetailController', function ($rootScope, $scope, $
 });
 
 controllers.controller('ThesisController', function ($rootScope, $scope, $http, $routeParams, $location,fileUpload, $filter) {
+        $http.get('api/thesis/thesis?id=' + $routeParams.thesis_id)
+        .success(function (data) {
+           
+            $scope.thesis = data;
+            // $scope.comments = $scope.thesis.comments;
+            $scope.refs = $scope.thesis.refs;
+            $scope.maps = $scope.thesis.maps;            
+            $scope.reccs = data.reccs;
+            $scope.uid = $rootScope.getUser() ? $rootScope.getUser().user_id : null;            
+            $scope.rate_now = {};
+            $scope.new_thesis = $scope.thesis.detail;
+            $scope.reference = $scope.thesis.refs;
+            $scope.users = $scope.thesis.users;  
+            $scope.thesis_tag = $scope.thesis.tags; 
+            $scope.files = $scope.thesis.files
+        }).error(function() {
 
-    $http.get('api/home').success(function (data) {
-       $scope.departments = data.departments;
-       $scope.recent_thesis = data.recent_thesis;
-       $scope.score_thesis = data.score_thesis;
-    });
-    $http.get('api/thesis').success(function (data) {
-        $scope.users_index = data.users;
-        $scope.data_thesis = data.query;
-    });
-        $scope.new_thesis = null;
+        });
+        $http.get('api/department').success(function (data) {
+           $scope.departments = data;
+        });
+        $http.get('api/thesis').success(function (data) {
+            $scope.users_index = data.users;
+            $scope.data_thesis = data.query;
+        });
+        $scope.new_thesis = {};
         $scope.new_comment = {};
         $scope.thesis_tag = null;
         $scope.new_tag = null;
@@ -352,6 +367,9 @@ controllers.controller('ThesisController', function ($rootScope, $scope, $http, 
         }
 
         $scope.saveThesis = function (thesis){    
+            $scope.new_thesis.score_total= (parseFloat($scope.new_thesis.score_instructor)*2 
+                        + parseFloat($scope.new_thesis.score_reviewer)*2 
+                        + parseFloat($scope.new_thesis.score_council))/5;
             $http.post('/api/thesis/create',{
                                             thesis: $scope.new_thesis,
                                             thesis_tag: $scope.thesis_tag,
@@ -372,6 +390,10 @@ controllers.controller('ThesisController', function ($rootScope, $scope, $http, 
 
         $scope.updateThesis = function (thesis){   
             delete  $scope.maps['name'];
+            $scope.new_thesis.score_total= (parseFloat($scope.new_thesis.score_instructor)*2 
+                        + parseFloat($scope.new_thesis.score_reviewer)*2 
+                        + parseFloat($scope.new_thesis.score_council))/5;
+            console.log($scope.new_thesis.score_total);
             $http.post('/api/thesis/update?id=' + $routeParams.thesis_id ,{
                                             thesis: $scope.new_thesis,
                                             thesis_tag: $scope.thesis_tag,
@@ -381,7 +403,7 @@ controllers.controller('ThesisController', function ($rootScope, $scope, $http, 
                                             // users: $scope.maps
                                          }).then(function(data) {
                 if (data && data.data && data.data.message == 'ok') {
-                    $location.path( "/" );
+                    $location.path( "/thesis/" + data.data.thesis_id );
                 } else {
                     $scope.error = data.data.error;
                 }
@@ -497,26 +519,14 @@ controllers.controller('SearchController', ['$scope', '$http', '$routeParams', '
     function ($scope, $http, $routeParams, $location) {
       $scope.search={};
       $scope.goToViewThesis = function (thesis_id){ 
-          $location.path('/thesis/'+ thesis_id + '/');
+        $routeParams=null;
+        $location.path('/thesis/'+ thesis_id + '/');
       }
       $scope.searchstring= null;
-      //$scope.key=['database','mining'];
-      // var string = 'api/thesis/search?skey';
-      // for (var i = 0; i < $scope.key.length; i++) {
-      //   if(i==$scope.key.length-1)
-      //     string+= "="+$scope.key[i];
-      //   else
-      //     string+= "="+$scope.key[i]+"&skey";
-
-      // }
-      // $scope.abc=string;
 
       $scope.search = function() {
         $scope.key= $scope.searchstring.split(" ");
 
-      //   $http.get(string).success(function (data) {
-      //      $scope.search = data;
-      //   });
         $http({
           method: 'GET',
           url: 'api/thesis/search',

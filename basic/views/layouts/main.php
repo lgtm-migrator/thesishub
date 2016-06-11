@@ -89,8 +89,8 @@ AppAsset::register($this);
             ['label' => '', 'url' => ['/site/index']],
             ['label' => 'Thesis', 'url' => ['/']],
             ['label' => 'Admin', 'url' => ['/admin']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-            
+            // ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => 'MMTT', 'url' => ['/department/MMTT']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/auth/login']]
             ) : (
@@ -124,8 +124,8 @@ AppAsset::register($this);
             <li data-match-route="/thesis">
                 <a href="#/thesis">Thesis</a>
             </li>
-            <li data-match-route="/contact">
-                <a href="#/contact">Contact</a>
+            <li data-match-route="/department">
+                <a href="#/department/MMTT">MMTT</a>
             </li>
             <li data-match-route="/dashboard" ng-show="loggedIn()" class="ng-hide">
                 <a href="#/dashboard">Dashboard</a>
