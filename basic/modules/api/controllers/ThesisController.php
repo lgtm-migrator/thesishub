@@ -23,6 +23,13 @@ class ThesisController extends \app\modules\api\ApiController
         return [
             'query' => Thesis::find()->all(),
             'users' => User::find()->all(),   
+            // 'query' => (new \yii\db\Query())
+            //       ->select('u.name,tm.type, t.*')
+            //       ->from('Thesis t')
+            //       ->join('inner join','ThesisMapping tm','t.thesis_id = tm.thesis_id')
+            //       ->join('inner join','User u','tm.user_id = u.user_id')
+            //       ->where(['`tm`.`type`' => 'upload'])
+            //       ->all(),
         ];
     }
 
@@ -408,13 +415,7 @@ class ThesisController extends \app\modules\api\ApiController
 
     public function actionSearch($skey)
     {
-      // print_r(array('mining', 'wfewef'));
-
-      // $skey = json_decode($skey);
-      // print_r("xxxxxxxxxxxxxxxxxx".."\n");
       $skey = json_decode($skey);
-      // var_dump($skey);
-      // die;
       $tags = (new \yii\db\Query())
                   ->select('t.*')
                   ->from('ThesisTag a')

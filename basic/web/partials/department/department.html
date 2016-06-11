@@ -8,14 +8,16 @@
 				<img ng-src="/public/message.jpg" alt="Ảnh KL" height="100px" width="60px">
 			</div>
 			<div class="col-sm-11" >
-				
-				<h5 class="thesis_name"> {{one_thesis.thesis_name}}</h5>
-				<i class="thesis_intro"> <span>{{one_thesis.intro | limitTo:200}}....</span></i>
+				<a ng-click="goToViewThesis(one_thesis.thesis_id)" href="javascript:;">
+					<h5 class="thesis_name"><span>{{one_thesis.thesis_name | limitTo:100}}</span></h5>
+				</a>
+				<i class="thesis_intro"> <span>{{one_thesis.intro | limitTo:200}}...</span></i>
+				<p>Đăng bởi: {{one_thesis.name}} | Thời gian: {{one_thesis.created}} | Lượt xem: {{one_thesis.counter}}</p>
 				<hr>
 			</div>
 		</div>
 	</div>
-		<div class="row">
+	<div class="row">
 		<div class="col-md-12">
 			<center>
 			<paging

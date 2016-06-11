@@ -129,7 +129,7 @@ controllers.directive('inputStars', function () {
 
 })
 
-controllers.controller('MainController', function ($rootScope, $scope, $location, $window) {
+controllers.controller('MainController', function ($rootScope, $scope, $location, $window, $http) {
         $scope.loggedIn = function() {
             return Boolean($window.sessionStorage.access_token);
         };
@@ -147,17 +147,15 @@ controllers.controller('MainController', function ($rootScope, $scope, $location
         $rootScope.doSearch = function() {
             window.location.hash = '/search?q=' + $scope.navbarSearchKeyword || '';
         }
+        $http.get('api/home').success(function (data) {
+           $scope.departments = data.departments;
+        });
 
     }
 );
 
 controllers.controller('HomeController', ['$scope', '$http', '$location',
     function ($scope, $http, $location) {
-        $http.get('api/home').success(function (data) {
-           $scope.departments = data.departments;
-           $scope.recent_thesis = data.recent_thesis;
-           $scope.score_thesis = data.score_thesis;
-        });
         $scope.goToListThesisDepartment = function(thesis_department) {
             if (thesis_department) {
               $location.path('/department/' + thesis_department.department_id);
@@ -256,13 +254,6 @@ controllers.controller('ThesisDetailController', function ($rootScope, $scope, $
 
             return false;
         }
-
-        // $http.get('api/home').success(function (data) {
-        //    $scope.departments = data.departments;
-        //    $scope.recent_thesis = data.recent_thesis;
-        //    $scope.score_thesis = data.score_thesis;
-        // });
-
 
         $scope.goToCreateThesis = function (){ 
             $location.path('/thesis/create');
@@ -518,8 +509,7 @@ controllers.controller('ThesisController', function ($rootScope, $scope, $http, 
 controllers.controller('SearchController', ['$scope', '$http', '$routeParams', '$location',
     function ($scope, $http, $routeParams, $location) {
       $scope.search={};
-      $scope.goToViewThesis = function (thesis_id){ 
-        $routeParams=null;
+      $scope.goToViewThesis = function (thesis_id){
         $location.path('/thesis/'+ thesis_id + '/');
       }
       $scope.searchstring= null;

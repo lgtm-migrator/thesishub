@@ -52,6 +52,7 @@
 				</div>
 				<ul class="list-group">
 					<li class="list-group-item" >Tên giảng viên hướng dẫn: <span ng-repeat="tutor in maps | filter : {'type': 'instructor'}">{{tutor.name}} </span></li>
+					<li class="list-group-item" >Tên giảng viên phản biện: <span ng-repeat="tutor in maps | filter : {'type': 'reviewer'}">{{tutor.name}} </span></li>
 				</ul>
 				<table class="table">
 					<tr>
@@ -86,6 +87,6 @@
 	<div class="col-md-2">
 		<recent-side></recent-side>
 		<br>
-		<recommend></recommend>
+		<recommend ng-if="reccs.length!=0"></recommend>
 	</div>
 </div>

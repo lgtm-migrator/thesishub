@@ -14,8 +14,10 @@
 		</ul>
 		<div ng-show="current_tab == 1">
 			<ul class="nav nav-pills">
-				<li ng-repeat="r_t in recent_thesis" style="width: 100%;" >
-					<a ng-href="#/thesis/{{r_t.thesis_id}}/">{{r_t.thesis_name}}</a>
+				<li ng-repeat="r_t in recent_thesis" style="width: 100%;">
+					<a ng-href="#/thesis/{{r_t.thesis_id}}/" style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">
+						{{r_t.thesis_name}}
+					</a>
 				</li>
 			</ul>
 		</div>

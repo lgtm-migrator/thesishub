@@ -11,7 +11,7 @@ class DepartmentController extends \app\modules\api\ApiController
     	if ($id) 
     		return Department::find()->where(['department_id' => $id])->one();
     	else 
-    		return $query = Department::find()->all();
+    		return Department::find()->all();
     }
   
 }

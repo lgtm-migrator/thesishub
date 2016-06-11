@@ -32,7 +32,8 @@
 				<a ng-click="goToViewThesis(one_thesis.thesis_id)" href="javascript:;">
 					<h5 class="thesis_name"><span>{{one_thesis.thesis_name | limitTo:100}}</span></h5>
 				</a>
-				<i class="thesis_intro"> <span>{{one_thesis.intro | limitTo:200}}....</span></i>
+				<i class="thesis_intro"> <span>{{one_thesis.intro | limitTo:200}}...</span></i>
+				<p>Đăng bởi: {{one_thesis.name}} | Thời gian: {{one_thesis.created}} | Lượt xem: {{one_thesis.counter}}</p>
 				<hr>
 			</div>
 			<div class="col-sm-1" >
