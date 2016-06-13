@@ -1,0 +1,19 @@
+<div class="row">
+		<div class="col-md-12">
+			<p>
+				Khóa luận mới cập nhật
+			</p>
+			<table class="table" width="100%">
+				<tr ng-repeat="r_t in recent_thesis">
+					<td>
+							<a style="" ng-href="#/thesis/{{r_t.thesis_id}}/">{{$index + 1 }}. {{r_t.thesis_name | limitTo:75}}...</a>
+					</td>
+
+					<td>
+						<span class="created">{{r_t.created}}</span>
+					</td>
+				</tr>
+			</table>
+
+		</div>
+</div>

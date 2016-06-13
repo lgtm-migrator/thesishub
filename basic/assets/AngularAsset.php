@@ -11,6 +11,7 @@ class AngularAsset extends AssetBundle
         'angular/angular.js',
         'angular-route/angular-route.js',
         'angular-strap/dist/angular-strap.js',
+        '/js/moment-with-locales.min.js',
         '/js/paging.js',
     ];
     public $jsOptions = [

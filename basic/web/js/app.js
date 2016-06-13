@@ -126,6 +126,28 @@ app.directive("recentSide", function(){
     };
 });
 
+app.directive("recentBox", function(){
+    return {
+        restrict: 'E',
+        scope: false,
+        templateUrl: 'partials/home/recent_box.html',
+        controller: function($http, $scope) {
+            // console.log('Load recentSide');
+            $http.get('api/home').success(function (data) {
+              //  $scope.departments = data.departments;
+               $scope.recent_thesis = data.recent_thesis;
+              //  $scope.score_thesis = data.score_thesis;
+
+              for (var i in $scope.recent_thesis) {
+                $scope.recent_thesis[i].created = moment($scope.recent_thesis[i].created).fromNow()
+              }
+
+            });
+
+        }
+    };
+});
+
 
 app.directive("adsBlock", function(){
     return {
