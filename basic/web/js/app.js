@@ -19,6 +19,10 @@ app.config(['$routeProvider', '$httpProvider',
             .when('/about', {
                 templateUrl: 'partials/pages/about.html'
             })
+            .when('/page/:page', {
+                templateUrl: 'partials/pages/index.html',
+                controller: 'PageController'
+            })
             .when('/contact', {
                 templateUrl: 'partials/pages/contact.html',
                 controller: 'ContactController'
@@ -34,6 +38,10 @@ app.config(['$routeProvider', '$httpProvider',
             .when('/dashboard', {
                 templateUrl: 'partials/home/dashboard.html',
                 controller: 'DashboardController'
+            })
+            .when('/profile/:page?', {
+                templateUrl: 'partials/home/profile.html',
+                controller: 'ProfileController'
             })
             .when('/department/:department_id?', {
               templateUrl: 'partials/department/department.html',
@@ -117,6 +125,30 @@ app.directive("recentSide", function(){
         }
     };
 });
+
+
+app.directive("adsBlock", function(){
+    return {
+        restrict: 'E',
+        scope: false,
+        templateUrl: 'partials/block/ads.html',
+        controller: function($http, $scope) {
+
+        }
+    };
+});
+
+app.directive("shareBlock", function(){
+    return {
+        restrict: 'E',
+        scope: false,
+        templateUrl: 'partials/block/share.html',
+        controller: function($http, $scope) {
+
+        }
+    };
+});
+
 
 app.directive("recommend", function(){
     return {

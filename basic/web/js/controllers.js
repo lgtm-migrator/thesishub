@@ -183,6 +183,64 @@ controllers.controller('DashboardController', ['$scope', '$http',
     }
 ]);
 
+controllers.controller('ProfileController', ['$scope', '$http', '$routeParams',
+    function ($scope, $http, $routeParams) {
+        $http.get('api/dashboard').success(function (data) {
+           $scope.profile = data;
+        });
+
+        $http.get('api/home').success(function (data) {
+           $scope.departments = data;
+        });
+
+        $scope.page = $routeParams.page;
+
+        $scope.profileMainPage = 'partials/home/profile/';
+        if (!$routeParams.page || $routeParams.page == '' || $routeParams.page == '/')
+          $scope.profileMainPage += 'profile-overview.html';
+        else if ($routeParams.page == 'info')
+            $scope.profileMainPage += 'profile-info.html';
+        else if ($routeParams.page == 'post')
+            $scope.profileMainPage += 'profile-post.html';
+
+    }
+]);
+
+
+controllers.controller('PageController', ['$scope', '$http', '$routeParams',
+    function ($scope, $http, $routeParams) {
+        $scope.page = $routeParams.page;
+        $scope.pagePath = 'partials/pages/' + $scope.page + '.html';
+
+        $scope.captchaUrl = 'site/captcha';
+        $scope.contact = function () {
+            $scope.submitted = true;
+            $scope.error = {};
+            $http.post('api/pages/contact', $scope.contactModel).success(
+                function (data) {
+                    $scope.contactModel = {};
+                    $scope.flash = data.flash;
+                    $window.scrollTo(0,0);
+                    $scope.submitted = false;
+                    $scope.captchaUrl = 'site/captcha' + '?' + new Date().getTime();
+            }).error(
+                function (data) {
+                    angular.forEach(data, function (error) {
+                        $scope.error[error.field] = error.message;
+                    });
+                }
+            );
+        };
+
+        $scope.refreshCaptcha = function() {
+            $http.get('site/captcha?refresh=1').success(function(data) {
+                $scope.captchaUrl = data.url;
+            });
+        };
+    }
+]);
+
+
 controllers.controller('DepartmentController', ['$scope', '$http', '$routeParams', '$location',
     function ($scope, $http, $routeParams, $location) {
         $http.get('api/department/?id=' + $routeParams.department_id).success(function (data) {

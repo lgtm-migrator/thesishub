@@ -22,7 +22,8 @@
         "pheme/yii2-settings": "*",
         "bower-asset/angular": "*",
         "bower-asset/angular-route": "*",
-        "bower-asset/angular-strap": "*"
+        "bower-asset/angular-strap": "*",
+        "knplabs/knp-snappy": "^0.4.3"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

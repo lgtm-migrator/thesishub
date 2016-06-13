@@ -1,0 +1,34 @@
+<div class="">
+
+  <h3>Thông tin cá nhân</h3>
+
+  <div class=" col-md-9 col-lg-9 ">
+    <table class="table table-user-information">
+      <tbody>
+        <tr>
+          <td>Họ tên:</td>
+          <td>{{profile.user.name}}</td>
+        </tr>
+        <tr>
+          <td>Username:</td>
+          <td>{{profile.user.username}}</td>
+        </tr>
+        <tr>
+          <td>Email:</td>
+          <td>{{profile.user.email}}</td>
+        </tr>
+        <tr>
+          <td>Loại tài khoản</td>
+          <td>
+            <span class="label label-info">
+                                {{ profile.user.is_lecture ? "Giảng viên" : "Sinh viên" }}
+                            </span>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <a href="#"><i class="fa fa-pencil "></i> Cập nhật thông tin cá nhân</a>
+
+  </div>

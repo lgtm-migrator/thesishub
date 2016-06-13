@@ -8,6 +8,7 @@ body {
     height: auto;
     margin: 0 auto -60px;
     padding: 0 0 60px;
+    /* background: #DDD; */
 }
 
 .wrap > .container {
@@ -20,7 +21,7 @@ body {
     border-top: 1px solid #ddd;
     padding-top: 20px;
     background: #0273a2;
-    background-image: url('http://www.khoaluan.vn/Images/Icons/bgFooter.jpg');
+    background-image: url('/public/bgFooter.jpg');
     background-repeat-y: no-repeat;
     color: #FFF;
 }

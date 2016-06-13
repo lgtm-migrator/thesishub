@@ -79,9 +79,10 @@ AppAsset::register($this);
                             <ul class="b-header-3__user-dropdown arrow_top">
                               <li id="dd-new-account" class="b-header-3__user-dropdown__item">
                                 <div id="socialLoginList" ng-show="loggedIn()" class="ng-hide">
-                                  <a href="#/account" class="user-box-list">&middot; Trang cá nhân</a> <br />
+                                  <a href="#/profile" class="user-box-list">&middot; Trang cá nhân</a> <br />
                                   <a href="#/account" class="user-box-list">&middot; Tài liệu của tôi</a> <br />
-                                  <a href="#/contact" class="user-box-list">&middot; Liên hệ</a>
+                                  <a href="#/contact" class="user-box-list">&middot; Liên hệ</a> <br />
+                                  <a href="javascript:;" ng-click="logout()"  class="user-box-list text-danger">&middot; Thoát</a>
                                   <br /><hr style="margin-top: 0px;" />
                                   <a href="#/thesis/create" class="btn btn-info">Đăng tải</a>
                                 </div>
@@ -114,7 +115,6 @@ AppAsset::register($this);
                     <a style="min-width: 50px;" href="#/">
                       <img style="vertical-align: top;" src="http://www.khoaluan.vn/Images/Icons/Home.png"></a>
                   </li>
-
 
                   <li ng-repeat="dep in departments">
                     <div class="b-header-3 hoverDiv" style="background: transparent;">
