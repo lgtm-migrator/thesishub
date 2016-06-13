@@ -17,6 +17,24 @@ AppAsset::register($this);
     <head>
       <meta charset="<?= Yii::$app->charset ?>">
       <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <meta name="author" content="Lê Văn Duyệt - 13520171" />
+      <meta name="author" content="Trần Thị Huyền Trang - 13520907" />
+      <meta name="author" content="Võ Minh Quân - 13520668" />
+
+      <!--
+      _____    _______    ____
+      |  __ \  |__   __|  / __ \
+      | |  | |    | |    | |  | |
+      | |  | |    | |    | |  | |
+      | |__| |    | |    | |__| |
+      |_____/     |_|     \___\_\
+                                  Team
+
+      ThesisHub - UIT
+
+      -->
+
       <?= Html::csrfMetaTags() ?>
         <title data-ng-bind="pageTitle">
           <?= Html::encode($this->title) ?>
