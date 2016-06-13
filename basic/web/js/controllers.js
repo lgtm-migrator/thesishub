@@ -6,7 +6,7 @@ controllers.directive('fileModel', ['$parse', function ($parse) {
         link: function(scope, element, attrs) {
             var model = $parse(attrs.fileModel);
             var modelSetter = model.assign;
-            
+
             element.bind('change', function(){
                 scope.$apply(function(){
                     modelSetter(scope, element[0].files[0]);
@@ -58,7 +58,7 @@ controllers.directive('inputStars', function () {
     function link (scope, element, attrs, ngModelCtrl) {
 
         scope.items = new Array(+attrs.max);
-        
+
         var emptyIcon   = attrs.iconEmpty || 'fa-star-o';
         var fullIcon    = attrs.iconFull  || 'fa-star';
         //var halfIcon    = attrs.halfIcon  || 'fa-star';
@@ -68,13 +68,13 @@ controllers.directive('inputStars', function () {
         ngModelCtrl.$render = function () {
 
             scope.last_value = ngModelCtrl.$viewValue;
-        
+
         };
 
         scope.getClass = function(index) {
 
-            return index >= scope.last_value 
-                ? iconBase + ' ' + emptyIcon 
+            return index >= scope.last_value
+                ? iconBase + ' ' + emptyIcon
                 : iconBase + ' ' + fullIcon + ' active ';
         };
 
@@ -87,7 +87,7 @@ controllers.directive('inputStars', function () {
         scope.paintStars = function ($index) {
           if(scope.readonly)
             return;
-            
+
             var items = element.find('li').find('i');
 
             for (var index = 0 ; index < items.length ; index++) {
@@ -105,7 +105,7 @@ controllers.directive('inputStars', function () {
                     $star.removeClass(fullIcon);
                     $star.removeClass('active');
                     $star.addClass(emptyIcon);
-                
+
                 }
             }
         }
@@ -122,7 +122,7 @@ controllers.directive('inputStars', function () {
                 }
 
             ngModelCtrl.$setViewValue(scope.last_value);
-        
+
         };
 
     }
@@ -162,7 +162,7 @@ controllers.controller('HomeController', ['$scope', '$http', '$location',
             }
         }
 
-        $scope.goToViewThesis = function (thesis_id){ 
+        $scope.goToViewThesis = function (thesis_id){
             $location.path('/thesis/'+ thesis_id + '/');
         }
     }
@@ -179,7 +179,7 @@ controllers.controller('DashboardController', ['$scope', '$http',
            $scope.departments = data;
         });
 
-       
+
     }
 ]);
 
@@ -189,7 +189,7 @@ controllers.controller('DepartmentController', ['$scope', '$http', '$routeParams
            $scope.department = data;
         });
 
-        $scope.goToViewThesis = function (thesis_id){ 
+        $scope.goToViewThesis = function (thesis_id){
             $location.path('/thesis/'+ thesis_id + '/');
         }
     }
@@ -202,6 +202,28 @@ controllers.controller('LoginController', ['$scope', '$http', '$window', '$locat
             $scope.submitted = true;
             $scope.error = {};
             $http.post('api/auth/login', $scope.userModel).success(
+                function (data) {
+                    $window.sessionStorage.access_token = data.access_token;
+                    $window.sessionStorage.user = JSON.stringify(data.user);
+                    $location.path('/').replace();
+            }).error(
+                function (data) {
+                    angular.forEach(data, function (error) {
+                        $scope.error[error.field] = error.message;
+                    });
+                }
+            );
+        };
+    }
+]);
+
+
+controllers.controller('RegisterController', ['$scope', '$http', '$window', '$location',
+    function($scope, $http, $window, $location) {
+        $scope.login = function () {
+            $scope.submitted = true;
+            $scope.error = {};
+            $http.post('api/auth/register', $scope.userModel).success(
                 function (data) {
                     $window.sessionStorage.access_token = data.access_token;
                     $window.sessionStorage.user = JSON.stringify(data.user);
@@ -231,14 +253,14 @@ controllers.controller('ThesisDetailController', function ($rootScope, $scope, $
             $scope.thesis = data;
             $scope.comments = $scope.thesis.comments;
             $scope.refs = $scope.thesis.refs;
-            $scope.maps = $scope.thesis.maps;            
+            $scope.maps = $scope.thesis.maps;
             $scope.reccs = data.reccs;
-            $scope.uid = $rootScope.getUser()?$rootScope.getUser().user_id:null;            
+            $scope.uid = $rootScope.getUser()?$rootScope.getUser().user_id:null;
             $scope.rate_now = {};
             $scope.new_thesis = $scope.thesis.detail;
             $scope.reference = $scope.thesis.refs;
-            $scope.users = $scope.thesis.users;  
-            $scope.thesis_tag = $scope.thesis.tags; 
+            $scope.users = $scope.thesis.users;
+            $scope.thesis_tag = $scope.thesis.tags;
             $scope.files = $scope.thesis.files
         }).error(function() {
 
@@ -255,17 +277,17 @@ controllers.controller('ThesisDetailController', function ($rootScope, $scope, $
             return false;
         }
 
-        $scope.goToCreateThesis = function (){ 
+        $scope.goToCreateThesis = function (){
             $location.path('/thesis/create');
         }
 
-        $scope.goToViewThesis = function (thesis_id){ 
+        $scope.goToViewThesis = function (thesis_id){
             $location.path('/thesis/'+ thesis_id + '/');
         }
 
-        $scope.goToUpdateThesis = function (thesis_id){ 
+        $scope.goToUpdateThesis = function (thesis_id){
             $location.path('/thesis/update/'+ thesis_id + '/');
-                
+
         }
 
         $scope.saveComment = function (cmt){
@@ -284,7 +306,7 @@ controllers.controller('ThesisDetailController', function ($rootScope, $scope, $
                 }
             });
             $scope.new_comment.username= $rootScope.getUser().username;
-            $scope.new_comment.name= $rootScope.getUser().name;          
+            $scope.new_comment.name= $rootScope.getUser().name;
             $scope.comments.unshift($scope.new_comment);
         }
 
@@ -309,18 +331,18 @@ controllers.controller('ThesisDetailController', function ($rootScope, $scope, $
 controllers.controller('ThesisController', function ($rootScope, $scope, $http, $routeParams, $location,fileUpload, $filter) {
         $http.get('api/thesis/thesis?id=' + $routeParams.thesis_id)
         .success(function (data) {
-           
+
             $scope.thesis = data;
             // $scope.comments = $scope.thesis.comments;
             $scope.refs = $scope.thesis.refs;
-            $scope.maps = $scope.thesis.maps;            
+            $scope.maps = $scope.thesis.maps;
             $scope.reccs = data.reccs;
-            $scope.uid = $rootScope.getUser() ? $rootScope.getUser().user_id : null;            
+            $scope.uid = $rootScope.getUser() ? $rootScope.getUser().user_id : null;
             $scope.rate_now = {};
             $scope.new_thesis = $scope.thesis.detail;
             $scope.reference = $scope.thesis.refs;
-            $scope.users = $scope.thesis.users;  
-            $scope.thesis_tag = $scope.thesis.tags; 
+            $scope.users = $scope.thesis.users;
+            $scope.thesis_tag = $scope.thesis.tags;
             $scope.files = $scope.thesis.files
         }).error(function() {
 
@@ -344,22 +366,22 @@ controllers.controller('ThesisController', function ($rootScope, $scope, $http, 
         $scope.new_file  = null;
         $scope.files  = [];
 
-        $scope.goToCreateThesis = function (){ 
+        $scope.goToCreateThesis = function (){
             $location.path('/thesis/create');
         }
 
-        $scope.goToViewThesis = function (thesis_id){ 
+        $scope.goToViewThesis = function (thesis_id){
             $location.path('/thesis/'+ thesis_id + '/');
         }
 
-        $scope.goToUpdateThesis = function (thesis_id){ 
+        $scope.goToUpdateThesis = function (thesis_id){
             $location.path('/thesis/update/'+ thesis_id + '/');
-                
+
         }
 
-        $scope.saveThesis = function (thesis){    
-            $scope.new_thesis.score_total= (parseFloat($scope.new_thesis.score_instructor)*2 
-                        + parseFloat($scope.new_thesis.score_reviewer)*2 
+        $scope.saveThesis = function (thesis){
+            $scope.new_thesis.score_total= (parseFloat($scope.new_thesis.score_instructor)*2
+                        + parseFloat($scope.new_thesis.score_reviewer)*2
                         + parseFloat($scope.new_thesis.score_council))/5;
             $http.post('/api/thesis/create',{
                                             thesis: $scope.new_thesis,
@@ -375,14 +397,14 @@ controllers.controller('ThesisController', function ($rootScope, $scope, $http, 
                 } else {
                     $scope.error = data.data.error;
                 }
-            });            
+            });
         }
-        
 
-        $scope.updateThesis = function (thesis){   
+
+        $scope.updateThesis = function (thesis){
             delete  $scope.maps['name'];
-            $scope.new_thesis.score_total= (parseFloat($scope.new_thesis.score_instructor)*2 
-                        + parseFloat($scope.new_thesis.score_reviewer)*2 
+            $scope.new_thesis.score_total= (parseFloat($scope.new_thesis.score_instructor)*2
+                        + parseFloat($scope.new_thesis.score_reviewer)*2
                         + parseFloat($scope.new_thesis.score_council))/5;
             console.log($scope.new_thesis.score_total);
             $http.post('/api/thesis/update?id=' + $routeParams.thesis_id ,{
@@ -398,10 +420,10 @@ controllers.controller('ThesisController', function ($rootScope, $scope, $http, 
                 } else {
                     $scope.error = data.data.error;
                 }
-            });             
+            });
         }
 
-        $scope.deleteThesis = function (thesis_id){  
+        $scope.deleteThesis = function (thesis_id){
             $http.post('/api/thesis/delete?id=' + thesis_id).success(function(data) {
                 $location.path( "/thesis/" );
             });
@@ -413,52 +435,52 @@ controllers.controller('ThesisController', function ($rootScope, $scope, $http, 
             $scope.saveUser();
           }
         }
-        $scope.removeUser = function (index) {    
-            $scope.users.splice(index, 1);  
+        $scope.removeUser = function (index) {
+            $scope.users.splice(index, 1);
         }
-   
+
     $scope.saveUser = function () {
         $scope.users= $scope.users || [];
         $scope.users.push($scope.new_user);
         $scope.new_user = null;
       }
 
-    $scope.removeTag = function (index) {   
-        $scope.thesis_tag.splice(index, 1);  
+    $scope.removeTag = function (index) {
+        $scope.thesis_tag.splice(index, 1);
     }
 
-    
+
     $scope.initNewTag = function () {
-        
+
         $scope.new_thesis_tag = {};
         if($scope.new_thesis_tag){
             $scope.saveTag();
         }
     }
-   
+
     $scope.saveTag = function () {
-      
+
         $scope.thesis_tag=
             $scope.thesis_tag || [];
 
         $scope.thesis_tag.push($scope.new_thesis_tag);
-        
+
 
         $scope.new_thesis_tag = null;
     }
 
-    $scope.removeReference = function (index) {    
-        $scope.reference.splice(index, 1);  
+    $scope.removeReference = function (index) {
+        $scope.reference.splice(index, 1);
     }
 
-    
+
     $scope.initNewReference = function () {
         $scope.new_reference = {};
         if($scope.new_reference){
             $scope.saveReference();
         }
     }
-   
+
     $scope.saveReference = function () {
         $scope.reference = $scope.reference || [];
         $scope.reference.push($scope.new_reference);
@@ -481,13 +503,13 @@ controllers.controller('ThesisController', function ($rootScope, $scope, $http, 
         fileUpload.uploadFileToUrl($scope.myFile, uploadUrl, cb);
     };
 
-    
+
     $scope.$watch( 'myFile', function(newValue, oldValue) {
         if (newValue) $scope.uploadFile();
     })
 
-    $scope.removeFile = function (index) {    
-        $scope.files.splice(index, 1);  
+    $scope.removeFile = function (index) {
+        $scope.files.splice(index, 1);
     }
 
     $scope.initNewFile = function () {
@@ -496,7 +518,7 @@ controllers.controller('ThesisController', function ($rootScope, $scope, $http, 
             $scope.saveFile ();
         }
     }
-   
+
     $scope.saveFile = function () {
         $scope.files = $scope.files || [];
         $scope.files.push($scope.new_file);
@@ -531,10 +553,10 @@ controllers.controller('SearchController', ['$scope', '$http', '$routeParams', '
       if ($routeParams && $routeParams.q) {
         $scope.searchstring = $routeParams.q;
         if ($scope.searchstring) {
-            $scope.search();            
+            $scope.search();
         }
       }
-      
+
     }
 ]);
 

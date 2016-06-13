@@ -164,8 +164,8 @@ input[type="search"],
 input[type="tel"],
 input[type="color"],
 .form-control {
-    display: inline-block;
-    -webkit-border-radius: 1px;
+    /* display: inline-block; */
+    /* -webkit-border-radius: 1px; */
     -moz-border-radius: 1px;
     -ms-border-radius: 1px;
     border-radius: 1px;
@@ -181,8 +181,9 @@ input[type="color"],
     background: #FFF;
     -moz-transition: all 0.3s ease-in;
     -o-transition: all 0.3s ease-in;
-    -webkit-transition: all 0.3s ease-in;
+    /* -webkit-transition: all 0.3s ease-in; */
     transition: all 0.3s ease-in;
+    box-shadow: none;
 }
 textarea:focus,
 input[type="text"]:focus,
@@ -2158,6 +2159,21 @@ a img.aligncenter {
     margin-bottom: 10px
 }
 
+.btn_Hibook {
+    background: url('/Images/Icons/btnHibook.jpg');
+    height: 31px;
+    width: 182px;
+    float: left;
+    cursor: pointer;
+}
+
+.btn_Google {
+    background-image: url("/Images/Icons/btnGoogle.png");
+    height: 31px;
+    width: 182px;
+    float: left;
+}
+
 .textboxhome {
     max-width: 420px!important;
     min-width: 420px!important;
@@ -3084,7 +3100,7 @@ input[type="text"],input[type="password"] {
     padding: 15px 20px 15px 20px;
     background: #fff;
     width: auto;
-    min-width: 230px
+    min-width: 132px;
 }
 
 .b-header-3 .b-header-3__user .b-header-3__user-dropdown .b-header-3__user-dropdown__item:last-child .b-header-3__user-dropdown__link {
@@ -3150,6 +3166,12 @@ input[type="text"],input[type="password"] {
 .b-header-3 .b-header-3__user .b-header-3__user-dropdown .b-header-3__user-new-account a {
     color: #00aaf1;
     font-weight: bold
+}
+
+a.btn.btn-info.login-btn {
+    text-align: center;
+    font-weight: 300;
+    font-size: 12px;
 }
 
 .b-header-3 .b-header-3__user li {
@@ -4053,4 +4075,18 @@ ul,ol {
     color: #fff!important;
     background-color: #2cb1e9;
     border-color: #2cb1e9;
+}
+
+a.user-box-list {
+    line-height: 33px;
+}
+
+.panel-heading.create-thesis-panel-head {
+    padding: 12px;
+}
+
+button.btn-add-thesis {
+    border-radius: 0;
+    font-size: 17px;
+    min-width: 340px;
 }

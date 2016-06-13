@@ -27,6 +27,10 @@ app.config(['$routeProvider', '$httpProvider',
                 templateUrl: 'partials/auth/login.html',
                 controller: 'LoginController'
             })
+            .when('/register', {
+                templateUrl: 'partials/auth/register.html',
+                controller: 'RegisterController'
+            })
             .when('/dashboard', {
                 templateUrl: 'partials/home/dashboard.html',
                 controller: 'DashboardController'
@@ -58,13 +62,13 @@ app.config(['$routeProvider', '$httpProvider',
             .when('/404', {
                 templateUrl: 'partials/pages/404.html'
             })
-            
+
             // Static page
             .when('/pages/', {
                 templateUrl: 'partials/thesis/show.html',
                 controller: 'ThesisController'
             })
-            
+
 
             .otherwise({
                 templateUrl: 'partials/pages/404.html'
@@ -91,7 +95,7 @@ app.factory('authInterceptor', function ($q, $window, $location) {
     };
 });
 
-app.run(['$rootScope', 
+app.run(['$rootScope',
     function ($rootScope) {
     	$rootScope.pageTitle = 'Thesis Hub';
     }

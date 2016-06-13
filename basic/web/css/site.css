@@ -19,6 +19,10 @@ body {
     background-color: #f5f5f5;
     border-top: 1px solid #ddd;
     padding-top: 20px;
+    background: #0273a2;
+    background-image: url('http://www.khoaluan.vn/Images/Icons/bgFooter.jpg');
+    background-repeat-y: no-repeat;
+    color: #FFF;
 }
 
 .jumbotron {
@@ -114,6 +118,8 @@ a.desc:after {
 
 .thesis_lebal{
     padding-top: 7px;
+    font-weight: 300;
+    text-align: right;
 }
 
 

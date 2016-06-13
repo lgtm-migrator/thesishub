@@ -25,6 +25,7 @@ foreach ($menus as $i => $menu) {
 $this->params['nav-items'] = $menus;
 ?>
 <?php $this->beginContent($controller->module->mainLayout) ?>
+<div class="container">
 <div class="row">
     <div class="col-sm-3">
         <div id="manager-menu" class="list-group">
@@ -48,5 +49,5 @@ $this->params['nav-items'] = $menus;
 list(, $url) = Yii::$app->assetManager->publish('@mdm/admin/assets');
 $this->registerCssFile($url . '/list-item.css');
 ?>
-
+</div>
 <?php $this->endContent(); ?>

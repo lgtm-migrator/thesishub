@@ -47,18 +47,18 @@ AppAsset::register($this);
               <div class="row" style="padding-top: 10px">
                 <div class="col-md-3 col-xs-4">
                   <a href="#/" title="Trang chủ">
-                    <img src="http://www.khoaluan.vn/Customer/Image/Logo/khoaluan.vn.png" alt="Khoaluan.vn - Thư viện tài liệu số trực tuyến" style="height: 70px;"></a>
+                    <img src="/public/thesishub.png" alt="Khoaluan.vn - Thư viện tài liệu số trực tuyến" style="height: 70px;"></a>
                 </div>
                 <div class="col-md-9 col-xs-8 no-padding" style="padding-top: 10px;">
 
-                  <div id="userControlHeader_SearchPanel" class="col-md-7 col-xs-7 search-panel-main">
+                  <form id="userControlHeader_SearchPanel" class="col-md-7 col-xs-7 search-panel-main" ng-submit="doSearch()" >
                     <div class="input-group">
                       <input name="q" ng-model="navbarSearchKeyword" type="text" id="userControlHeader_txtSearch" class="form-control" placeholder="Nhập từ khóa..." style="border: 0px;">
                       <span class="input-group-btn">
-                                  <a ng-click="doSearch()" id="userControlHeader_btnSearch" class="btn btn-default btn-primary" href="javascript:__doPostBack('ctl00$userControlHeader$btnSearch','')" style="height: 34px;"><span class="glyphicon glyphicon-search"></span></a>
+                        <a ng-click="doSearch()" id="userControlHeader_btnSearch" class="btn btn-default btn-primary" href="javascript:__doPostBack('ctl00$userControlHeader$btnSearch','')" style="height: 34px;"><span class="glyphicon glyphicon-search"></span></a>
                       </span>
                     </div>
-                  </div>
+                  </form>
                   <div>
 
                     <div class="b-header-3">
@@ -68,8 +68,9 @@ AppAsset::register($this);
                           <a href="javascript:void(0)" class="b-header-3__user-link clearfix" title="Thông Tin Tài Khoản">
                             <img width="34" height="34" class="b-header-3__user-avatar" src="http://www.khoaluan.vn/Images/Icons/avartar.png" alt="Khoaluan.vn - Thư viện tài liệu số trực tuyến">
                             <ul class="b-header-3__user-text">
-                              <li class="b-header-3__user-text-name"><span class="b-header-3__user-short-name">Đăng nhập</span></li>
-                              <li class="b-header-3__user-text-account"><span>Tài khoản <span class="tk-hidden-md">&amp; Bộ sưu tập</span></span>
+                              <li class="b-header-3__user-text-name" ng-hide="loggedIn()"><span class="b-header-3__user-short-name">Đăng nhập</span></li>
+                              <li class="b-header-3__user-text-name" ng-show="loggedIn()"><span class="b-header-3__user-short-name">Chào {{getUser().name}}</span></li>
+                              <li class="b-header-3__user-text-account"><span>Tài khoản <span class="tk-hidden-md">&amp; thông tin</span></span>
                               </li>
                             </ul>
                             <span class="caret b-header-3__caret"></span>
@@ -77,23 +78,22 @@ AppAsset::register($this);
                           <div class="b-header-3__hover-box custom_hover_box">
                             <ul class="b-header-3__user-dropdown arrow_top">
                               <li id="dd-new-account" class="b-header-3__user-dropdown__item">
-                                <div id="socialLoginList">
-                                  <a href="#" data-toggle="modal" data-target=".modalLogin" name="btn_Hibook" title="Đăng Nhập" class="loginList btn_Hibook"></a>
-
-                                  <button type="submit" class="loginList btn_Google" name="provider" value="Google" title="Đăng nhập bằng tài khoản Google của bạn.">
-                                  </button>
-
-                                  <button type="submit" class="loginList btn_Facebook" name="provider" value="Facebook" title="Đăng nhập bằng tài khoản Facebook của bạn.">
-                                  </button>
-
+                                <div id="socialLoginList" ng-show="loggedIn()" class="ng-hide">
+                                  <a href="#/account" class="user-box-list">&middot; Trang cá nhân</a> <br />
+                                  <a href="#/account" class="user-box-list">&middot; Tài liệu của tôi</a> <br />
+                                  <a href="#/contact" class="user-box-list">&middot; Liên hệ</a>
+                                  <br /><hr style="margin-top: 0px;" />
+                                  <a href="#/thesis/create" class="btn btn-info">Đăng tải</a>
                                 </div>
-                                <div class="b-header-3__user-new-account">
-                                  Khách hàng mới?
-                                  <a href="#" data-toggle="modal" data-target=".modalRegister" title="Tạo tài khoản mới">Tạo tài khoản</a>
-                                </div>
-                                <div class="b-header-3__user-new-account">
-                                  Quên mật khẩu?
-                                  <a href="#" data-toggle="modal" data-target=".modalForgotPassword" title="Quên mật khẩu">Cấp lại mật khẩu</a>
+
+                                <div class="b-header-3__user-new-account" ng-hide="loggedIn()">
+                                  Chưa có tài khoản?
+                                  <a href="#/login" title="Tạo tài khoản mới">Tạo tài khoản</a>
+
+                                  <br />
+                                  <br />
+
+                                  <a href="#/login" title="Đăng nhập" class="btn btn-info login-btn" style="color:#FFF">Đăng nhập</a>
                                 </div>
                               </li>
                               <li class="b-header-3__user-dropdown__item"></li>

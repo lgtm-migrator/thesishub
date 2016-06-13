@@ -1,6 +1,9 @@
-
+<div class="container">
 <div class="row">
     <div class="col-md-5 col-md-offset-3">
+        <center>
+          <h3>Đăng nhập</h3>
+        </center>
         <form ng-submit="login()" name="loginForm" id="login-form" method="post" role="form" >
             <div ng-class="{ 'has-success': !error['username'] && submitted,
                 'has-error': error['username'] && submitted }"
@@ -19,6 +22,11 @@
             <div class="form-group">
                 <button type="submit" class="btn btn-primary" name="login-button">Login</button>
             </div>
+
+            <hr />
+            Chưa có tài khoản?
+            <a href="#/register" class="btn btn-info">Đăng ký tài khoản mới</a>
         </form>
     </div>
+</div>
 </div>

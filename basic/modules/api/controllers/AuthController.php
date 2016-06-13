@@ -26,4 +26,19 @@ class AuthController extends ApiController
         }
     }
 
+    public function actionRegister()
+    {
+        $model = new User();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+          return [
+              'user' => $model,
+              'access_token' => Yii::$app->user->identity->getAuthKey()
+          ];
+        } else {
+          $model->validate();
+          return $model;
+        }
+    }
+
 }

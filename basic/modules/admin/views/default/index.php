@@ -1,10 +1,12 @@
-<?php 
+<?php
 	$this->title = 'Thesishub Admin';
 ?>
 
+<div class="container">
+
 <div class="features">
     <h3>Admin Panel</h3>
-    
+
 </div>
 
 <div class="row">
@@ -63,4 +65,6 @@
             </div>
         </div>
     </div>
+</div>
+
 </div>
