@@ -16,6 +16,7 @@ class DepartmentController extends \app\modules\api\ApiController
                   ->join('inner join','User u','tm.user_id = u.user_id')
                   ->join('inner join','Attachment a','a.thesis_id = t.thesis_id')
                   ->where([
+                  	//'`tm`.`type`' => 'upload',
                   			't.department_id'=> $id])
                   ->all();
     	else 
