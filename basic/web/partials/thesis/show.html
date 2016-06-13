@@ -1,3 +1,5 @@
+
+<div class ="container">
 <div class ="row">
 	<div class ="col-md-10">
 		<ol class="breadcrumb">
@@ -10,12 +12,12 @@
 				<h2>{{thesis.detail.thesis_name}}</h2>
 				<h6>Đăng bởi <span ng-repeat="uploader in maps | filter : {'type': 'upload'}">{{uploader.name}}</span> , vào lúc {{thesis.detail.created}}</h6>
 			</div>
-			<div class="col-md-4">
-				<button class="btn btn-default">Download</button>
+			<div class="col-md-4 text-right">
+				<button class="btn btn-info"><i class="fa fa-download" aria-hidden="true"></i> Download</button>
 			</div>
 		</div>
-		
-		
+
+
 		<!-- Go show some stars-->
 		<div>
 			<input-stars max="5" ng-model="thesis.detail.star_rate" readonly="true"></input-stars>
@@ -89,4 +91,5 @@
 		<br>
 		<recommend ng-if="reccs.length!=0"></recommend>
 	</div>
+</div>
 </div>

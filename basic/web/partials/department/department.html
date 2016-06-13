@@ -1,4 +1,19 @@
+<div class="container">
 <div class ="row" ng-if = "department.department_id">
+	<div class="row">
+		<div class="col-md-12">
+			<center>
+			<paging
+				page="currentPage"
+				page-size="10"
+				total="department.thesis.length"
+				show-prev-next="true"
+				show-first-last="true"
+				>
+			</paging>
+			</center>
+		</div>
+	</div>
 	<div class ="row">
 		<h3 class="department_name" >{{department.department_name}}</h3>
 	</div>
@@ -31,4 +46,5 @@
 			</center>
 		</div>
 	</div>
+</div>
 </div>

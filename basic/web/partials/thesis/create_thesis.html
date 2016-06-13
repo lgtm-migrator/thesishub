@@ -1,3 +1,4 @@
+<div class="container">
 <div class="row panel panel-info">
 	<div class="panel-heading text-center"><h1>Thêm mới khóa luận</h1></div>
 </div>
@@ -12,7 +13,7 @@
 	</div>
 </div>
 <div class="row">
-	
+
 	<form class="form-horizontal " role="form">
 		<div class="col-sm-6 create_one_thesis" style="outline: 2px solid #eee; padding: 20px 20px;">
 			<div class="form-group">
@@ -20,7 +21,7 @@
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 thesis_lebal">Tên khóa luận</label>
-				
+
 				<div class="col-sm-9">
 					<input class="form-control" placeholder="Tên khóa luận" ng-model = "new_thesis.thesis_name">
 				</div>
@@ -58,14 +59,14 @@
 			<div class="form-group">
 				<label class="col-sm-3 thesis_lebal">Khoa quản lý</label>
 				<div class="col-sm-9">
-					
+
 					<select ng-model="new_thesis.department_id" class="form-control">
 						<option ng-repeat="department in departments">{{department.department_id}}</option>
 					</select>
-					
+
 				</div>
 			</div>
-			
+
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
 					<button type="submit" class="btn btn-success" ng-click="saveThesis()">Submit</button>
@@ -73,7 +74,7 @@
 			</div>
 		</div>
 		<div class="col-sm-5 col-sm-offset-1 create_one_thesis">
-			
+
 			<div class="form-group"  style="outline: 2px solid #eee; padding: 20px 20px;">
 				<div class="form-group text-center">
 					<h3>Người dùng liên quan</h3>
@@ -83,10 +84,10 @@
 						<label class="col-sm-3 thesis_lebal">Người dùng</label>
 						<div class="col-sm-9">
 					<select ng-model="user.user_id" class="form-control">
-						<option 
-							ng-repeat="user_i in users_index" 
-							ng-bind="user_i.name" 
-							value="{{user_i.user_id}}" 
+						<option
+							ng-repeat="user_i in users_index"
+							ng-bind="user_i.name"
+							value="{{user_i.user_id}}"
 							{{user_i.user_id == user.user_id ? 'selected="selected"' : ''}}></option>
 					</select>
 					</div>
@@ -95,9 +96,9 @@
 					<label class="col-sm-3 thesis_lebal">Loại</label>
 					<div class="col-sm-9">
 						<select ng-model="user.type" class="form-control">
-						<option 
-							ng-repeat="type in ['instructor', 'upload', 'reviewer', 'student' ]" 
-							value="{{type}}" 
+						<option
+							ng-repeat="type in ['instructor', 'upload', 'reviewer', 'student' ]"
+							value="{{type}}"
 							{{type == user.type ? 'selected="selected"' : ''}}>
 							{{type}}
 						</option>
@@ -120,8 +121,8 @@
 			<div class="form-group text-center">
 				<a class="btn btn-primary" ng-click="initNewUser()"><i class=""></i> Thêm mới</a>
 			</div>
-			
-			
+
+
 		</div>
 		<div class="form-group"  style="outline: 2px solid #eee; padding: 20px 20px;">
 			<div class="form-group text-center">
@@ -139,7 +140,7 @@
 				<div class="form-group text-center">
 					<a class="btn btn-primary" ng-click="initNewTag()"><i class=""></i> Thêm Tag mới</a>
 				</div>
-				
+
 			</div>
 		</div>
 		<div class="form-group"  style="outline: 2px solid #eee; padding: 20px 20px;">
@@ -193,7 +194,7 @@
 				<h3>Upload file</h3>
 			</div>
 			<div class="form-group" ng-repeat="file in files">
-				
+
 				<div class = "form-group">
 					<label class="col-sm-3 thesis_lebal">Tên file</label>
 					<div class="col-sm-9">
@@ -230,7 +231,7 @@
 				<div class="form-group" >
 					<hr class="col-sm-offset-1 col-sm-9"/>
 				</div>
-				
+
 			</div>
 			<div class="form-group text-center">
 				<input type = "file" file-model="myFile" class="form-control" />
@@ -239,4 +240,5 @@
 	</div>
 </div>
 </form>
+</div>
 </div>
