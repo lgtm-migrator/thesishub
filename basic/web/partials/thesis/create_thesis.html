@@ -15,8 +15,6 @@
 <div class="row">
 
 
-
-
 	<form class="form-horizontal " role="form">
 		<div class="col-sm-8 create_one_thesis" >
 
@@ -73,6 +71,71 @@
 			  </div>
 			</div>
 
+
+
+						<div class="panel panel-info">
+						  <div class="panel-heading create-thesis-panel-head">
+						    Người dùng liên quan
+						  </div>
+						  <div class="panel-body">
+									<div class="form-group" ng-repeat="user in users">
+										<div class = "form-group">
+											<label class="col-sm-4 thesis_lebal">Người dùng</label>
+											<div class="col-sm-7">
+										<select ng-model="user.user_id" class="form-control">
+											<option
+												ng-repeat="user_i in users_index"
+												ng-bind="user_i.name"
+												value="{{user_i.user_id}}"
+												{{user_i.user_id == user.user_id ? 'selected="selected"' : ''}}></option>
+										</select>
+										</div>
+									</div>
+									<div class = "form-group">
+										<label class="col-sm-4 thesis_lebal">Loại</label>
+										<div class="col-sm-7">
+											<select ng-model="user.type" class="form-control">
+											<option
+												ng-repeat="type in ['instructor', 'upload', 'reviewer', 'student' ]"
+												value="{{type}}"
+												{{type == user.type ? 'selected="selected"' : ''}}>
+												{{type}}
+											</option>
+										</select>
+										</div>
+									</div>
+									<div class="form-group text-center">
+										<a class="btn btn-danger" ng-click="removeUser($index)" href="javascript:;"><i class="fa fa-times" aria-hidden="true"></i></a>
+									</div>
+									<hr class="col-sm-offset-1 col-sm-8"/>
+								</div>
+								<div class="form-group text-center">
+									<a class="btn btn-primary" ng-click="initNewUser()"><i class=""></i> Thêm mới</a>
+								</div>
+						  </div>
+						</div>
+
+						<div class="panel panel-info">
+							<div class="panel-heading create-thesis-panel-head">
+								Tag (nhãn)
+							</div>
+							<div class="panel-body">
+								<div class="form-group">
+									<div class="form-group" ng-repeat="tag in thesis_tag">
+										<div class="col-sm-10">
+											<input class="form-control" placeholder="Tên tag" ng-model = "tag.name">
+										</div>
+										<div class="col-sm-2">
+											<a class="btn btn-danger" ng-click="removeTag($index)" href="javascript:;"><i class="fa fa-times" aria-hidden="true"></i></a>
+										</div>
+									</div>
+									<div class="form-group text-center">
+										<a class="btn btn-primary" ng-click="initNewTag()"><i class=""></i> Thêm Tag mới</a>
+									</div>
+								</div>
+							</div>
+						</div>
+
 			<div class="form-group">
 				<div class="col-sm-12 text-center">
 					<button type="submit" class="btn btn-info btn-lg btn-add-thesis" ng-click="saveThesis()">Thêm mới</button>
@@ -82,118 +145,6 @@
 		</div>
 		<div class="col-sm-4 create_one_thesis create_one_thesis_col_2">
 
-			<div class="panel panel-info">
-			  <div class="panel-heading create-thesis-panel-head">
-			    Người dùng liên quan
-			  </div>
-			  <div class="panel-body">
-						<div class="form-group" ng-repeat="user in users">
-							<div class = "form-group">
-								<label class="col-sm-4 thesis_lebal">Người dùng</label>
-								<div class="col-sm-7">
-							<select ng-model="user.user_id" class="form-control">
-								<option
-									ng-repeat="user_i in users_index"
-									ng-bind="user_i.name"
-									value="{{user_i.user_id}}"
-									{{user_i.user_id == user.user_id ? 'selected="selected"' : ''}}></option>
-							</select>
-							</div>
-						</div>
-						<div class = "form-group">
-							<label class="col-sm-4 thesis_lebal">Loại</label>
-							<div class="col-sm-7">
-								<select ng-model="user.type" class="form-control">
-								<option
-									ng-repeat="type in ['instructor', 'upload', 'reviewer', 'student' ]"
-									value="{{type}}"
-									{{type == user.type ? 'selected="selected"' : ''}}>
-									{{type}}
-								</option>
-							</select>
-							</div>
-						</div>
-						<div class="form-group text-center">
-							<a class="btn btn-danger" ng-click="removeUser($index)" href="javascript:;"><i class="fa fa-times" aria-hidden="true"></i></a>
-						</div>
-						<hr class="col-sm-offset-1 col-sm-8"/>
-					</div>
-					<div class="form-group text-center">
-						<a class="btn btn-primary" ng-click="initNewUser()"><i class=""></i> Thêm mới</a>
-					</div>
-			  </div>
-			</div>
-
-			<div class="panel panel-info">
-				<div class="panel-heading create-thesis-panel-head">
-					Tag (nhãn)
-				</div>
-				<div class="panel-body">
-					<div class="form-group">
-						<div class="form-group" ng-repeat="tag in thesis_tag">
-							<div class="col-sm-10">
-								<input class="form-control" placeholder="Tên tag" ng-model = "tag.name">
-							</div>
-							<div class="col-sm-2">
-								<a class="btn btn-danger" ng-click="removeTag($index)" href="javascript:;"><i class="fa fa-times" aria-hidden="true"></i></a>
-							</div>
-						</div>
-						<div class="form-group text-center">
-							<a class="btn btn-primary" ng-click="initNewTag()"><i class=""></i> Thêm Tag mới</a>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="panel panel-info">
-				<div class="panel-heading create-thesis-panel-head">
-					Tài liệu tham khảo
-				</div>
-				<div class="panel-body">
-					<div ng-repeat="ref in reference">
-					<div class = "form-group">
-						<label class="col-sm-3 thesis_lebal">Tên tài liệu</label>
-						<div class="col-sm-9">
-							<input class="form-control" ng-model = "ref.name">
-						</div>
-					</div>
-					<div class = "form-group">
-						<label class="col-sm-3 thesis_lebal">Url</label>
-						<div class="col-sm-9">
-							<input class="form-control" ng-model = "ref.url">
-						</div>
-					</div>
-					<div class = "form-group">
-						<label class="col-sm-3 thesis_lebal">Tác giả</label>
-						<div class="col-sm-9">
-							<input class="form-control" ng-model = "ref.author">
-						</div>
-					</div>
-					<div class = "form-group">
-						<label class="col-sm-3 thesis_lebal">Năm xuất bản</label>
-						<div class="col-sm-9">
-							<input class="form-control" ng-model = "ref.year">
-						</div>
-					</div>
-					<div class = "form-group">
-						<label class="col-sm-3 thesis_lebal">Mô tả</label>
-						<div class="col-sm-9">
-							<input class="form-control" ng-model = "ref.detail">
-						</div>
-					</div>
-					<div class="form-group text-center" >
-						<a class="btn btn-danger" ng-click="removeReference($index)" href="javascript:;"><i class="fa fa-times" aria-hidden="true"></i></a>
-					</div>
-					<div class="form-group">
-						<hr class="col-sm-offset-1 col-sm-9"/>
-					</div>
-				</div>
-
-					<div class="form-group text-center">
-						<a class="btn btn-primary" ng-click="initNewReference()"><i class=""></i> Thêm tài liệu</a>
-					</div>
-				</div>
-			</div>
 
 			<div class="panel panel-info">
 				<div class="panel-heading create-thesis-panel-head">
@@ -241,9 +192,63 @@
 
 					</div>
 					<div class="form-group text-center">
-						<input type = "file" file-model="myFile" class="form-control" />
+						<center>
+							<input type = "file" file-model="myFile" class="btn btn-default btn-upload" />
+						</center>
 					</div>
 				</div>
+			</div>
+
+			<div class="panel panel-info">
+				<div class="panel-heading create-thesis-panel-head">
+					Tài liệu tham khảo
+				</div>
+				<div class="panel-body">
+					<div ng-repeat="ref in reference">
+					<div class = "form-group">
+						<label class="col-sm-4 thesis_lebal">Tên tài liệu</label>
+						<div class="col-sm-8">
+							<input class="form-control" ng-model = "ref.name">
+						</div>
+					</div>
+					<div class = "form-group">
+						<label class="col-sm-4 thesis_lebal">Url</label>
+						<div class="col-sm-8">
+							<input class="form-control" ng-model = "ref.url">
+						</div>
+					</div>
+					<div class = "form-group">
+						<label class="col-sm-4 thesis_lebal">Tác giả</label>
+						<div class="col-sm-8">
+							<input class="form-control" ng-model = "ref.author">
+						</div>
+					</div>
+					<div class = "form-group">
+						<label class="col-sm-4 thesis_lebal">Năm xuất bản</label>
+						<div class="col-sm-8">
+							<input class="form-control" ng-model = "ref.year">
+						</div>
+					</div>
+					<div class = "form-group">
+						<label class="col-sm-4 thesis_lebal">Mô tả</label>
+						<div class="col-sm-8">
+							<input class="form-control" ng-model = "ref.detail">
+						</div>
+					</div>
+					<div class="form-group text-center" >
+						<a class="btn btn-danger" ng-click="removeReference($index)" href="javascript:;"><i class="fa fa-times" aria-hidden="true"></i></a>
+					</div>
+					<div class="form-group">
+						<hr class="col-sm-offset-1 col-sm-9"/>
+					</div>
+				</div>
+
+					<div class="form-group text-center">
+						<a class="btn btn-primary" ng-click="initNewReference()"><i class=""></i> Thêm tài liệu</a>
+					</div>
+				</div>
+			</div>
+
 		</div>
 	</div>
 </div>

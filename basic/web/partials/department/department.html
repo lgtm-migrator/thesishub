@@ -17,7 +17,7 @@
 	<div class ="row">
 		<h3 class="department_name" >{{department.department_name}}</h3>
 	</div>
-	<div  class ="row" style="outline: 2px solid #eee; padding: 20px 20px;">
+	<div  class ="row" style="">
 		<div class ="row" ng-repeat="one_thesis in department.thesis | limitTo:10:currentPage" ng-click = "goToViewThesis(one_thesis.thesis_id)">
 			<div class="col-sm-1" >
 				<img ng-src="/public/message.jpg" alt="Ảnh KL" height="100px" width="60px">
@@ -32,6 +32,11 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="row" ng-if="!department.thesis.length">
+		<center><h1>Chưa có khóa luận nào.</h1></center>
+	</div>
+
 	<div class="row">
 		<div class="col-md-12">
 			<center>

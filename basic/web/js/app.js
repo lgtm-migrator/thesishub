@@ -173,3 +173,10 @@ app.directive("previewPDF", function() {
     templateUrl: 'partials/thesis/previewPDF.html'
     };
 });
+
+
+app.filter('newlines', function () {
+    return function(text) {
+        return text.replace(/\n/g, '<br/>');
+    }
+});
