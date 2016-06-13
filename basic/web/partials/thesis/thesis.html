@@ -18,12 +18,13 @@
 					total="data_thesis.length"
 					show-prev-next="true"
 					show-first-last="true"
+					hide-if-empty="data_thesis.length<=10"
 					>
 				</paging>
 				</center>
 			</div>
 		</div>
-		<div class ="row" ng-repeat="one_thesis in data_thesis | limitTo: 10 : currentPage">
+		<div class ="row" ng-repeat="one_thesis in data_thesis | limitTo: 10 : currentPage-1">
 			<div class="col-sm-1" >
 				<a ng-click="goToViewThesis(one_thesis.thesis_id)" href="javascript:;">
 					<img ng-src="/public/message.jpg" alt="Ảnh KL" height="100px" width="60px">

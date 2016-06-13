@@ -21,7 +21,7 @@ class ThesisController extends \app\modules\api\ApiController
     public function actionIndex()
     {
         return [
-            //'query' => Thesis::find()->all(),
+            // 'query' => Thesis::find()->all(),
             'users' => User::find()->all(),
             'query' => (new \yii\db\Query())
                   ->select('u.name,tm.type, t.*,a.name as filename')
@@ -29,7 +29,7 @@ class ThesisController extends \app\modules\api\ApiController
                   ->join('inner join','ThesisMapping tm','t.thesis_id = tm.thesis_id')
                   ->join('inner join','User u','tm.user_id = u.user_id')
                   ->join('inner join','Attachment a','a.thesis_id = t.thesis_id')
-                  //->where(['`tm`.`type`' => 'upload'])
+                  ->where(['`tm`.`type`' => 'upload'])
                   ->all(),
         ];
     }
