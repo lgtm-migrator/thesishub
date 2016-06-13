@@ -14,7 +14,9 @@
 					vào lúc <i>{{thesis.detail.created}}</i></h6>
 			</div>
 			<div class="col-md-4 text-right">
-				<button class="btn btn-info"><i class="fa fa-download" aria-hidden="true"></i> Download</button>
+				<a class="btn btn-info" href="{{getPreviewURL()}}" download="{{getFileDownload()}}" filename="">
+					<i class="fa fa-download" aria-hidden="true"></i> Download
+				</a>
 			</div>
 		</div>
 

@@ -124,30 +124,20 @@ AppAsset::register($this);
                                 {{dep.department_name}}
                               </a>
                           <div class="b-header-3__hover-box" style="top: 28px;">
-                            <!-- <ul class="b-header-3__user-dropdown arrow_top1" style="min-width: 600px; height: 266px; text-align: left;">
-                              <li class="b-header-3__user-dropdown__item" style="padding-left: 10px; width: 33.33%; float: left;">
-                                <a href="http://www.khoaluan.vn/danh-muc_kinh-doanh-marketing" style="border-bottom: 1px solid #eee; margin-bottom: 7px;" class="b-header-3__user-dropdown__link">Kinh Doanh Marketing</a></li>
-                              <li class="b-header-3__user-dropdown__item" style="padding-left: 10px; width: 33.33%; float: left;"><a href="http://www.khoaluan.vn/danh-muc_kinh-te-quan-ly" style="border-bottom: 1px solid #eee; margin-bottom: 7px;" class="b-header-3__user-dropdown__link">Kinh Tế - Quản Lý</a></li>
-                              <li class="b-header-3__user-dropdown__item" style="padding-left: 10px; width: 33.33%; float: left;"><a href="http://www.khoaluan.vn/danh-muc_bieu-mau-van-ban" style="border-bottom: 1px solid #eee; margin-bottom: 7px;" class="b-header-3__user-dropdown__link">Biểu mẫu - Văn bản</a></li>
-                              <li class="b-header-3__user-dropdown__item" style="padding-left: 10px; width: 33.33%; float: left;"><a href="http://www.khoaluan.vn/danh-muc_tai-chinh-ngan-hang" style="border-bottom: 1px solid #eee; margin-bottom: 7px;" class="b-header-3__user-dropdown__link">Tài Chính - Ngân Hàng</a></li>
-                              <li class="b-header-3__user-dropdown__item" style="padding-left: 10px; width: 33.33%; float: left;"><a href="http://www.khoaluan.vn/danh-muc_cong-nghe-thong-tin" style="border-bottom: 1px solid #eee; margin-bottom: 7px;" class="b-header-3__user-dropdown__link">Công Nghệ Thông Tin</a></li>
-                              <li class="b-header-3__user-dropdown__item" style="padding-left: 10px; width: 33.33%; float: left;"><a href="http://www.khoaluan.vn/danh-muc_tieng-anh-ngoai-ngu" style="border-bottom: 1px solid #eee; margin-bottom: 7px;" class="b-header-3__user-dropdown__link">Tiếng Anh - Ngoại Ngữ</a></li>
-                              <li class="b-header-3__user-dropdown__item" style="padding-left: 10px; width: 33.33%; float: left;"><a href="http://www.khoaluan.vn/danh-muc_ky-thuat-cong-nghe" style="border-bottom: 1px solid #eee; margin-bottom: 7px;" class="b-header-3__user-dropdown__link">Kỹ Thuật - Công Nghệ</a></li>
-                              <li class="b-header-3__user-dropdown__item" style="padding-left: 10px; width: 33.33%; float: left;"><a href="http://www.khoaluan.vn/danh-muc_khoa-hoc-tu-nhien" style="border-bottom: 1px solid #eee; margin-bottom: 7px;" class="b-header-3__user-dropdown__link">Khoa Học Tự Nhiên</a></li>
-                              <li class="b-header-3__user-dropdown__item" style="padding-left: 10px; width: 33.33%; float: left;"><a href="http://www.khoaluan.vn/danh-muc_khoa-hoc-xa-hoi" style="border-bottom: 1px solid #eee; margin-bottom: 7px;" class="b-header-3__user-dropdown__link">Khoa Học Xã Hội</a></li>
-                              <li class="b-header-3__user-dropdown__item" style="padding-left: 10px; width: 33.33%; float: left;"><a href="http://www.khoaluan.vn/danh-muc_van-hoa-nghe-thuat" style="border-bottom: 1px solid #eee; margin-bottom: 7px;" class="b-header-3__user-dropdown__link">Văn Hoá - Nghệ Thuật</a></li>
-                              <li class="b-header-3__user-dropdown__item" style="padding-left: 10px; width: 33.33%; float: left;"><a href="http://www.khoaluan.vn/danh-muc_y-te-suc-khoe" style="border-bottom: 1px solid #eee; margin-bottom: 7px;" class="b-header-3__user-dropdown__link">Y Tế - Sức Khoẻ</a></li>
-                              <li class="b-header-3__user-dropdown__item" style="padding-left: 10px; width: 33.33%; float: left;"><a href="http://www.khoaluan.vn/danh-muc_van-ban-luat" style="border-bottom: 1px solid #eee; margin-bottom: 7px;" class="b-header-3__user-dropdown__link">Văn Bản Luật</a></li>
-                              <li class="b-header-3__user-dropdown__item" style="padding-left: 10px; width: 33.33%; float: left;"><a href="http://www.khoaluan.vn/danh-muc_ky-nang-mem" style="border-bottom: 1px solid #eee; margin-bottom: 7px;" class="b-header-3__user-dropdown__link">Kỹ Năng Mềm</a></li>
-                              <li class="b-header-3__user-dropdown__item" style="padding-left: 10px; width: 33.33%; float: left;"><a href="http://www.khoaluan.vn/danh-muc_nong-lam-ngu" style="border-bottom: 1px solid #eee; margin-bottom: 7px;" class="b-header-3__user-dropdown__link">Nông - Lâm - Ngư</a></li>
-                              <li class="b-header-3__user-dropdown__item" style="padding-left: 10px; width: 33.33%; float: left;"><a href="http://www.khoaluan.vn/danh-muc_luan-van-bao-cao" style="border-bottom: 1px solid #eee; margin-bottom: 7px;" class="b-header-3__user-dropdown__link">Luận Văn - Báo Cáo</a></li>
-                              <li class="b-header-3__user-dropdown__item" style="padding-left: 10px; width: 33.33%; float: left;"><a href="http://www.khoaluan.vn/danh-muc_giai-tri-thu-gian" style="border-bottom: 1px solid #eee; margin-bottom: 7px;" class="b-header-3__user-dropdown__link">Giải Trí - Thư Giãn</a></li>
-                              <li class="b-header-3__user-dropdown__item" style="padding-left: 10px; width: 33.33%; float: left;"><a href="http://www.khoaluan.vn/danh-muc_on-thi-dh-cd" style="border-bottom: 1px solid #eee; margin-bottom: 7px;" class="b-header-3__user-dropdown__link">Ôn thi ĐH-CĐ</a></li>
-                              <li class="b-header-3__user-dropdown__item" style="padding-left: 10px; width: 33.33%; float: left;"><a href="http://www.khoaluan.vn/danh-muc_tai-lieu-pho-thong" style="border-bottom: 1px solid #eee; margin-bottom: 7px;" class="b-header-3__user-dropdown__link">Tài Liệu Phổ Thông</a></li>
-                              <li class="b-header-3__user-dropdown__item" style="padding-left: 10px; width: 33.33%; float: left;"><a href="http://www.khoaluan.vn/danh-muc_de-thi-kiem-tra" style="border-bottom: 1px solid #eee; margin-bottom: 7px;" class="b-header-3__user-dropdown__link">Đề thi - Kiểm tra</a></li>
-                              <li class="b-header-3__user-dropdown__item" style="padding-left: 10px; width: 33.33%; float: left;"><a href="http://www.khoaluan.vn/danh-muc_bai-giang-dien-tu" style="border-bottom: 1px solid #eee; margin-bottom: 7px;" class="b-header-3__user-dropdown__link">Bài Giảng Điện Tử</a></li>
-                              <li class="b-header-3__user-dropdown__item" style="padding-left: 10px; width: 33.33%; float: left;"><a href="http://www.khoaluan.vn/danh-muc_giao-an-dien-tu" style="border-bottom: 1px solid #eee; margin-bottom: 7px;" class="b-header-3__user-dropdown__link">Giáo Án Điện Tử</a></li>
-                            </ul> -->
+                            <ul class="b-header-3__user-dropdown arrow_top1" style="min-width: 480px; height: 266px; text-align: left;">
+                              <li
+                                  class="b-header-3__user-dropdown__item"
+                                  style="padding-left: 10px; width: 49%; float: left;"
+                                  ng-repeat="tag in tagscount" ng-if="tag.department_id == dep.department_id">
+
+                                  <a href="#/search?q={{tag.name}}"
+                                  style="border-bottom: 1px solid #eee; margin-bottom: 7px;"
+                                  class="b-header-3__user-dropdown__link">
+                                  {{tag.name}} <span class="label label-info">{{tag.count}}</span>
+                                </a>
+                              </li>
+
+                            </ul>
                           </div>
                         </li>
                       </ul>

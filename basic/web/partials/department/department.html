@@ -1,7 +1,8 @@
 <div class="container">
 	<div class ="row" ng-if = "department.length">
+
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-8">
 				<center>
 				<paging
 					page="currentPage"
@@ -11,27 +12,39 @@
 					show-first-last="true"
 					>
 				</paging>
+
+				<h3 class="department_name" ></h3>
+
 				</center>
 			</div>
 		</div>
+
 		<div class ="row">
-			<h3 class="department_name" >{{department.department_name}}</h3>
-		</div>
-		<div class ="row" style="">
-			<div class ="row" ng-repeat="one_thesis in department | limitTo:10:currentPage" ng-click = "goToViewThesis(one_thesis.thesis_id)">
-				<div class="col-sm-1" >
-					<img ng-src="/public/message.jpg" alt="Ảnh KL" height="100px" width="60px">
-				</div>
-				<div class="col-sm-11" >
-					<a ng-click="goToViewThesis(one_thesis.thesis_id)" href="javascript:;">
-						<h5 class="thesis_name"><span>{{one_thesis.thesis_name | limitTo:100}}</span></h5>
-					</a>
-					<i class="thesis_intro"> <span>{{one_thesis.intro | limitTo:200}}...</span></i>
-					<p>Đăng bởi: {{one_thesis.name}} | Thời gian: {{one_thesis.created}} | Lượt xem: {{one_thesis.counter}}</p>
-					<hr>
+			<div class="col-md-8">
+				<div class ="row" ng-repeat="one_thesis in department | limitTo:10:currentPage" ng-click = "goToViewThesis(one_thesis.thesis_id)">
+					<div class="col-sm-2" >
+						<img ng-if="one_thesis.filename" ng-src="{{'/uploads/thumbs/' + one_thesis.filename}}.png" alt="Ảnh KL" class="img-responsive">
+						<img ng-if="!one_thesis.filename" ng-src="/public/message.jpg" alt="Ảnh KL" class="img-responsive">
+					</div>
+					<div class="col-sm-10">
+						<a ng-click="goToViewThesis(one_thesis.thesis_id)" href="javascript:;">
+							<h5 class="thesis_name"><span>{{one_thesis.thesis_name | limitTo:100}}</span></h5>
+						</a>
+						<i class="thesis_intro"> <span>{{one_thesis.intro | limitTo:200}}...</span></i>
+						<p>Đăng bởi: <strong>{{one_thesis.name}}</strong>
+							| Thời gian: {{one_thesis.created}}
+							| Lượt xem: <span class="label label-default">{{one_thesis.counter}}</span></p>
+						<hr>
+					</div>
 				</div>
 			</div>
+
+			<div class="col-md-4">
+				<recent-side />
+			</div>
 		</div>
+
+
 		<div class="row" ng-if="!department.length">
 			<center><h1>Chưa có khóa luận nào.</h1></center>
 		</div>

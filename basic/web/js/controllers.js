@@ -153,6 +153,7 @@ controllers.controller('MainController', function ($rootScope, $scope, $location
 
         $http.get('api/thesis/tag').success(function (data) {
            $scope.tagscount = data;
+           console.log(data)
         });
     }
 );
@@ -315,6 +316,7 @@ controllers.controller('ThesisDetailController', function ($rootScope, $scope, $
             }
             $scope.thesis = data;
             $scope.comments = $scope.thesis.comments;
+            $scope.files = $scope.thesis.files;
             $scope.refs = $scope.thesis.refs;
             $scope.maps = $scope.thesis.maps;
             $scope.reccs = data.reccs;
@@ -325,10 +327,23 @@ controllers.controller('ThesisDetailController', function ($rootScope, $scope, $
         });
 
         $scope.getPreviewURL = function() {
+            console.log('$scope.files', $scope.files);
             if (!$scope.files) return false;
             for (var i = 0; i < $scope.files.length; i++) {
                 if ($scope.files[i].type == 'application/pdf') {
                     return $scope.files[i].url;
+                }
+            }
+
+            return false;
+        }
+
+        $scope.getFileDownload = function() {
+            console.log('$scope.files', $scope.files);
+            if (!$scope.files) return false;
+            for (var i = 0; i < $scope.files.length; i++) {
+                if ($scope.files[i].type == 'application/pdf') {
+                    return $scope.files[i].name;
                 }
             }
 
