@@ -153,7 +153,7 @@ controllers.controller('MainController', function ($rootScope, $scope, $location
 
         $http.get('api/thesis/tag').success(function (data) {
            $scope.tagscount = data;
-           console.log(data)
+           //console.log(data)
         });
     }
 );
@@ -327,7 +327,7 @@ controllers.controller('ThesisDetailController', function ($rootScope, $scope, $
         });
 
         $scope.getPreviewURL = function() {
-            console.log('$scope.files', $scope.files);
+           // console.log('$scope.files', $scope.files);
             if (!$scope.files) return false;
             for (var i = 0; i < $scope.files.length; i++) {
                 if ($scope.files[i].type == 'application/pdf') {
@@ -404,7 +404,6 @@ controllers.controller('ThesisDetailController', function ($rootScope, $scope, $
 controllers.controller('ThesisController', function ($rootScope, $scope, $http, $routeParams, $location,fileUpload, $filter) {
         $http.get('api/thesis/thesis?id=' + $routeParams.thesis_id)
         .success(function (data) {
-
             $scope.thesis = data;
             // $scope.comments = $scope.thesis.comments;
             $scope.refs = $scope.thesis.refs;
