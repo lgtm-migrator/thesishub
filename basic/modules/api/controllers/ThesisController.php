@@ -434,4 +434,46 @@ class ThesisController extends \app\modules\api\ApiController
 
       return $tags->union($thesis)->all();
     }
+
+    public function actionTag()
+    {
+      $deps = (new \yii\db\Query())
+              ->select('department_id')
+              ->from('Department')
+              ->all();
+
+      $tag = null;
+      
+      foreach ($deps as $dep) {
+        $new = (new \yii\db\Query())
+                  ->select('t.department_id,ta.* , count(ta.tag_id) as count')->limit(14)
+                  ->from('Thesis t')
+                  ->join('inner join','ThesisTag tt','t.thesis_id = tt.thesis_id')
+                  ->join('inner join','Tag ta','tt.tag_id = ta.tag_id')
+                  ->where(['t.department_id'=> $dep])
+                  ->groupBy('ta.tag_id')
+                  ->orderBy(['count' => SORT_DESC]);
+        if($tag == null)
+          $tag = $new;   
+        else
+          $tag->union($new)->all();
+      }
+
+      return $tag->all();
+    }
+
+    public function actionByme($uid)
+    {
+      return (new \yii\db\Query())
+                  ->select('t.thesis_name,t.created,t.counter')
+                  ->from('Thesis t')
+                  ->join('inner join','ThesisMapping tm','tm.thesis_id = t.thesis_id')
+                  ->where(['`tm`.`user_id`' => $uid,
+                            'tm.type' => 'upload'])
+                  ->all();
+    }
+
+
+
+
 }

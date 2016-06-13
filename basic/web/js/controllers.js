@@ -151,6 +151,9 @@ controllers.controller('MainController', function ($rootScope, $scope, $location
            $scope.departments = data.departments;
         });
 
+        $http.get('api/thesis/tag').success(function (data) {
+           $scope.tagscount = data;
+        });
     }
 );
 
@@ -183,14 +186,18 @@ controllers.controller('DashboardController', ['$scope', '$http',
     }
 ]);
 
-controllers.controller('ProfileController', ['$scope', '$http', '$routeParams',
-    function ($scope, $http, $routeParams) {
+controllers.controller('ProfileController', ['$scope', '$http', '$routeParams','$rootScope',
+    function ($scope, $http, $routeParams,$rootScope) {
         $http.get('api/dashboard').success(function (data) {
            $scope.profile = data;
         });
 
         $http.get('api/home').success(function (data) {
            $scope.departments = data;
+        });
+        uid = $rootScope.getUser()?$rootScope.getUser().user_id:null;
+        $http.get('api/thesis/byme?uid=' + uid).success(function (data) {
+           $scope.thesis = data;
         });
 
         $scope.page = $routeParams.page;
@@ -298,9 +305,7 @@ controllers.controller('RegisterController', ['$scope', '$http', '$window', '$lo
 ]);
 
 controllers.controller('ThesisDetailController', function ($rootScope, $scope, $http, $routeParams, $location,fileUpload, $filter) {
-        $http.get('api/department').success(function (data) {
-           $scope.departments = data;
-        });
+
 
         $http.get('api/thesis/thesis?id=' + $routeParams.thesis_id)
         .success(function (data) {
@@ -315,11 +320,6 @@ controllers.controller('ThesisDetailController', function ($rootScope, $scope, $
             $scope.reccs = data.reccs;
             $scope.uid = $rootScope.getUser()?$rootScope.getUser().user_id:null;
             $scope.rate_now = {};
-            $scope.new_thesis = $scope.thesis.detail;
-            $scope.reference = $scope.thesis.refs;
-            $scope.users = $scope.thesis.users;
-            $scope.thesis_tag = $scope.thesis.tags;
-            $scope.files = $scope.thesis.files
         }).error(function() {
 
         });
@@ -394,9 +394,7 @@ controllers.controller('ThesisController', function ($rootScope, $scope, $http, 
             // $scope.comments = $scope.thesis.comments;
             $scope.refs = $scope.thesis.refs;
             $scope.maps = $scope.thesis.maps;
-            $scope.reccs = data.reccs;
             $scope.uid = $rootScope.getUser() ? $rootScope.getUser().user_id : null;
-            $scope.rate_now = {};
             $scope.new_thesis = $scope.thesis.detail;
             $scope.reference = $scope.thesis.refs;
             $scope.users = $scope.thesis.users;
