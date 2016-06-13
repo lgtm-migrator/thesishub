@@ -4006,7 +4006,7 @@ li.subcatemenu:hover ul.navigation-0a li {
 }
 
 .list-group-item {
-    width: 260px!important
+    /* width: 260px!important; */
 }
 
 .list-group-item:first-child {
@@ -4042,9 +4042,9 @@ h2,.h2 {
 }
 
 ul,ol {
-    list-style: none;
+    list-style: inherit;
     padding: 0;
-    margin: 0
+    margin: 0;
 }
 
 .thumbnail {
@@ -4075,6 +4075,10 @@ ul,ol {
     color: #fff!important;
     background-color: #2cb1e9;
     border-color: #2cb1e9;
+    padding: 2px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
 }
 
 a.user-box-list {
@@ -4333,7 +4337,49 @@ margin: 0;
 
 .social .facebook {
     margin: 0 2px 0 0;
-    background-image: url("/Images/Icons/facebook.png");
+    background-image: url("/public/facebook.png");
     background-repeat: no-repeat;
     background-position: 0 1px;
+}
+
+.social .googleplus {
+    margin: 0 4px 0 0;
+    background-image: url("/public/googleplus.png");
+    background-repeat: no-repeat;
+    background-position: 0 1px;
+}
+
+.panel {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    border-color: #D9EDF7;
+}
+
+button.btn.btn-info.btn-lg.btn-auth {
+    border-radius: 0;
+    min-width: 100%;
+}
+
+.btn-upload {
+    width: 50%;
+}
+
+h2.thesis-title {
+    font-size: 18px !important;
+    line-height: 1.5em;
+    padding-bottom: 14px;
+    font-weight: 300;
+}
+
+a.label.label-info.tag-item.ng-binding {
+    white-space: pre-line;
+    margin-left: 3px;
+}
+
+.thesis-intro {
+    margin-top: 15px;
 }

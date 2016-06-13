@@ -9,8 +9,9 @@
 		</ol>
 		<div class="row">
 			<div class="col-md-8">
-				<h2>{{thesis.detail.thesis_name}}</h2>
-				<h6>Đăng bởi <span ng-repeat="uploader in maps | filter : {'type': 'upload'}">{{uploader.name}}</span> , vào lúc {{thesis.detail.created}}</h6>
+				<h2 class="thesis-title">{{thesis.detail.thesis_name}}</h2>
+				<h6 class="thesis-meta">Đăng bởi <span ng-repeat="uploader in maps | filter : {'type': 'upload'}">{{uploader.name}}</span> ,
+					vào lúc <i>{{thesis.detail.created}}</i></h6>
 			</div>
 			<div class="col-md-4 text-right">
 				<button class="btn btn-info"><i class="fa fa-download" aria-hidden="true"></i> Download</button>
@@ -25,24 +26,27 @@
 		</div>
 		<!-- Tags -->
 		<div class="row">
-			<ul class="nav nav-pills">
-				<li ng-repeat="tag in thesis.tags">
-					<a href="#/search?q={{tag.name}}">{{tag.name}}</a>
-				</li>
-			</ul>
+			<div class="col-md-12">
+				<a
+					ng-repeat="tag in thesis.tags"
+					class="label label-info tag-item"
+					style="margin-left:1em"
+					href="#/search?q={{tag.name}}">{{tag.name}}</a>
+			</div>
+
 		</div>
 		<!-- intro -->
-		<div>
-			<label>Giới thiệu: {{thesis.detail.intro}}</label>
+		<div class="thesis-intro">
+			<span>{{thesis.detail.intro}}</span>
 		</div>
 		<!-- Here go pictures -->
 		<div>
-			<h1>nội dung luận văn</h1>
+			<h1>Nội dung luận văn</h1>
 			<iframe
-			src="{{getPreviewURL()}}"
-			style="width:100%; height:700px; margin-top: 25px"
-			frameborder="0"
-			ng-show="getPreviewURL()"
+				src="{{getPreviewURL()}}"
+				style="width:100%; height:700px; margin-top: 25px"
+				frameborder="0"
+				ng-show="getPreviewURL()"
 			></iframe>
 		</div>
 		<!-- Infomation -->
@@ -52,19 +56,26 @@
 				<div class="panel-heading">
 					<h3 class="panel-title">Thông tin luận văn</h3>
 				</div>
-				<ul class="list-group">
-					<li class="list-group-item" >Tên giảng viên hướng dẫn: <span ng-repeat="tutor in maps | filter : {'type': 'instructor'}">{{tutor.name}} </span></li>
-					<li class="list-group-item" >Tên giảng viên phản biện: <span ng-repeat="tutor in maps | filter : {'type': 'reviewer'}">{{tutor.name}} </span></li>
-				</ul>
 				<table class="table">
+					<tr>
+						<td colspan="2">
+							Tên giảng viên hướng dẫn: <span ng-repeat="tutor in maps | filter : {'type': 'instructor'}">{{tutor.name}} </span>
+						</td>
+						<td colspan="2">
+							Tên giảng viên phản biện: <span ng-repeat="tutor in maps | filter : {'type': 'reviewer'}">{{tutor.name}} </span>
+						</td>
+					</tr>
 					<tr>
 						<td>Điểm giảng viên hướng dẫn:{{thesis.detail.score_instructor}}</td>
 						<td>Điểm giảng viên phản biện:{{thesis.detail.score_reviewer}}</td>
 						<td>Điểm hội đồng:{{thesis.detail.score_council}}</td>
-						<td>Tổng điểm:{{thesis.detail.score_total}}</td>
+						<td><strong>Tổng điểm:{{thesis.detail.score_total}}</strong></td>
 					</tr>
 				</table>
-				<div class="panel-heading">Sinh viên thực hiện</div>
+
+				<div class="panel-heading">
+						<h3 class="panel-title">Sinh viên thực hiện</h3>
+				</div>
 				<table class="table">
 					<tr>
 						<td ng-repeat="creator in maps | filter: {'type':'student'} ">
@@ -73,19 +84,30 @@
 						</center></td>
 					</tr>
 				</table>
-				<div class="panel-heading">Tài liệu tham khảo</div>
-				<ul class="list-group">
-					<li class="list-group-item" ng-repeat="ref in refs">
-						<a ng-href="http://{{ref.url}}">{{ref.author}}, {{ref.name}}, {{ref.year}}</a><br/>
-					</li>
-				</ul>
+				<div class="panel-heading">
+					<h3 class="panel-title">Tài liệu tham khảo</h3></div>
+
+				<div class="panel-body">
+					<ol class="">
+						<li class="" ng-repeat="ref in refs">
+							<a ng-href="http://{{ref.url}}">{{ref.author}}, {{ref.name}}, {{ref.year}}</a><br/>
+						</li>
+					</ol>
+				</div>
 			</div>
 		</div>
-		<!-- comments -->
-		<input-stars ng-show="uid" max="5" ng-model="rate_now.value" ng-click="rate_star()"></input-stars>
-		{{rate_now.value}}
-		<comment>
+
+		<div class="row" style="margin-bottom: 20px">
+			<!-- comments -->
+			<input-stars ng-show="uid" max="5" ng-model="rate_now.value" ng-click="rate_star()"></input-stars>
+			{{rate_now.value}}
+			<comment>
+		</div>
+
 	</div>
+
+
+
 	<div class="col-md-2">
 		<recent-side></recent-side>
 		<br>

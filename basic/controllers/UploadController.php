@@ -40,6 +40,8 @@ class UploadController extends \app\modules\api\ApiController
             $filePath = $this->uploadFolder . $fileName;
 
             if (move_uploaded_file($_FILES['file']['tmp_name'], $filePath)) {
+                // convert
+                exec("convert {$filePath}[0] {$this->uploadFolder}/thumbs/{$fileName}.png");
                 return [
                     'error' => false,
                     'message' => 'Success',
@@ -50,7 +52,7 @@ class UploadController extends \app\modules\api\ApiController
                         'type' => $_FILES['file']['type']
                     ]
                 ];
-            } 
+            }
 
             return [
                 'error' => true,

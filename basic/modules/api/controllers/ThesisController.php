@@ -22,7 +22,7 @@ class ThesisController extends \app\modules\api\ApiController
     {
         return [
             'query' => Thesis::find()->all(),
-            'users' => User::find()->all(),   
+            'users' => User::find()->all(),
             // 'query' => (new \yii\db\Query())
             //       ->select('u.name,tm.type, t.*')
             //       ->from('Thesis t')
@@ -37,6 +37,7 @@ class ThesisController extends \app\modules\api\ApiController
     {
         if ($id != null) {
           $thesis = Thesis::find()->where(['thesis_id'=>$id])->one();
+
           if($thesis)
           {
             $thesis->counter+=1;
@@ -80,10 +81,10 @@ class ThesisController extends \app\modules\api\ApiController
                   ->where(['`at`.`thesis_id`' => $id])
                   ->all(),
               'reccs' => (new \yii\db\Query())
-                  ->select('t.thesis_id, t.thesis_name')->distinct()->limit(3)
+                  ->select('t.thesis_id, t.thesis_name, t.score_total')->distinct()->limit(3)
                   ->from('Thesis t')
                   ->join('inner join','ThesisTag tt','t.thesis_id = tt.thesis_id')
-                  ->where('tag_id in (select tag_id 
+                  ->where('tag_id in (select tag_id
                                   from ThesisTag
                                   where thesis_id= :id)
                           and t.thesis_id != :id',[':id' => $id])
@@ -96,8 +97,6 @@ class ThesisController extends \app\modules\api\ApiController
                   ->all(),
             ];
         }
-
-
 
         return new ActiveDataProvider([
             'query' => Thesis::find(),
@@ -117,7 +116,7 @@ class ThesisController extends \app\modules\api\ApiController
             $data_thesis = Yii::$app->request->post()['thesis_tag'];
             if($data_thesis){
                 foreach ($data_thesis as $ob) {
-                 
+
                         foreach ($ob as $k => $v) {
                             $tag = Tag::find()->where(['name' => $v])->one();
                             if ($tag == null) {
@@ -130,7 +129,7 @@ class ThesisController extends \app\modules\api\ApiController
                             $thesis_tag->tag_id = $tag->tag_id;
                             $thesis_tag->save();
                     }
-                     
+
                 }
             }
 
@@ -138,15 +137,15 @@ class ThesisController extends \app\modules\api\ApiController
             if($users){
                 foreach ($users as $ob) {
                     $thesis_map = new ThesisMapping();
-                    foreach ($ob as $k => $v) {  
+                    foreach ($ob as $k => $v) {
                         $thesis_map->$k = $v;
                     }
                     $thesis_map->thesis_id = $model->thesis_id;
-                    $thesis_map->save();                    
+                    $thesis_map->save();
                 }
-                     
+
             }
-           
+
             $reference = Yii::$app->request->post()['reference'];
             if($reference ){
             foreach ($reference as $ob) {
@@ -165,12 +164,12 @@ class ThesisController extends \app\modules\api\ApiController
                     }else{
                         $thesis_reference->ref_id = $ref_find->ref_id;
                     }
-                    
+
                     $thesis_reference->thesis_id = $model->thesis_id;
-                    
+
                     $thesis_reference->save();
                 }
-                
+
             }
 
             $files = Yii::$app->request->post()['files'];
@@ -180,24 +179,24 @@ class ThesisController extends \app\modules\api\ApiController
             if($files){
                 foreach ($files as $ob) {
                     $att = new Attachment();
-                    foreach ($ob as $k => $v) {   
+                    foreach ($ob as $k => $v) {
                         $att->$k = $v;
                     }
                     $att->thesis_id = $model->thesis_id;
-                    $att->save();                    
+                    $att->save();
                 }
-                     
+
             }
 
             return [
-                'message' => 'ok', 
+                'message' => 'ok',
                 'data' => $model,
                 'thesis_id' => $model->thesis_id
                 ];
 
         }
         return [
-            'message' => 'error', 
+            'message' => 'error',
             'error' => $model->getErrors(),
             'data' => Yii::$app->request->post()['thesis']
             ];
@@ -222,7 +221,7 @@ class ThesisController extends \app\modules\api\ApiController
             $data_thesis = Yii::$app->request->post()['thesis_tag'];
             if($data_thesis){
                 foreach ($data_thesis as $ob) {
-                 
+
                         foreach ($ob as $k => $v) {
                             $tag = Tag::find()->where(['name' => $v])->one();
                             if ($tag == null) {
@@ -235,10 +234,10 @@ class ThesisController extends \app\modules\api\ApiController
                             $thesis_tag->tag_id = $tag->tag_id;
                             $thesis_tag->save();
                     }
-                     
+
                 }
             }
-        
+
             $thesis_map_del = ThesisMapping::find()->where(['thesis_id' => $model->thesis_id])->all();
             if($thesis_map_del){
                 foreach ($thesis_map_del as $del) {
@@ -249,15 +248,15 @@ class ThesisController extends \app\modules\api\ApiController
             if($users){
                 foreach ($users as $ob) {
                     $thesis_map = new ThesisMapping();
-                    foreach ($ob as $k => $v) {  
+                    foreach ($ob as $k => $v) {
                         $thesis_map->$k = $v;
                     }
                     $thesis_map->thesis_id = $model->thesis_id;
-                    $thesis_map->save();                    
+                    $thesis_map->save();
                 }
-                     
+
             }
-           
+
             $thesis_reference_del = ThesisReference::find()->where(['thesis_id' => $model->thesis_id])->all();
             if($thesis_reference_del){
                 foreach ($thesis_reference_del as $del) {
@@ -284,12 +283,12 @@ class ThesisController extends \app\modules\api\ApiController
                         $thesis_reference->ref_id = $ref_find->ref_id;
 
                     }
-                    
+
                     $thesis_reference->thesis_id = $model->thesis_id;
-                    
+
                     $thesis_reference->save();
                 }
-                
+
             }
 
             $files_del = Attachment::find()->where(['thesis_id' => $model->thesis_id])->all();
@@ -302,24 +301,24 @@ class ThesisController extends \app\modules\api\ApiController
             if($files){
                 foreach ($files as $ob) {
                     $att = new Attachment();
-                    foreach ($ob as $k => $v) {   
+                    foreach ($ob as $k => $v) {
                         $att->$k = $v;
                     }
                     $att->thesis_id = $model->thesis_id;
-                    $att->save();                    
+                    $att->save();
                 }
-                     
+
             }
 
             return [
-                'message' => 'ok', 
+                'message' => 'ok',
                 'data' => Yii::$app->request->post()['thesis'],
                 'thesis_id' => $model->thesis_id
                 ];
 
         }
         return [
-            'message' => 'error', 
+            'message' => 'error',
             'error' => $model->getErrors(),
             'data' => Yii::$app->request->post()['thesis']
             ];
@@ -368,7 +367,7 @@ class ThesisController extends \app\modules\api\ApiController
         return ['message' => 'ok', 'data' => $model];
 
     return [
-        'message' => 'error', 
+        'message' => 'error',
         'error' => $model->getErrors(),
         'data' => Yii::$app->request->post()
         ];
@@ -407,7 +406,7 @@ class ThesisController extends \app\modules\api\ApiController
       }
 
       return [
-          'message' => 'error', 
+          'message' => 'error',
           'error' => $rating->getErrors(),
           'data' => Yii::$app->request->post()
           ];
